@@ -1,0 +1,14 @@
+{
+  "note": "系列骨架提示詞：所有主題共用，只替換 {primary}{secondary}{badge_motif}{nameplate_icon}{panel_motif}。形狀固定、只換色與圖示，才有系列感。",
+  "refs": {
+    "plate": "weather/assets/plate.png",
+    "nameplate": "weather/assets/nameplate.png",
+    "badge": "weather/assets/badge.png",
+    "panel": "weather/assets/panel.png"
+  },
+  "common": "Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark.",
+  "plate": "Edit the reference image: keep the exact slanted parallelogram ribbon shape, its bevel, highlights, proportions and the small lightning-bolt tab on its left end. Recolor the ribbon body to a glossy {primary} gradient and the lightning bolt to {secondary}. Place it centered on a flat pure green (#00FF00) background with a lot of empty margin. Nothing else in the frame.",
+  "nameplate": "Edit the reference image: keep the exact composition, proportions and bevel of this wide lower-third name banner: a slanted left tile plus a long dark navy glass bar with a thin glowing bottom edge. Recolor the left tile to a glossy {primary}, tint the glowing bottom edge with {secondary}, and replace the white emblem on the left tile with {nameplate_icon}. Keep the long bar empty for text. Centered on a flat pure green (#00FF00) background with a lot of margin. Nothing else.",
+  "badge": "Edit the reference image: keep the circular metallic clock-style bezel with tick marks, its glossy navy dial, proportions and lighting. Replace the central swirl with {badge_motif}. Centered on a flat pure green (#00FF00) background with margin. Nothing else.",
+  "panel": "Create a new 16:9 background image for the panel of a news graphic. Match the mood, darkness and low contrast of the reference image (deep, calm, lots of empty room for overlaid text) but with this theme: {panel_motif}. No people, no text, no logos, no bright hotspots in the center."
+}

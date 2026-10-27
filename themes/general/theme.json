@@ -1,0 +1,32 @@
+{
+  "id": "general",
+  "name": "通用生活",
+  "version": 1,
+  "desc": "通用主題：靛紫主色、星芒圖示、柔和漸層底圖；其他主題判斷不出時的預設",
+  "palette": {
+    "coral": "#8a7cff",
+    "coral_rgb": "138,124,255",
+    "hot": "#a99dff",
+    "soft": "#d4cfff",
+    "on": "#0e0a24",
+    "indigo": "#6f8bff",
+    "cyan": "#5fd0ff",
+    "green": "#4de39a",
+    "red": "#ff6a6a",
+    "gold": "#ffc857",
+    "ink": "#0b1020"
+  },
+  "bgm": {
+    "bpm": 92
+  },
+  "match_keywords": [],
+  "assets_file": "assets/assets.json",
+  "scenes": [],
+  "art": {
+    "primary": "soft indigo-violet",
+    "secondary": "warm coral",
+    "badge_motif": "a bright four-point sparkle star with orbit rings, in violet and coral",
+    "nameplate_icon": "a small white four-point sparkle star",
+    "panel_motif": "smooth dark navy-to-violet gradient with faint grid lines and sparse floating light particles"
+  }
+}

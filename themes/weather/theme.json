@@ -1,0 +1,46 @@
+{
+  "id": "weather",
+  "name": "氣象",
+  "version": 1,
+  "desc": "氣象主題：珊瑚橘主色、颱風漩渦圖示、深藍海面底圖；搭配 weather 領域包",
+  "palette": {
+    "coral": "#ff6a4d",
+    "coral_rgb": "255,106,77",
+    "hot": "#ff8f6d",
+    "soft": "#ffb7a8",
+    "on": "#1d0c08",
+    "indigo": "#6f8bff",
+    "cyan": "#5fd0ff",
+    "green": "#4de39a",
+    "red": "#ff4d5e",
+    "gold": "#ffc857",
+    "ink": "#0b1020"
+  },
+  "bgm": {
+    "bpm": 92
+  },
+  "match_keywords": [
+    "颱風",
+    "氣象",
+    "降雨",
+    "低壓",
+    "鋒面",
+    "冷氣團",
+    "氣溫",
+    "海警",
+    "陸警",
+    "豪雨",
+    "季風",
+    "暴風圈",
+    "寒流"
+  ],
+  "assets_file": "assets/assets.json",
+  "scenes": [],
+  "art": {
+    "primary": "vivid orange-red",
+    "secondary": "electric blue",
+    "badge_motif": "a swirling typhoon spiral in orange and blue",
+    "nameplate_icon": "a white typhoon spiral",
+    "panel_motif": "deep navy ocean surface seen from above with fine grid lines"
+  }
+}

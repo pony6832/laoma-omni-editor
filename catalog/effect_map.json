@@ -1,0 +1,543 @@
+{
+ "_說明": "koubo 現有效果對照動態效果圖鑑（catalog.json，180 種）。rel：對應＝同一個概念、但是 koubo 依圖鑑概念自己重寫的版本（不是移植圖鑑 HTML 裡 DRAW 函式的程式）；相似＝只是效果類似；無＝圖鑑沒有，屬領域專屬或版面行為。ids 依相近程度排序，第一個是最接近的。",
+ "core": {
+  "背景夜空緩推＋漂浮光點": {
+   "rel": "相似",
+   "ids": [
+    "bokeh",
+    "starfield"
+   ]
+  },
+  "口播視窗全屏／小窗切換 setMode": {
+   "rel": "無",
+   "ids": [],
+   "nearest": "panel",
+   "note": "版面行為，不是視覺效果"
+  },
+  "接點緩推交錯 #vdrift": {
+   "rel": "相似",
+   "ids": [
+    "kenburns"
+   ]
+  },
+  "頁首 LOGO／系列緞帶／徽章進場": {
+   "rel": "無",
+   "ids": [],
+   "note": "系列骨架固定元件"
+  },
+  "開場標題逐字彈入 #opener": {
+   "rel": "對應",
+   "ids": [
+    "charfall",
+    "kinetic"
+   ]
+  },
+  "字幕逐字高亮": {
+   "rel": "對應",
+   "ids": [
+    "karaoke"
+   ]
+  },
+  "進度條": {
+   "rel": "無",
+   "ids": []
+  },
+  "底片顆粒＋暗角 #fx": {
+   "rel": "對應",
+   "ids": [
+    "filmfx"
+   ]
+  },
+  "片尾斜向揭開＋LOGO 光帶": {
+   "rel": "相似",
+   "ids": [
+    "softdiag",
+    "lightsweep"
+   ]
+  }
+ },
+ "helpers": {
+  "pscene": {
+   "rel": "相似",
+   "ids": [
+    "panel"
+   ],
+   "note": "面板淡入縮放"
+  },
+  "oscene": {
+   "rel": "無",
+   "ids": []
+  },
+  "topicChip": {
+   "rel": "無",
+   "ids": [],
+   "nearest": "sticker"
+  },
+  "pop": {
+   "rel": "相似",
+   "ids": [
+    "sticker"
+   ]
+  },
+  "chip": {
+   "rel": "相似",
+   "ids": [
+    "sticker",
+    "notify"
+   ]
+  },
+  "lbl": {
+   "rel": "無",
+   "ids": [],
+   "nearest": "callout"
+  },
+  "pin": {
+   "rel": "相似",
+   "ids": [
+    "callout"
+   ]
+  },
+  "bignum": {
+   "rel": "對應",
+   "ids": [
+    "counter"
+   ]
+  },
+  "stamp": {
+   "rel": "對應",
+   "ids": [
+    "stamp"
+   ]
+  },
+  "rain": {
+   "rel": "相似",
+   "ids": [
+    "snow",
+    "matrixrain"
+   ]
+  },
+  "mpath": {
+   "rel": "對應",
+   "ids": [
+    "routemap"
+   ]
+  },
+  "followT": {
+   "rel": "對應",
+   "ids": [
+    "routemap"
+   ]
+  },
+  "follow": {
+   "rel": "對應",
+   "ids": [
+    "routemap"
+   ]
+  },
+  "showPath": {
+   "rel": "對應",
+   "ids": [
+    "routemap"
+   ]
+  },
+  "typhEl": {
+   "rel": "相似",
+   "ids": [
+    "ripple"
+   ],
+   "note": "旋轉圖示加擴散圈；圖示本身是領域專屬"
+  },
+  "compass": {
+   "rel": "相似",
+   "ids": [
+    "gauge",
+    "clockdial"
+   ]
+  },
+  "waves": {
+   "rel": "相似",
+   "ids": [
+    "ripple"
+   ]
+  },
+  "drawMap": {
+   "rel": "無",
+   "ids": [],
+   "nearest": "arcs",
+   "note": "領域專屬（氣象地圖）"
+  },
+  "countyLabels": {
+   "rel": "無",
+   "ids": []
+  },
+  "twScene": {
+   "rel": "無",
+   "ids": []
+  },
+  "regionBox": {
+   "rel": "無",
+   "ids": []
+  },
+  "regionClip": {
+   "rel": "無",
+   "ids": []
+  },
+  "tintRegion": {
+   "rel": "無",
+   "ids": []
+  },
+  "rainRegion": {
+   "rel": "無",
+   "ids": [],
+   "nearest": "snow",
+   "note": "領域專屬"
+  },
+  "cloudsRegion": {
+   "rel": "無",
+   "ids": []
+  },
+  "fogRegion": {
+   "rel": "無",
+   "ids": []
+  },
+  "sunIcon": {
+   "rel": "無",
+   "ids": []
+  },
+  "sprite": {
+   "rel": "無",
+   "ids": []
+  }
+ },
+ "templates": {
+  "g_point": {
+   "rel": "相似",
+   "ids": [
+    "kinetic",
+    "highlighter"
+   ]
+  },
+  "g_number": {
+   "rel": "對應",
+   "ids": [
+    "counter"
+   ]
+  },
+  "g_ticker": {
+   "rel": "相似",
+   "ids": [
+    "candle",
+    "counter"
+   ]
+  },
+  "g_bars": {
+   "rel": "對應",
+   "ids": [
+    "chart"
+   ]
+  },
+  "g_list": {
+   "rel": "相似",
+   "ids": [
+    "checklist"
+   ]
+  },
+  "g_compare": {
+   "rel": "相似",
+   "ids": [
+    "splitscreen"
+   ]
+  },
+  "g_quote": {
+   "rel": "對應",
+   "ids": [
+    "quote"
+   ]
+  },
+  "g_timeline": {
+   "rel": "相似",
+   "ids": [
+    "ptimeline"
+   ]
+  },
+  "OUT": {
+   "rel": "相似",
+   "ids": [
+    "softdiag",
+    "lightsweep"
+   ]
+  },
+  "hook(颱風眼穿越)": {
+   "rel": "相似",
+   "ids": [
+    "tunnel",
+    "blurzoom"
+   ]
+  },
+  "g_number_legacy": {
+   "rel": "對應",
+   "ids": [
+    "counter"
+   ]
+  },
+  "g_bars_legacy": {
+   "rel": "對應",
+   "ids": [
+    "chart"
+   ]
+  }
+ },
+ "ported": [
+  "counter",
+  "karaoke",
+  "quote",
+  "charfall",
+  "kinetic",
+  "filmfx",
+  "stamp",
+  "routemap",
+  "chart",
+  "bokeh",
+  "starfield",
+  "panel",
+  "sticker",
+  "notify",
+  "callout",
+  "snow",
+  "matrixrain",
+  "ripple",
+  "gauge",
+  "clockdial",
+  "highlighter",
+  "candle",
+  "checklist",
+  "splitscreen",
+  "ptimeline",
+  "tunnel",
+  "blurzoom",
+  "typewriter",
+  "glitch",
+  "marquee",
+  "audio",
+  "loader",
+  "scramble",
+  "rotator",
+  "donut",
+  "linechart",
+  "arcs",
+  "wipe",
+  "slices",
+  "confetti",
+  "like",
+  "maskrise",
+  "beatslam",
+  "strokeflow",
+  "radar",
+  "bubble",
+  "waffle",
+  "wireglobe",
+  "neural",
+  "packets",
+  "flipclock",
+  "countdown",
+  "dissolve",
+  "hexmask",
+  "clockwipe",
+  "doors",
+  "shatter",
+  "iris",
+  "push",
+  "flash",
+  "liquid",
+  "wordcollapse",
+  "circletext",
+  "spotlight",
+  "odometer",
+  "barrace",
+  "linerace",
+  "weightwave",
+  "blurin",
+  "splitflap",
+  "flip3d",
+  "echo",
+  "outlinefill",
+  "textpath",
+  "treemap",
+  "heatmap",
+  "funnel",
+  "ecg",
+  "oscillo",
+  "speedlines",
+  "fireworks",
+  "laserwipe",
+  "pageturn",
+  "sparkring",
+  "glowcard",
+  "pillchain",
+  "kpitrend",
+  "pricetoggle",
+  "island",
+  "particlefunnel",
+  "buttondone",
+  "paybutton",
+  "sketchapp",
+  "calendardrag",
+  "ringclose",
+  "dockmagnify",
+  "product360",
+  "buttonplayer",
+  "cardexpand",
+  "tabspanels",
+  "chartmorph",
+  "dashzoom",
+  "springstack",
+  "elastictype",
+  "textlayout",
+  "perspshift",
+  "glassfocus",
+  "gradientwave",
+  "glasstilt",
+  "dotmesh",
+  "cardshuffle",
+  "ribbontwist",
+  "metaball3d",
+  "phoneexplode"
+ ],
+ "ported_note": {
+  "手工移植（參數化較完整）": [
+   "counter",
+   "karaoke",
+   "quote",
+   "charfall",
+   "kinetic",
+   "filmfx",
+   "stamp",
+   "routemap",
+   "chart",
+   "bokeh",
+   "starfield",
+   "panel",
+   "sticker",
+   "notify",
+   "callout",
+   "snow",
+   "matrixrain",
+   "ripple",
+   "gauge",
+   "clockdial",
+   "highlighter",
+   "candle",
+   "checklist",
+   "splitscreen",
+   "ptimeline",
+   "tunnel",
+   "blurzoom"
+  ],
+  "半自動移植（逐字照抄；示範文字與字型抽成參數，數字與資料值仍寫死）": [
+   "typewriter",
+   "glitch",
+   "marquee",
+   "audio",
+   "loader",
+   "scramble",
+   "rotator",
+   "arcs",
+   "wipe",
+   "slices",
+   "confetti",
+   "like",
+   "maskrise",
+   "beatslam",
+   "strokeflow",
+   "bubble",
+   "wireglobe",
+   "neural",
+   "packets",
+   "flipclock",
+   "dissolve",
+   "hexmask",
+   "clockwipe",
+   "doors",
+   "shatter",
+   "iris",
+   "push",
+   "flash",
+   "liquid",
+   "wordcollapse",
+   "circletext",
+   "spotlight",
+   "odometer",
+   "barrace",
+   "linerace",
+   "weightwave",
+   "blurin",
+   "splitflap",
+   "flip3d",
+   "echo",
+   "outlinefill",
+   "textpath",
+   "ecg",
+   "oscillo",
+   "speedlines",
+   "fireworks",
+   "laserwipe",
+   "pageturn"
+  ],
+  "手工補做資料參數化（資料、數量、標籤可換；預設＝原版）": [
+   "donut",
+   "linechart",
+   "radar",
+   "waffle",
+   "funnel",
+   "heatmap",
+   "treemap",
+   "countdown"
+  ],
+  "半自動（2026-10-27 圖鑑 180 版新增、介面微動態，31 種，逐像素 0 差異）": [
+   "sparkring",
+   "glowcard",
+   "pillchain",
+   "kpitrend",
+   "pricetoggle",
+   "island",
+   "particlefunnel",
+   "buttondone",
+   "paybutton",
+   "sketchapp",
+   "calendardrag",
+   "ringclose",
+   "dockmagnify",
+   "product360",
+   "buttonplayer",
+   "cardexpand",
+   "tabspanels",
+   "chartmorph",
+   "dashzoom",
+   "springstack",
+   "elastictype",
+   "textlayout",
+   "perspshift",
+   "glassfocus",
+   "gradientwave",
+   "glasstilt",
+   "dotmesh",
+   "cardshuffle",
+   "ribbontwist",
+   "metaball3d",
+   "phoneexplode"
+  ],
+  "圖鑑 180 版新增但未移植": {
+   "curtainreveal": "用到累積狀態（state／off），不是純函式，依移植規則不處理"
+  }
+ },
+ "data_parameterized": [
+  "donut",
+  "linechart",
+  "radar",
+  "waffle",
+  "funnel",
+  "heatmap",
+  "treemap",
+  "countdown"
+ ]
+}

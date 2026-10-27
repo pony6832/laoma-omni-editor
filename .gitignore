@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.hyperframes/
+raw/
+測試案/
+_舊版148種備份/
+*.bak_laoma
+*.bak_koubo

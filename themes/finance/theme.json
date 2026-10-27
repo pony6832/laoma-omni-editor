@@ -1,0 +1,77 @@
+{
+  "id": "finance",
+  "name": "財經",
+  "version": 1,
+  "desc": "財經主題：金色主色、青綠輔色（台股慣例：漲紅跌綠）、K 線圖示、暗色圖表格線底圖",
+  "palette": {
+    "coral": "#f5b942",
+    "coral_rgb": "245,185,66",
+    "hot": "#ffd36b",
+    "soft": "#ffe2a1",
+    "on": "#1a1204",
+    "indigo": "#5b8def",
+    "cyan": "#2fd3b5",
+    "green": "#3ddc97",
+    "red": "#ff4d5e",
+    "gold": "#ffd36b",
+    "ink": "#07141a"
+  },
+  "bgm": {
+    "bpm": 100
+  },
+  "match_keywords": [
+    "股",
+    "股市",
+    "台積電",
+    "指數",
+    "漲",
+    "跌",
+    "利率",
+    "升息",
+    "降息",
+    "匯率",
+    "美元",
+    "通膨",
+    "基金",
+    "ETF",
+    "殖利率",
+    "財報",
+    "景氣",
+    "GDP",
+    "央行",
+    "投資",
+    "營收",
+    "獲利"
+  ],
+  "assets_file": "assets/assets.json",
+  "scenes": [
+    {
+      "id": "g_ticker",
+      "title": "指數看板",
+      "file": "g_ticker.js"
+    },
+    {
+      "id": "g_bars",
+      "title": "長條比較",
+      "file": "g_bars.js"
+    },
+    {
+      "id": "g_bars_legacy",
+      "title": "長條比較（舊手寫版）",
+      "file": "g_bars_legacy.js"
+    }
+  ],
+  "art": {
+    "primary": "rich gold",
+    "secondary": "teal",
+    "badge_motif": "a rising stylized candlestick chart with an upward arrow, in gold and teal (no green)",
+    "nameplate_icon": "a small white candlestick chart icon",
+    "panel_motif": "very dark teal-navy financial chart background: faint grid, a softly glowing rising line chart and out-of-focus candlestick bars, subtle bokeh"
+  },
+  "prefer": {
+    "g_number": {
+      "template": "g_ticker",
+      "when": "指數|股價|收盤|大盤|收在"
+    }
+  }
+}

@@ -1,0 +1,5723 @@
+{
+ "_說明": "180 種動態效果的配對資料。role=適合放在短影音的哪個段落；energy=節奏強度 1 低～3 高；topics=內容關鍵字；draw=reference/動態效果圖鑑.html 內 DRAW 物件的函式名（Canvas 實作正本）。",
+ "roles": {
+  "hook": "0–3 秒開場鉤子，要強、要快",
+  "bg": "墊在口播或字卡後面的背景，不搶內容",
+  "title": "標題、金句、重點字卡",
+  "data": "數字、比例、趨勢、地點",
+  "logo": "Logo、品牌符號、片頭片尾",
+  "transition": "段落切換",
+  "overlay": "疊在實拍或口播畫面上的裝飾/貼圖",
+  "cta": "結尾行動呼籲、慶祝、互動引導"
+ },
+ "effects": [
+  {
+   "id": "grid",
+   "zh": "網格波動",
+   "cat": "背景氛圍",
+   "role": [
+    "hook",
+    "bg"
+   ],
+   "energy": 2,
+   "mood": [
+    "科技",
+    "俐落",
+    "品牌感"
+   ],
+   "topics": [
+    "品牌",
+    "科技",
+    "AI",
+    "產品",
+    "開場"
+   ],
+   "dur": 4,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【16:9】的網格波動動畫：【20×12】個圓角小方塊，從【中心】往外擴散波紋，方塊會【縮放＋變色】，顏色從【珊瑚橘】漸變到【藍紫】，背景【深灰】，循環【4 秒】",
+   "keys": "格子數量、波紋起點、動作、配色、秒數",
+   "en": "Grid Wave",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "riser"
+   ],
+   "sfx": "riser：開場 riser 約 0.8 秒帶入，之後靜音。"
+  },
+  {
+   "id": "flow",
+   "zh": "粒子流場",
+   "cat": "背景氛圍",
+   "role": [
+    "bg"
+   ],
+   "energy": 1,
+   "mood": [
+    "平靜",
+    "神秘",
+    "流動"
+   ],
+   "topics": [
+    "AI",
+    "數據",
+    "冥想",
+    "音樂",
+    "知識"
+   ],
+   "dur": 8,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【粒子流場】背景動畫：【300】顆粒子沿著氣流移動，留下【淡淡拖尾】，顏色用【珊瑚橘與藍紫】，背景【深藍黑】，速度【慢、平靜】，無縫循環",
+   "keys": "粒子數、拖尾長短、速度、配色",
+   "en": "Flow Field",
+   "source": "原圖鑑",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "blob",
+   "zh": "液態變形",
+   "cat": "背景氛圍",
+   "role": [
+    "bg",
+    "logo"
+   ],
+   "energy": 1,
+   "mood": [
+    "柔和",
+    "有機",
+    "時尚"
+   ],
+   "topics": [
+    "美妝",
+    "保養",
+    "音樂",
+    "生活風格",
+    "女性"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【液態變形】的有機圓形：邊緣【緩慢起伏】像液體，填色【橘到藍漸層】，後面有一顆【半透明小 blob】跟著漂，循環【6 秒】",
+   "keys": "形狀起伏程度、漸層顏色、數量",
+   "en": "Morphing Blob",
+   "source": "原圖鑑",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "gradient",
+   "zh": "流動漸層",
+   "cat": "背景氛圍",
+   "role": [
+    "bg",
+    "title"
+   ],
+   "energy": 1,
+   "mood": [
+    "柔和",
+    "高級",
+    "乾淨"
+   ],
+   "topics": [
+    "通用",
+    "口播",
+    "簡報",
+    "直播",
+    "知識"
+   ],
+   "dur": 8,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【流動漸層】背景：【3】團柔和光暈在畫面中【慢慢漂移、互相混色】，顏色【珊瑚橘、藍紫、金黃】，背景【深色】，非常平順、不搶文字",
+   "keys": "光暈數量、顏色、速度",
+   "en": "Gradient Mesh",
+   "source": "原圖鑑",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "parallax",
+   "zh": "視差層次",
+   "cat": "背景氛圍",
+   "role": [
+    "hook",
+    "bg"
+   ],
+   "energy": 1,
+   "mood": [
+    "故事",
+    "溫暖",
+    "空間感"
+   ],
+   "topics": [
+    "故事",
+    "旅遊",
+    "戶外",
+    "遊戲",
+    "童年"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【視差層次】場景：【3】層山脈以【不同速度】往左移動，越近越快，背景有【發光太陽】，顏色【夜晚藍紫＋前景珊瑚橘】，無縫循環",
+   "keys": "層數、每層內容、速度差",
+   "en": "Parallax Layers",
+   "source": "原圖鑑",
+   "sfx_recipes": [],
+   "sfx": "背景層不加音效。"
+  },
+  {
+   "id": "kinetic",
+   "zh": "文字動態",
+   "cat": "文字標題",
+   "role": [
+    "hook",
+    "title"
+   ],
+   "energy": 3,
+   "mood": [
+    "有力",
+    "直接",
+    "Reels"
+   ],
+   "topics": [
+    "金句",
+    "標語",
+    "廣告",
+    "觀點",
+    "開場"
+   ],
+   "dur": 4,
+   "loop": false,
+   "alpha": true,
+   "template": "做一段【文字動態】：標題「【動態讓內容開口說話】」分成【3】行，每行【由下往上彈入】，間隔【0.3 秒】，重點字「【內容】」用【珊瑚橘】，停留【2 秒】後一起往上淡出",
+   "keys": "文字內容、斷行、進場方式、重點字",
+   "en": "Kinetic Type",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "pop",
+    "hit"
+   ],
+   "sfx": "pop＋hit：每行彈入一個 pop，重點字落下時加 hit。"
+  },
+  {
+   "id": "typewriter",
+   "zh": "打字機",
+   "cat": "文字標題",
+   "role": [
+    "title",
+    "hook"
+   ],
+   "energy": 1,
+   "mood": [
+    "理性",
+    "技術",
+    "生成感"
+   ],
+   "topics": [
+    "程式",
+    "教學",
+    "AI",
+    "引言",
+    "對話",
+    "指令"
+   ],
+   "dur": 6.5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【打字機】效果：一行一行打出【我提供的文字】，每個字【0.05 秒】，游標【方塊閃爍】，字型【等寬】，指令符號用【珊瑚橘】，打完停留【2 秒】",
+   "keys": "文字內容、打字速度、游標樣式",
+   "en": "Typewriter",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "key",
+    "ding"
+   ],
+   "sfx": "key＋ding：每字一個 key（每秒最多 12 次），整句完成給 ding。"
+  },
+  {
+   "id": "glitch",
+   "zh": "故障效果",
+   "cat": "文字標題",
+   "role": [
+    "hook",
+    "title",
+    "transition"
+   ],
+   "energy": 3,
+   "mood": [
+    "衝擊",
+    "叛逆",
+    "電子"
+   ],
+   "topics": [
+    "遊戲",
+    "電競",
+    "電子音樂",
+    "科技揭曉",
+    "駭客"
+   ],
+   "dur": 3,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【故障 Glitch】文字效果：大字「【GLITCH】」，每隔【不規則時間】出現【紅藍錯位＋橫向切片位移＋掃描線】，其餘時間保持乾淨",
+   "keys": "文字、故障頻率、強度",
+   "en": "Glitch",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "glitch"
+   ],
+   "sfx": "glitch：每次故障發生時一個 glitch，其餘時間靜音。"
+  },
+  {
+   "id": "marquee",
+   "zh": "跑馬燈",
+   "cat": "文字標題",
+   "role": [
+    "hook",
+    "cta",
+    "overlay"
+   ],
+   "energy": 3,
+   "mood": [
+    "促銷",
+    "熱鬧",
+    "急迫"
+   ],
+   "topics": [
+    "促銷",
+    "電商",
+    "優惠",
+    "活動",
+    "倒數",
+    "開箱"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【跑馬燈】橫幅：【3】行文字【左右交錯】滾動，內容「【限時優惠・全館5折】」「【新品上市】」「【免運】」，中間那行用【珊瑚橘色帶、微微傾斜】，無縫循環",
+   "keys": "每行文字、方向、速度、色帶",
+   "en": "Marquee",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：進場一個低音量 swish，滾動中靜音。"
+  },
+  {
+   "id": "counter",
+   "zh": "數字跳動",
+   "cat": "數據圖表",
+   "role": [
+    "data",
+    "hook"
+   ],
+   "energy": 2,
+   "mood": [
+    "成就",
+    "說服"
+   ],
+   "topics": [
+    "業績",
+    "成長",
+    "募資",
+    "里程碑",
+    "粉絲數",
+    "價格"
+   ],
+   "dur": 3,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【數字跳動】動畫：數字從【0】跳到【12,480】，【2 秒】內先快後慢，上方標籤「【本月新增使用者】」，下方進度條同步長出，結束時跳出「【+38%】」",
+   "keys": "起訖數字、標籤、單位、秒數",
+   "en": "Number Counter",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "tick",
+    "ding"
+   ],
+   "sfx": "tick＋ding：數字跳動期間稀疏 tick，停在目標值給 ding。"
+  },
+  {
+   "id": "chart",
+   "zh": "圖表生長",
+   "cat": "數據圖表",
+   "role": [
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "理性",
+    "說服"
+   ],
+   "topics": [
+    "比較",
+    "排名",
+    "年度回顧",
+    "數據新聞",
+    "趨勢"
+   ],
+   "dur": 3,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【長條圖生長】動畫：【7】根長條依序【由下往上彈出】，數據【35, 50, 42, 68, 60, 82, 95】，最後一根用【珊瑚橘】強調，每根間隔【0.12 秒】",
+   "keys": "實際數據、圖表類型、強調哪一根",
+   "en": "Chart Grow",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "pop",
+    "ding"
+   ],
+   "sfx": "pop＋ding：每根長條彈出一個 pop（音高可逐根升高），最後一根給 ding。"
+  },
+  {
+   "id": "sphere",
+   "zh": "點陣球體",
+   "cat": "數據圖表",
+   "role": [
+    "bg",
+    "data",
+    "logo"
+   ],
+   "energy": 1,
+   "mood": [
+    "科技",
+    "全球",
+    "宏大"
+   ],
+   "topics": [
+    "全球",
+    "國際",
+    "科技公司",
+    "AI",
+    "雲端"
+   ],
+   "dur": 8,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【3D 點陣球體】：用【400】個小點組成球，【緩慢自轉】並【微微傾斜】，前面的點【較大較亮】、後面的點【淡出】，顏色【藍到橘】",
+   "keys": "點數、轉速、傾斜角、配色",
+   "en": "Dot Sphere",
+   "source": "原圖鑑",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "audio",
+   "zh": "音波頻譜",
+   "cat": "數據圖表",
+   "role": [
+    "bg",
+    "overlay"
+   ],
+   "energy": 2,
+   "mood": [
+    "聲音",
+    "節奏"
+   ],
+   "topics": [
+    "Podcast",
+    "音樂",
+    "語音",
+    "訪談",
+    "口播"
+   ],
+   "dur": 0,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【音波頻譜】：【48】根直條上下對稱跳動，中間高兩邊低，顏色【藍到橘】由左到右漸變，【接我的音檔】",
+   "keys": "條數、是否接音檔、配色",
+   "en": "Audio Bars",
+   "source": "原圖鑑",
+   "sfx_recipes": [],
+   "sfx": "接音檔時靠聲音本身，不另加音效。"
+  },
+  {
+   "id": "line",
+   "zh": "描邊揭露",
+   "cat": "Logo 圖形",
+   "role": [
+    "logo",
+    "hook"
+   ],
+   "energy": 2,
+   "mood": [
+    "精緻",
+    "品牌感"
+   ],
+   "topics": [
+    "Logo",
+    "品牌片頭",
+    "簽名",
+    "片尾"
+   ],
+   "dur": 3,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【Logo 描邊揭露】：把【我附上的 SVG Logo】用線條在【2 秒】內畫出來，畫完後【填色＋輕微彈跳】，線條【珊瑚橘、4px】，背景【深色】",
+   "keys": "Logo 檔（SVG 最好）、線寬、時長",
+   "en": "Stroke Reveal",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "swish",
+    "ding"
+   ],
+   "sfx": "swish＋ding：描邊畫出時 swish，完成填色給 ding。"
+  },
+  {
+   "id": "burst",
+   "zh": "星芒放射",
+   "cat": "Logo 圖形",
+   "role": [
+    "overlay"
+   ],
+   "energy": 2,
+   "mood": [
+    "活潑",
+    "強調"
+   ],
+   "topics": [
+    "裝飾",
+    "強調",
+    "新品",
+    "貼圖"
+   ],
+   "dur": 4,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【星芒放射】貼圖：【16】條圓頭射線【慢慢旋轉】，長度【一伸一縮】像在呼吸，顏色【珊瑚橘】，疊在影片角落當裝飾，透明背景",
+   "keys": "射線數、粗細、轉速、顏色",
+   "en": "Starburst",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "shimmer"
+   ],
+   "sfx": "shimmer：星芒展開時 shimmer。"
+  },
+  {
+   "id": "bounce",
+   "zh": "彈跳物理",
+   "cat": "Logo 圖形",
+   "role": [
+    "overlay",
+    "hook"
+   ],
+   "energy": 2,
+   "mood": [
+    "可愛",
+    "輕鬆",
+    "Q 彈"
+   ],
+   "topics": [
+    "兒童",
+    "寵物",
+    "親子",
+    "App 引導",
+    "輕鬆"
+   ],
+   "dur": 3,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【彈跳球】動畫：【3】顆不同顏色的球【錯開節奏】彈跳，落地時【壓扁再彈回】，地面有【跟著縮放的影子】，風格【可愛 Q 彈】",
+   "keys": "物件、數量、彈性、節奏",
+   "en": "Squash & Bounce",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "pop",
+    "thud"
+   ],
+   "sfx": "pop＋thud：彈起 pop，落地 thud。"
+  },
+  {
+   "id": "tunnel",
+   "zh": "無限隧道",
+   "cat": "轉場 UI",
+   "role": [
+    "transition",
+    "hook"
+   ],
+   "energy": 3,
+   "mood": [
+    "衝刺",
+    "迷幻",
+    "吸入"
+   ],
+   "topics": [
+    "轉場",
+    "MV",
+    "倒數",
+    "開場"
+   ],
+   "dur": 3,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【無限隧道】轉場：【14】個方框從中心往鏡頭【放大並旋轉】，越近越亮越粗，顏色【藍轉橘】，速度【中等】，長度【3 秒】",
+   "keys": "形狀（方／圓／三角）、速度、時長",
+   "en": "Tunnel Zoom",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "riser",
+    "whoosh"
+   ],
+   "sfx": "riser＋whoosh：先 riser 鋪陳，穿出隧道時 whoosh。"
+  },
+  {
+   "id": "loader",
+   "zh": "載入動畫",
+   "cat": "轉場 UI",
+   "role": [
+    "overlay",
+    "transition"
+   ],
+   "energy": 1,
+   "mood": [
+    "等待",
+    "懸念"
+   ],
+   "topics": [
+    "App",
+    "網站",
+    "等待",
+    "進度",
+    "揭曉前"
+   ],
+   "dur": 2,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【載入動畫】：圓環上的弧線【一邊旋轉一邊伸縮】，中間顯示【百分比】，粗細【8px】、【圓角端點】，顏色【珊瑚橘】",
+   "keys": "樣式、尺寸、是否顯示百分比",
+   "en": "Loader",
+   "source": "原圖鑑",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "starfield",
+   "zh": "星空穿梭",
+   "cat": "背景氛圍",
+   "role": [
+    "hook",
+    "bg",
+    "transition"
+   ],
+   "energy": 3,
+   "mood": [
+    "科幻",
+    "速度",
+    "期待"
+   ],
+   "topics": [
+    "科幻",
+    "發表會",
+    "倒數",
+    "遊戲",
+    "未來"
+   ],
+   "dur": 4,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【星空穿梭】背景：【300】顆星從中心往鏡頭飛，越近越亮、拉出【光痕】，少數星點用【珊瑚橘】，速度【中快】，無縫循環",
+   "keys": "星點數量、速度、光痕長短",
+   "en": "Starfield Warp",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "riser",
+    "whoosh"
+   ],
+   "sfx": "riser＋whoosh：起頭 riser，穿梭加速的瞬間一個 whoosh。"
+  },
+  {
+   "id": "plexus",
+   "zh": "粒子連線",
+   "cat": "背景氛圍",
+   "role": [
+    "bg"
+   ],
+   "energy": 1,
+   "mood": [
+    "科技",
+    "連結",
+    "理性"
+   ],
+   "topics": [
+    "科技",
+    "區塊鏈",
+    "資安",
+    "網路",
+    "社群",
+    "人脈"
+   ],
+   "dur": 8,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【粒子連線】背景：【60】個節點緩慢漂浮，距離小於【畫面 1/4】時自動連線，越近越亮，線條【藍到橘漸變】，背景【深色】",
+   "keys": "節點數、連線距離、速度",
+   "en": "Plexus Network",
+   "source": "原圖鑑",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "aurora",
+   "zh": "極光波帶",
+   "cat": "背景氛圍",
+   "role": [
+    "bg"
+   ],
+   "energy": 1,
+   "mood": [
+    "療癒",
+    "夢幻",
+    "夜晚"
+   ],
+   "topics": [
+    "冥想",
+    "睡眠",
+    "音樂",
+    "節慶",
+    "心靈"
+   ],
+   "dur": 8,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【極光】背景：【3】道光帶在夜空中【緩慢飄動、交疊發光】，顏色【綠、藍紫、珊瑚橘】，上方有【零星星點】，非常柔和，循環【8 秒】",
+   "keys": "光帶顏色、數量、飄動速度",
+   "en": "Aurora",
+   "source": "原圖鑑",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "ripple",
+   "zh": "水波漣漪",
+   "cat": "背景氛圍",
+   "role": [
+    "bg",
+    "transition"
+   ],
+   "energy": 1,
+   "mood": [
+    "清新",
+    "寧靜"
+   ],
+   "topics": [
+    "SPA",
+    "保養",
+    "飲品",
+    "水",
+    "環保"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【水波漣漪】背景：水滴在【隨機位置】落下，每滴產生【3 圈】漣漪，水面有【透視感（橢圓）】，顏色【藍到橘】，背景【深色】",
+   "keys": "水滴頻率、漣漪圈數、配色",
+   "en": "Ripples",
+   "source": "原圖鑑",
+   "sfx_recipes": [],
+   "sfx": "背景層不加音效。"
+  },
+  {
+   "id": "sparkring",
+   "zh": "火花漣漪",
+   "en": "Spark Ripple",
+   "cat": "背景氛圍",
+   "role": [
+    "hook",
+    "bg"
+   ],
+   "energy": 2,
+   "mood": [
+    "浪漫",
+    "神秘"
+   ],
+   "topics": [
+    "開場",
+    "新品",
+    "點亮",
+    "起點",
+    "靈感"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【火花漣漪】開場：畫面中央【一點火花】在【0.9 秒】內脹成發光球，球體下方水面每【0.55 秒】擴散一圈【橢圓漣漪】共【6 圈】，顏色【珊瑚橘】，背景【深色】，下方浮現一行字「【先有一點火花】」，循環【6 秒】。",
+   "keys": "火花位置、漣漪圈數、配色、標語文字",
+   "source": "第六批新技法",
+   "sfx_recipes": [
+    "riser",
+    "shimmer"
+   ],
+   "sfx": "riser＋shimmer：開場 0–1 秒 riser 鋪陳，點亮瞬間 shimmer 收住，漣漪不再加音效。"
+  },
+  {
+   "id": "scramble",
+   "zh": "亂碼解碼",
+   "cat": "文字標題",
+   "role": [
+    "hook",
+    "title"
+   ],
+   "energy": 2,
+   "mood": [
+    "懸疑",
+    "駭客",
+    "揭曉"
+   ],
+   "topics": [
+    "資安",
+    "科技",
+    "揭曉",
+    "名稱",
+    "倒數",
+    "祕密"
+   ],
+   "dur": 3,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【亂碼解碼】文字：「【MOTION 2026】」每個字先閃【英數亂碼】，再【由左到右】依序定格，間隔【0.12 秒】，未解碼字用【珊瑚橘】，字型【等寬】",
+   "keys": "文字內容、解碼速度、亂碼字元",
+   "en": "Text Scramble",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "key",
+    "ding"
+   ],
+   "sfx": "key＋ding：解碼過程稀疏 key，定格完成給 ding。"
+  },
+  {
+   "id": "ptext",
+   "zh": "粒子聚字",
+   "cat": "文字標題",
+   "role": [
+    "hook",
+    "logo",
+    "cta"
+   ],
+   "energy": 2,
+   "mood": [
+    "驚豔",
+    "揭曉"
+   ],
+   "topics": [
+    "品牌名",
+    "發表",
+    "片尾",
+    "Logo",
+    "揭曉"
+   ],
+   "dur": 5,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【粒子聚字】：數千顆粒子從【四周散落處】飛來拼成「【HELLO】」，停留【2 秒】後【散開】，粒子顏色【藍到橘】，背景【深色】",
+   "keys": "文字或 Logo、粒子密度、聚散方式",
+   "en": "Particle Text",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "shimmer"
+   ],
+   "sfx": "shimmer：粒子聚合成字的瞬間 shimmer。"
+  },
+  {
+   "id": "rotator",
+   "zh": "文字輪播",
+   "cat": "文字標題",
+   "role": [
+    "title",
+    "hook"
+   ],
+   "energy": 2,
+   "mood": [
+    "輕快",
+    "列舉"
+   ],
+   "topics": [
+    "服務",
+    "列舉",
+    "多重身分",
+    "清單",
+    "Reels 開頭"
+   ],
+   "dur": 5.6,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【文字輪播】：固定字「【我們做】」，後面的關鍵字【影片／網站／品牌／動畫】每【1.4 秒】由下往上輪替，關鍵字用【珊瑚橘】加底線",
+   "keys": "固定字、輪替詞、間隔",
+   "en": "Word Rotator",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：每次換字一個 swish（低音量）。"
+  },
+  {
+   "id": "donut",
+   "zh": "環圈圖",
+   "cat": "數據圖表",
+   "role": [
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "理性",
+    "比例"
+   ],
+   "topics": [
+    "市占",
+    "比例",
+    "問卷",
+    "財報",
+    "分配"
+   ],
+   "dur": 3.5,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【環圈圖】動畫：數據【直播 42%、短影音 26%、文章 19%、Podcast 13%】依序【順時針畫出】，中間顯示【最大項百分比】，圖例依序淡入",
+   "keys": "各項名稱與比例、顏色、中間數字",
+   "en": "Donut Chart",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "swish",
+    "ding"
+   ],
+   "sfx": "swish＋ding：圓環畫出時 swish，到達數值給 ding。"
+  },
+  {
+   "id": "linechart",
+   "zh": "折線描繪",
+   "cat": "數據圖表",
+   "role": [
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "成長",
+    "趨勢"
+   ],
+   "topics": [
+    "成長",
+    "趨勢",
+    "股價",
+    "流量",
+    "年度回顧"
+   ],
+   "dur": 3,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【折線描繪】動畫：數據【30, 42, 36, 55, 50, 66, 62, 80, 92】由左往右【2.4 秒】畫出，線下有【漸層面積】，線頭有【脈動光點】，線條【珊瑚橘】",
+   "keys": "實際數據、時長、是否要面積",
+   "en": "Line Draw",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "swish",
+    "ding"
+   ],
+   "sfx": "swish＋ding：折線畫出時 swish，終點給 ding。"
+  },
+  {
+   "id": "arcs",
+   "zh": "地圖連線",
+   "cat": "數據圖表",
+   "role": [
+    "data",
+    "bg"
+   ],
+   "energy": 2,
+   "mood": [
+    "全球",
+    "連結"
+   ],
+   "topics": [
+    "全球據點",
+    "物流",
+    "交易",
+    "跨國",
+    "旅遊路線",
+    "出口"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【地圖連線】動畫：【點陣地圖】上有【9 個據點】，每【0.5 秒】從一點射出【弧線】到另一點，抵達時泛起【光圈】，弧線【藍到橘】",
+   "keys": "據點位置（城市）、連線頻率、地圖範圍",
+   "en": "Network Arcs",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：每條連線畫出時一個 swish。"
+  },
+  {
+   "id": "morph",
+   "zh": "形狀變形",
+   "cat": "Logo 圖形",
+   "role": [
+    "logo",
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "流暢",
+    "設計感"
+   ],
+   "topics": [
+    "Logo",
+    "品牌符號",
+    "App 引導",
+    "設計"
+   ],
+   "dur": 6.4,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【形狀變形】：圖形依序在【圓形→方形→三角形→六角形】之間變形，每段【1.6 秒】、帶【輕微回彈】，填色【橘到藍漸層】，同時【緩慢旋轉】",
+   "keys": "形狀順序、每段時長、配色",
+   "en": "Shape Morph",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：變形過程一個 swish。"
+  },
+  {
+   "id": "orbit",
+   "zh": "軌道環繞",
+   "cat": "Logo 圖形",
+   "role": [
+    "logo",
+    "bg"
+   ],
+   "energy": 1,
+   "mood": [
+    "整合",
+    "科技",
+    "生態系"
+   ],
+   "topics": [
+    "生態系",
+    "整合",
+    "科技品牌",
+    "關於我們",
+    "合作夥伴"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【軌道環繞】：中心放【我的 Logo】，【3】條傾斜軌道上各有一顆小球以【不同速度】環繞，經過後方時【被 Logo 擋住】，顏色【珊瑚橘、藍紫、金黃】",
+   "keys": "中心圖、軌道數、速度",
+   "en": "Orbit",
+   "source": "原圖鑑",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "wipe",
+   "zh": "圓形擴散轉場",
+   "cat": "轉場 UI",
+   "role": [
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "俐落",
+    "切換"
+   ],
+   "topics": [
+    "轉場",
+    "前後對比",
+    "產品切換",
+    "Before/After"
+   ],
+   "dur": 0.8,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【圓形擴散轉場】：畫面 A「【SCENE 1】」→ 從【左下角】擴散圓形揭開畫面 B「【SCENE 2】」，轉場【0.8 秒】、先慢後快再慢，B 底色【珊瑚橘】",
+   "keys": "擴散起點、時長、兩個畫面內容",
+   "en": "Circle Wipe",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "whoosh"
+   ],
+   "sfx": "whoosh：擴散開始時一個 whoosh。"
+  },
+  {
+   "id": "slices",
+   "zh": "百葉窗轉場",
+   "cat": "轉場 UI",
+   "role": [
+    "transition"
+   ],
+   "energy": 3,
+   "mood": [
+    "節奏",
+    "資訊感"
+   ],
+   "topics": [
+    "新聞",
+    "資訊",
+    "節奏剪輯",
+    "換頁",
+    "清單"
+   ],
+   "dur": 0.8,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【百葉窗轉場】：把畫面切成【8】條橫條，每條間隔【0.06 秒】從【左邊】滑入下一個畫面，前緣有【珊瑚橘細線】",
+   "keys": "條數、方向、間隔",
+   "en": "Slice Transition",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：百葉窗每次翻動 swish，上限三次。"
+  },
+  {
+   "id": "confetti",
+   "zh": "彩帶慶祝",
+   "cat": "轉場 UI",
+   "role": [
+    "cta",
+    "overlay"
+   ],
+   "energy": 3,
+   "mood": [
+    "歡樂",
+    "慶祝"
+   ],
+   "topics": [
+    "達標",
+    "得獎",
+    "抽獎",
+    "完成",
+    "生日",
+    "週年"
+   ],
+   "dur": 3,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【彩帶慶祝】：從【畫面兩下角】噴出【140】片彩紙，會【翻轉、飄落】，中間彈出「【恭喜達標！】」，顏色【珊瑚橘、藍紫、金黃、綠】",
+   "keys": "噴發位置、數量、慶祝文字",
+   "en": "Confetti",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "pop",
+    "shimmer"
+   ],
+   "sfx": "pop＋shimmer：彩帶噴發一個 pop，之後 shimmer。"
+  },
+  {
+   "id": "like",
+   "zh": "按讚愛心",
+   "cat": "轉場 UI",
+   "role": [
+    "cta",
+    "overlay"
+   ],
+   "energy": 2,
+   "mood": [
+    "互動",
+    "溫暖"
+   ],
+   "topics": [
+    "按讚",
+    "追蹤",
+    "訂閱",
+    "直播",
+    "互動",
+    "留言"
+   ],
+   "dur": 2.6,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【按讚愛心】動畫：中間愛心【彈出放大】，同時炸開【光圈＋10 顆小點】，右側有【6 顆小愛心】像直播一樣往上飄，主色【珊瑚橘】",
+   "keys": "圖示（愛心／讚）、是否要飄浮、配色",
+   "en": "Like Burst",
+   "source": "原圖鑑",
+   "sfx_recipes": [
+    "pop",
+    "chime"
+   ],
+   "sfx": "pop＋chime：愛心彈出 pop，落定 chime。"
+  },
+  {
+   "id": "perspgrid",
+   "zh": "透視網格穿梭",
+   "en": "Retro Grid",
+   "cat": "背景氛圍",
+   "role": [
+    "hook",
+    "bg"
+   ],
+   "energy": 2,
+   "mood": [
+    "復古未來",
+    "速度"
+   ],
+   "topics": [
+    "科技",
+    "電子音樂",
+    "遊戲",
+    "開場"
+   ],
+   "dur": 4,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【透視網格穿梭】背景：地平線在【畫面上方 4 成】，網格線【朝鏡頭推進】，地平線有【珊瑚橘光暈】，網格【藍紫】，速度【中等】，無縫循環。",
+   "keys": "網格顏色、速度、地平線高度",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "riser"
+   ],
+   "sfx": "riser：開場 riser 帶入，之後靜音。"
+  },
+  {
+   "id": "maskrise",
+   "zh": "遮罩滑升文字",
+   "en": "Mask Reveal",
+   "cat": "文字標題",
+   "role": [
+    "title",
+    "hook"
+   ],
+   "energy": 1,
+   "mood": [
+    "精緻",
+    "高級",
+    "克制"
+   ],
+   "topics": [
+    "企業",
+    "精品",
+    "品牌",
+    "形象",
+    "年度"
+   ],
+   "dur": 4,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【遮罩滑升文字】：3 行字「【CRAFTED】」「【於細節之中】」「【2026】」依序從基線下方【滑升出現】，間隔【0.25 秒】、指數緩動，第二行粗體，年份用【柔金色】，下方一條細線長出。",
+   "keys": "文字內容、行數、字重對比",
+   "source": "時報V04",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：字升起時一個 swish。"
+  },
+  {
+   "id": "charfall",
+   "zh": "逐字落下回彈",
+   "en": "Char Drop",
+   "cat": "文字標題",
+   "role": [
+    "hook",
+    "title"
+   ],
+   "energy": 3,
+   "mood": [
+    "活潑",
+    "熱鬧"
+   ],
+   "topics": [
+    "活動",
+    "綜藝",
+    "開場",
+    "促銷"
+   ],
+   "dur": 3.5,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【逐字落下】標題：「【逐字落下回彈】」每個字從上方【旋轉落下並回彈】，間隔【0.1 秒】，中間兩個字用【珊瑚橘】。",
+   "keys": "文字內容、間隔、旋轉幅度",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "tick",
+    "thud"
+   ],
+   "sfx": "tick＋thud：每字落下一個 tick，最後一字落定加 thud。"
+  },
+  {
+   "id": "beatslam",
+   "zh": "逐拍重擊字",
+   "en": "Beat Slam",
+   "cat": "文字標題",
+   "role": [
+    "title",
+    "hook"
+   ],
+   "energy": 3,
+   "mood": [
+    "卡點",
+    "衝擊"
+   ],
+   "topics": [
+    "列舉",
+    "平台",
+    "品牌",
+    "清單",
+    "卡點"
+   ],
+   "dur": 3,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【逐拍重擊字】：依【128 BPM】每拍換一個詞【FACEBOOK／YOUTUBE／LINE／INSTAGRAM】，每次【放大重擊進場＋輕震】，每 3 拍一次用【珊瑚橘】。",
+   "keys": "詞彙清單、BPM、強調規則",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "hit"
+   ],
+   "sfx": "hit：每個重擊字對準拍點給 hit。"
+  },
+  {
+   "id": "strokeflow",
+   "zh": "描邊大字流動",
+   "en": "Outline Marquee",
+   "cat": "文字標題",
+   "role": [
+    "bg",
+    "transition"
+   ],
+   "energy": 1,
+   "mood": [
+    "時尚",
+    "精緻"
+   ],
+   "topics": [
+    "品牌",
+    "時尚",
+    "分隔",
+    "背景字"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【描邊大字流動】：兩行空心描邊大字「【CONTENT · NEWS · DATA】」【反方向緩慢流動】，一行白、一行【珊瑚橘】，線寬【1.5px】，無縫循環。",
+   "keys": "文字、方向、速度、線寬",
+   "source": "時報V04",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "karaoke",
+   "zh": "字幕逐字高亮",
+   "en": "Karaoke Captions",
+   "cat": "文字標題",
+   "role": [
+    "overlay",
+    "title"
+   ],
+   "energy": 2,
+   "mood": [
+    "口播",
+    "清楚"
+   ],
+   "topics": [
+    "口播",
+    "字幕",
+    "教學",
+    "訪談",
+    "知識"
+   ],
+   "dur": 0,
+   "loop": true,
+   "alpha": true,
+   "template": "做【字幕逐字高亮】：字幕「【三秒抓住注意力的字幕】」跟著語音【逐字變黃並微跳】，字有【深色描邊】，位置【畫面下方 3 成】，【接我的逐字時間碼／先用平均速度】。",
+   "keys": "字幕文字、時間碼、高亮色",
+   "source": "短影音補充",
+   "sfx_recipes": [],
+   "sfx": "字幕逐字高亮不加音效，避免蓋過口播。"
+  },
+  {
+   "id": "highlighter",
+   "zh": "螢光筆劃重點",
+   "en": "Highlighter",
+   "cat": "文字標題",
+   "role": [
+    "title",
+    "overlay"
+   ],
+   "energy": 2,
+   "mood": [
+    "知識",
+    "親切"
+   ],
+   "topics": [
+    "教學",
+    "知識",
+    "重點",
+    "整理",
+    "觀點"
+   ],
+   "dur": 3.5,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【螢光筆劃重點】：兩行字「【重點不是做更多，】」「【而是做對的事】」，第二行被【黃色螢光筆】從左劃過，接著用【珊瑚橘手繪圈】圈住「【重點】」。",
+   "keys": "句子、要劃的句子、要圈的字",
+   "source": "短影音補充",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：螢光筆劃過時一個 swish。"
+  },
+  {
+   "id": "radar",
+   "zh": "雷達圖",
+   "en": "Radar Chart",
+   "cat": "數據圖表",
+   "role": [
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "理性",
+    "科技"
+   ],
+   "topics": [
+    "比較",
+    "能力",
+    "規格",
+    "評分",
+    "資料"
+   ],
+   "dur": 4,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【雷達圖】：【6】個軸【資料量、即時性、深度、廣度、準確、易用】，數值【90,70,85,60,95,75】從中心【長出】，背後有【掃描光束】旋轉。",
+   "keys": "軸名稱、數值、是否要掃描光束",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "swish",
+    "ding"
+   ],
+   "sfx": "swish＋ding：雷達面積展開時 swish，定格給 ding。"
+  },
+  {
+   "id": "candle",
+   "zh": "K 線行情",
+   "en": "Candlestick Ticker",
+   "cat": "數據圖表",
+   "role": [
+    "data",
+    "bg"
+   ],
+   "energy": 2,
+   "mood": [
+    "財經",
+    "專業"
+   ],
+   "topics": [
+    "財經",
+    "股市",
+    "投資",
+    "行情",
+    "金融"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【K 線行情】：【22】根 K 線持續更新，漲用【珊瑚橘】、跌用【藍紫】，下方【行情跑馬燈】滾動「【INDEX 23,415 ▲0.82%】」。",
+   "keys": "行情文字、漲跌色、更新速度",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "tick"
+   ],
+   "sfx": "tick：每根 K 線出現一個 tick。"
+  },
+  {
+   "id": "bubble",
+   "zh": "泡泡圖",
+   "en": "Bubble Chart",
+   "cat": "數據圖表",
+   "role": [
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "活潑",
+    "比較"
+   ],
+   "topics": [
+    "平台",
+    "粉絲",
+    "市占",
+    "比較",
+    "社群"
+   ],
+   "dur": 4,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【泡泡圖】：【6】個圓代表【YouTube、IG、TikTok、FB、X、LINE】，大小依【數值】，依序【彈出並漂浮】，交替用【珊瑚橘／藍紫】。",
+   "keys": "項目與數值、配色",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "pop"
+   ],
+   "sfx": "pop：每顆泡泡出現一個 pop。"
+  },
+  {
+   "id": "waffle",
+   "zh": "人形點陣",
+   "en": "Waffle People",
+   "cat": "數據圖表",
+   "role": [
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "直覺",
+    "說服"
+   ],
+   "topics": [
+    "使用者",
+    "人口",
+    "問卷",
+    "比例",
+    "會員"
+   ],
+   "dur": 4,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【人形點陣】：【30×10】個小人圖示依序點亮【72%】，點亮用【珊瑚橘】，左上角百分比同步跳動。",
+   "keys": "比例、格數、單位意義",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "tick"
+   ],
+   "sfx": "tick：點陣填滿時稀疏 tick。"
+  },
+  {
+   "id": "gauge",
+   "zh": "儀表指數",
+   "en": "Gauge",
+   "cat": "數據圖表",
+   "role": [
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "即時",
+    "科技"
+   ],
+   "topics": [
+    "KPI",
+    "效能",
+    "速度",
+    "滿意度",
+    "儀表板"
+   ],
+   "dur": 4,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【儀表指數】：半圓儀表從 0 衝到【78】，外環【珊瑚橘】、內環副值【55%】用【藍紫】，有刻度，中間顯示數字。",
+   "keys": "主值、副值、單位",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "swish",
+    "ding"
+   ],
+   "sfx": "swish＋ding：指針擺動 swish，停在數值給 ding。"
+  },
+  {
+   "id": "clockdial",
+   "zh": "24 小時錶盤",
+   "en": "24h Dial",
+   "cat": "數據圖表",
+   "role": [
+    "data",
+    "bg"
+   ],
+   "energy": 1,
+   "mood": [
+    "規律",
+    "全天候"
+   ],
+   "topics": [
+    "全天候",
+    "24小時",
+    "行程",
+    "營運",
+    "時程"
+   ],
+   "dur": 8,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【24 小時錶盤】：24 格刻度隨時間【逐格點亮】、顏色【藍到橘】，指針轉動，下方顯示【時間】。",
+   "keys": "時段標記、速度",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "tick"
+   ],
+   "sfx": "tick：指針每走一格一個 tick。"
+  },
+  {
+   "id": "wireglobe",
+   "zh": "經緯線地球",
+   "en": "Wire Globe",
+   "cat": "數據圖表",
+   "role": [
+    "data",
+    "bg"
+   ],
+   "energy": 1,
+   "mood": [
+    "全球",
+    "宏大"
+   ],
+   "topics": [
+    "全球",
+    "國際",
+    "海外",
+    "旅遊",
+    "跨國"
+   ],
+   "dur": 8,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【經緯線地球】：經緯線組成的地球【傾斜自轉】，線條【藍紫】，表面【8 個據點】閃爍【珊瑚橘】。",
+   "keys": "據點、轉速、線條顏色",
+   "source": "時報V03",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "ptimeline",
+   "zh": "透視時間公路",
+   "en": "Perspective Timeline",
+   "cat": "數據圖表",
+   "role": [
+    "data",
+    "title"
+   ],
+   "energy": 2,
+   "mood": [
+    "故事",
+    "歷史"
+   ],
+   "topics": [
+    "沿革",
+    "歷史",
+    "年份",
+    "里程碑",
+    "品牌故事"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【透視時間公路】：年份【1989、1995、2005、2015、2026】沿著透視公路【從遠方迎面而來】，每個里程碑有【珊瑚橘圓點】。",
+   "keys": "年份與事件、速度",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "whoosh"
+   ],
+   "sfx": "whoosh：透視前進時一個 whoosh。"
+  },
+  {
+   "id": "neural",
+   "zh": "神經網路訊號",
+   "en": "Neural Network",
+   "cat": "數據圖表",
+   "role": [
+    "bg",
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "科技",
+    "智慧"
+   ],
+   "topics": [
+    "AI",
+    "機器學習",
+    "自動化",
+    "演算法",
+    "智慧"
+   ],
+   "dur": 4,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【神經網路訊號】：【3-5-5-2】層節點，訊號粒子【由左往右逐層傳遞】，節點依序亮起，配色【藍到橘】。",
+   "keys": "層數、訊號速度、配色",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "tick"
+   ],
+   "sfx": "tick：訊號傳到節點時稀疏 tick。"
+  },
+  {
+   "id": "packets",
+   "zh": "資料封包流動",
+   "en": "Data Packets",
+   "cat": "數據圖表",
+   "role": [
+    "data",
+    "bg"
+   ],
+   "energy": 2,
+   "mood": [
+    "流程",
+    "科技"
+   ],
+   "topics": [
+    "串接",
+    "授權",
+    "流程",
+    "API",
+    "系統"
+   ],
+   "dur": 4,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【資料封包流動】：左邊【2 個來源】→ 中心【平台】→ 右邊【3 個去處】，封包沿曲線【持續流動】，進線【藍紫】、出線【珊瑚橘】。",
+   "keys": "節點名稱、流向、速度",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "tick"
+   ],
+   "sfx": "tick：封包抵達時稀疏 tick。"
+  },
+  {
+   "id": "flipclock",
+   "zh": "翻牌數字",
+   "en": "Flip Clock",
+   "cat": "數據圖表",
+   "role": [
+    "data",
+    "hook"
+   ],
+   "energy": 2,
+   "mood": [
+    "復古",
+    "期待"
+   ],
+   "topics": [
+    "倒數",
+    "計時",
+    "年份",
+    "活動",
+    "限時"
+   ],
+   "dur": 0,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【翻牌數字】：兩位數翻牌從【00】開始每秒【翻頁】，卡片【深灰】、字白色、中間有分隔線。",
+   "keys": "起始數字、翻頁速度、位數",
+   "source": "短影音補充",
+   "sfx_recipes": [
+    "click"
+   ],
+   "sfx": "click：每次翻牌一個 click。"
+  },
+  {
+   "id": "countdown",
+   "zh": "倒數圓環",
+   "en": "Countdown Ring",
+   "cat": "數據圖表",
+   "role": [
+    "hook",
+    "transition"
+   ],
+   "energy": 3,
+   "mood": [
+    "期待",
+    "緊張"
+   ],
+   "topics": [
+    "倒數",
+    "揭曉",
+    "開場",
+    "直播",
+    "限時"
+   ],
+   "dur": 3,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【倒數圓環】：大字【3→2→1】每秒【放大重擊】，外圈【珊瑚橘圓環】跟著縮短。",
+   "keys": "倒數秒數、揭曉內容",
+   "source": "短影音補充",
+   "sfx_recipes": [
+    "tick",
+    "hit"
+   ],
+   "sfx": "tick＋hit：每秒一個 tick，歸零瞬間 hit。"
+  },
+  {
+   "id": "lightsweep",
+   "zh": "光帶掃描",
+   "en": "Light Sweep",
+   "cat": "Logo 圖形",
+   "role": [
+    "logo",
+    "cta"
+   ],
+   "energy": 1,
+   "mood": [
+    "精品",
+    "高級"
+   ],
+   "topics": [
+    "Logo",
+    "精品",
+    "品牌",
+    "結尾",
+    "質感"
+   ],
+   "dur": 3,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【光帶掃描】：【我的 Logo／BRAND】上有一道【柔金色光帶】從左上【掃到右下】，每【3 秒】一次。",
+   "keys": "Logo 或文字、光帶顏色、頻率",
+   "source": "時報V04",
+   "sfx_recipes": [
+    "shimmer"
+   ],
+   "sfx": "shimmer：光帶掃過時 shimmer。"
+  },
+  {
+   "id": "stamp",
+   "zh": "報紙蓋章",
+   "en": "Newsprint Stamp",
+   "cat": "Logo 圖形",
+   "role": [
+    "title",
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "權威",
+    "復古"
+   ],
+   "topics": [
+    "第一",
+    "首創",
+    "認證",
+    "新聞",
+    "歷史"
+   ],
+   "dur": 3.5,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【報紙蓋章】：背景是【報紙直行欄位】緩慢捲動，紅色印章「【首創】」【從大到小重重蓋下】、微傾斜。",
+   "keys": "印章文字、背景樣式",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "hit"
+   ],
+   "sfx": "hit：蓋章落下瞬間 hit。"
+  },
+  {
+   "id": "gears",
+   "zh": "藍圖齒輪",
+   "en": "Blueprint Gears",
+   "cat": "Logo 圖形",
+   "role": [
+    "bg",
+    "logo"
+   ],
+   "energy": 1,
+   "mood": [
+    "工程",
+    "穩定"
+   ],
+   "topics": [
+    "轉型",
+    "系統",
+    "引擎",
+    "製造",
+    "流程"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【藍圖齒輪】：藍圖格線背景上【2 個齒輪咬合轉動】，大齒輪白線、小齒輪【珊瑚橘】。",
+   "keys": "齒輪數量、轉速",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "tick"
+   ],
+   "sfx": "tick：齒輪咬合時稀疏 tick。"
+  },
+  {
+   "id": "prism",
+   "zh": "3D 稜柱翻轉",
+   "en": "Prism Flip",
+   "cat": "版面介面",
+   "role": [
+    "title",
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "俐落",
+    "結構"
+   ],
+   "topics": [
+    "三大",
+    "主軸",
+    "重點",
+    "價值",
+    "分類"
+   ],
+   "dur": 4.8,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【3D 稜柱翻轉】：三面分別是「【新聞】」「【資料】」「【服務】」，每【1.6 秒】往上翻一面，每面不同底色。",
+   "keys": "三個關鍵字、配色、翻轉速度",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "whoosh"
+   ],
+   "sfx": "whoosh：翻轉時一個 whoosh。"
+  },
+  {
+   "id": "honeycomb",
+   "zh": "蜂巢格",
+   "en": "Honeycomb",
+   "cat": "版面介面",
+   "role": [
+    "data",
+    "bg"
+   ],
+   "energy": 2,
+   "mood": [
+    "結構",
+    "科技"
+   ],
+   "topics": [
+    "產品",
+    "服務",
+    "矩陣",
+    "生態系",
+    "分類"
+   ],
+   "dur": 4,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【蜂巢格】：六角格從【中心】往外【一圈圈彈出】，重點格【珊瑚橘】，其餘【半透明藍紫】，可在格內放【產品名】。",
+   "keys": "格數、格內文字、重點格",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "pop"
+   ],
+   "sfx": "pop：格子出現時稀疏 pop。"
+  },
+  {
+   "id": "search",
+   "zh": "搜尋介面",
+   "en": "Search UI",
+   "cat": "版面介面",
+   "role": [
+    "data",
+    "title"
+   ],
+   "energy": 2,
+   "mood": [
+    "實用",
+    "示範"
+   ],
+   "topics": [
+    "搜尋",
+    "資料庫",
+    "產品示範",
+    "App",
+    "工具"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【搜尋介面】：搜尋框【逐字輸入】「【我的關鍵字】」，接著【4 張結果卡】依序浮上，第一張用【珊瑚橘】標示。",
+   "keys": "關鍵字、結果數、樣式",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "key",
+    "click"
+   ],
+   "sfx": "key＋click：輸入關鍵字 key，按下搜尋 click。"
+  },
+  {
+   "id": "polaroid",
+   "zh": "拍立得堆疊",
+   "en": "Polaroid Stack",
+   "cat": "版面介面",
+   "role": [
+    "bg",
+    "title"
+   ],
+   "energy": 2,
+   "mood": [
+    "回憶",
+    "溫暖"
+   ],
+   "topics": [
+    "回顧",
+    "作品",
+    "照片",
+    "影像",
+    "回憶"
+   ],
+   "dur": 4,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【拍立得堆疊】：【5】張拍立得【從下方彈上來】、隨機傾斜疊放，照片放【我的圖片】，帶陰影。",
+   "keys": "照片、張數、傾斜程度",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "thud"
+   ],
+   "sfx": "thud：每張照片疊上一個 thud。"
+  },
+  {
+   "id": "crt",
+   "zh": "CRT 開機",
+   "en": "CRT Boot",
+   "cat": "版面介面",
+   "role": [
+    "hook",
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "懷舊",
+    "復古"
+   ],
+   "topics": [
+    "懷舊",
+    "90年代",
+    "網路",
+    "歷史",
+    "復古"
+   ],
+   "dur": 4,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【CRT 開機】：畫面先像老電視【一條白線打開】，接著綠色等寬字一行行出現「【BIOS v1.995 ...OK】」，加【掃描線＋暗角】。",
+   "keys": "開機文字、年代感",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "zap",
+    "drone"
+   ],
+   "sfx": "zap＋drone：開機瞬間 zap，之後可接極輕 drone。"
+  },
+  {
+   "id": "carousel",
+   "zh": "環形旋轉木馬",
+   "en": "3D Carousel",
+   "cat": "版面介面",
+   "role": [
+    "data",
+    "bg"
+   ],
+   "energy": 2,
+   "mood": [
+    "立體",
+    "展示"
+   ],
+   "topics": [
+    "部門",
+    "產品",
+    "系列",
+    "節目",
+    "單位"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【環形旋轉木馬】：【6】張卡片繞成一圈【緩慢旋轉】，前大後小，卡片放【單位名稱／圖片】，交替【珊瑚橘／藍紫】。",
+   "keys": "卡片數量、內容、轉速",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：旋轉換位時 swish。"
+  },
+  {
+   "id": "coverflow",
+   "zh": "封面流",
+   "en": "Cover Flow",
+   "cat": "版面介面",
+   "role": [
+    "data",
+    "title"
+   ],
+   "energy": 2,
+   "mood": [
+    "精緻",
+    "展示"
+   ],
+   "topics": [
+    "節目",
+    "作品",
+    "商品",
+    "專輯",
+    "系列"
+   ],
+   "dur": 7,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【封面流】：封面每【1.4 秒】往左【滑到中央】，兩側封面【傾斜縮小】，地面有【淡倒影】，封面放【我的圖片】。",
+   "keys": "封面圖片、切換速度",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：切換封面 swish。"
+  },
+  {
+   "id": "phone",
+   "zh": "手機介面",
+   "en": "Phone Mockup",
+   "cat": "版面介面",
+   "role": [
+    "data",
+    "title"
+   ],
+   "energy": 2,
+   "mood": [
+    "實用",
+    "示範"
+   ],
+   "topics": [
+    "App",
+    "手機",
+    "社群",
+    "產品示範",
+    "介面"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【手機介面】：【2】支手機並排、輕微漂浮，螢幕內【卡片自動往上捲】，可放【我的截圖】。",
+   "keys": "手機數量、螢幕內容",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "pop"
+   ],
+   "sfx": "pop：手機與畫面元素出現 pop。"
+  },
+  {
+   "id": "bento",
+   "zh": "Bento 拼貼",
+   "en": "Bento Grid",
+   "cat": "版面介面",
+   "role": [
+    "data",
+    "cta"
+   ],
+   "energy": 2,
+   "mood": [
+    "整理",
+    "現代"
+   ],
+   "topics": [
+    "回顧",
+    "總整理",
+    "數字",
+    "年度",
+    "重點"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【Bento 拼貼】：【7】格大小不一的圓角方塊【隨 128 BPM 一拍一格彈入】，第一格【珊瑚橘】，格內放【數字與標籤】。",
+   "keys": "格數、每格內容、節拍",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "pop"
+   ],
+   "sfx": "pop：各格錯開彈出，每格一個 pop。"
+  },
+  {
+   "id": "splitscreen",
+   "zh": "前後對比滑桿",
+   "en": "Before/After",
+   "cat": "版面介面",
+   "role": [
+    "data",
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "對比",
+    "說服"
+   ],
+   "topics": [
+    "前後",
+    "對比",
+    "改造",
+    "升級",
+    "修圖"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【前後對比滑桿】：左邊【BEFORE】、右邊【AFTER】，中間分隔線【左右來回滑動】，把手是白色圓點。",
+   "keys": "兩邊畫面、滑動速度",
+   "source": "短影音補充",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：滑桿移動時 swish。"
+  },
+  {
+   "id": "callout",
+   "zh": "標註線",
+   "en": "Callout Lines",
+   "cat": "版面介面",
+   "role": [
+    "overlay",
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "清楚",
+    "說明"
+   ],
+   "topics": [
+    "開箱",
+    "產品",
+    "規格",
+    "功能",
+    "介紹"
+   ],
+   "dur": 4,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【標註線】：在【產品畫面】上，從【2 個點】依序拉出標註線，寫上「【輕 30%】」「【續航 2 倍】」，點會脈動。",
+   "keys": "標註點位置、說明文字",
+   "source": "短影音補充",
+   "sfx_recipes": [
+    "tick"
+   ],
+   "sfx": "tick：標註線落定一個 tick。"
+  },
+  {
+   "id": "dissolve",
+   "zh": "像素溶解",
+   "en": "Pixel Dissolve",
+   "cat": "轉場 UI",
+   "role": [
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "數位",
+    "科技"
+   ],
+   "topics": [
+    "科技",
+    "數位",
+    "資料",
+    "遊戲"
+   ],
+   "dur": 1.4,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【像素溶解轉場】：畫面切成【24×15】格，【隨機逐格】換成下一個畫面，轉場【1.4 秒】。",
+   "keys": "格子大小、時長",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：溶解過程一個輕 swish。"
+  },
+  {
+   "id": "hexmask",
+   "zh": "六角形遮罩",
+   "en": "Hex Mask",
+   "cat": "轉場 UI",
+   "role": [
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "科技",
+    "結構"
+   ],
+   "topics": [
+    "科技",
+    "產品",
+    "切換"
+   ],
+   "dur": 1.4,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【六角形遮罩轉場】：六角形從【中心】往外【逐圈長大】揭開下一個畫面，轉場【1.4 秒】。",
+   "keys": "形狀大小、擴散起點",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：遮罩展開時 swish。"
+  },
+  {
+   "id": "clockwipe",
+   "zh": "時鐘掃描",
+   "en": "Clock Wipe",
+   "cat": "轉場 UI",
+   "role": [
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "時間",
+    "俐落"
+   ],
+   "topics": [
+    "時間",
+    "流程",
+    "倒數",
+    "歷史"
+   ],
+   "dur": 1.4,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【時鐘掃描轉場】：從【12 點方向】順時針掃一圈揭開下一個畫面，轉場【1.4 秒】。",
+   "keys": "起始角度、方向、時長",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "tick",
+    "swish"
+   ],
+   "sfx": "tick＋swish：掃描指針 tick，轉換瞬間 swish。"
+  },
+  {
+   "id": "doors",
+   "zh": "對開門",
+   "en": "Door Split",
+   "cat": "轉場 UI",
+   "role": [
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "揭幕",
+    "期待"
+   ],
+   "topics": [
+    "揭幕",
+    "發表",
+    "開幕",
+    "章節"
+   ],
+   "dur": 1.4,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【對開門轉場】：畫面從【中間往左右打開】露出下一個畫面，轉場【1.4 秒】。",
+   "keys": "開門方向、時長",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "thud",
+    "swish"
+   ],
+   "sfx": "thud＋swish：門開啟 swish，到位 thud。"
+  },
+  {
+   "id": "shatter",
+   "zh": "碎裂",
+   "en": "Shatter",
+   "cat": "轉場 UI",
+   "role": [
+    "transition"
+   ],
+   "energy": 3,
+   "mood": [
+    "衝擊",
+    "爆發"
+   ],
+   "topics": [
+    "突破",
+    "運動",
+    "衝擊",
+    "改變"
+   ],
+   "dur": 1.4,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【碎裂轉場】：畫面碎成【6×4 格三角形碎片】，【旋轉往下掉落】，露出下一個畫面。",
+   "keys": "碎片數量、掉落方向",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "hit",
+    "glitch"
+   ],
+   "sfx": "hit＋glitch：碎裂瞬間 hit，碎片散開 glitch。"
+  },
+  {
+   "id": "iris",
+   "zh": "多環光圈",
+   "en": "Iris Rings",
+   "cat": "轉場 UI",
+   "role": [
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "能量",
+    "明亮"
+   ],
+   "topics": [
+    "活動",
+    "能量",
+    "段落"
+   ],
+   "dur": 1.4,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【多環光圈轉場】：圓形從中心擴散揭開下一個畫面，外圍有【3 道光環】（金、藍紫）一起擴散。",
+   "keys": "光環數量、顏色、起點",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "whoosh"
+   ],
+   "sfx": "whoosh：光圈展開 whoosh。"
+  },
+  {
+   "id": "push",
+   "zh": "推移",
+   "en": "Push",
+   "cat": "轉場 UI",
+   "role": [
+    "transition"
+   ],
+   "energy": 1,
+   "mood": [
+    "乾淨",
+    "通用"
+   ],
+   "topics": [
+    "通用",
+    "簡報",
+    "清單",
+    "換頁"
+   ],
+   "dur": 1.4,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【推移轉場】：下一個畫面從【右邊】把目前畫面【推出去】，轉場【1.4 秒】、先慢後快再慢。",
+   "keys": "方向、時長",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：推移時 swish。"
+  },
+  {
+   "id": "flash",
+   "zh": "星芒閃白",
+   "en": "Flash Star",
+   "cat": "轉場 UI",
+   "role": [
+    "transition",
+    "hook"
+   ],
+   "energy": 3,
+   "mood": [
+    "爆發",
+    "高潮"
+   ],
+   "topics": [
+    "卡點",
+    "揭曉",
+    "高潮",
+    "驚喜"
+   ],
+   "dur": 1,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【星芒閃白轉場】：切點時【白光閃一下＋8 道星芒】旋轉，閃完是下一個畫面。",
+   "keys": "閃光強度、星芒數",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "hit",
+    "shimmer"
+   ],
+   "sfx": "hit＋shimmer：閃白瞬間 hit，之後 shimmer。"
+  },
+  {
+   "id": "softdiag",
+   "zh": "柔邊斜向遮罩",
+   "en": "Soft Diagonal",
+   "cat": "轉場 UI",
+   "role": [
+    "transition"
+   ],
+   "energy": 1,
+   "mood": [
+    "精緻",
+    "柔和"
+   ],
+   "topics": [
+    "企業",
+    "精品",
+    "形象",
+    "溫和"
+   ],
+   "dur": 1.4,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【柔邊斜向遮罩轉場】：柔和漸層邊從【左上斜掃到右下】換成下一個畫面，轉場【1.4 秒】。",
+   "keys": "角度、柔邊寬度",
+   "source": "時報V04",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：遮罩掃過 swish。"
+  },
+  {
+   "id": "blurzoom",
+   "zh": "模糊縮放交疊",
+   "en": "Blur Zoom",
+   "cat": "轉場 UI",
+   "role": [
+    "transition"
+   ],
+   "energy": 1,
+   "mood": [
+    "電影感",
+    "柔和"
+   ],
+   "topics": [
+    "電影",
+    "情緒",
+    "形象",
+    "溫和"
+   ],
+   "dur": 1.4,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【模糊縮放交疊轉場】：目前畫面【放大＋模糊＋淡出】，下一個畫面【從模糊縮放到清楚】，轉場【1.4 秒】。",
+   "keys": "模糊程度、縮放幅度",
+   "source": "時報V04",
+   "sfx_recipes": [
+    "whoosh"
+   ],
+   "sfx": "whoosh：縮放交疊時一個低音量 whoosh。"
+  },
+  {
+   "id": "panel",
+   "zh": "面板滑入",
+   "en": "Panel Slide",
+   "cat": "轉場 UI",
+   "role": [
+    "transition"
+   ],
+   "energy": 1,
+   "mood": [
+    "雜誌",
+    "精緻"
+   ],
+   "topics": [
+    "章節",
+    "企業",
+    "雜誌",
+    "形象"
+   ],
+   "dur": 1.2,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【面板滑入轉場】：下一個畫面像一張紙從【右邊】滑入、帶【陰影】，目前畫面同時變暗。",
+   "keys": "方向、陰影強度",
+   "source": "時報V04",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：面板滑入 swish。"
+  },
+  {
+   "id": "liquid",
+   "zh": "液態遮罩",
+   "en": "Liquid Mask",
+   "cat": "轉場 UI",
+   "role": [
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "流動",
+    "清新"
+   ],
+   "topics": [
+    "飲品",
+    "水",
+    "清新",
+    "美妝"
+   ],
+   "dur": 1.4,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【液態遮罩轉場】：下一個畫面像【水位上漲】從下往上蓋滿，邊緣是【波浪】，轉場【1.4 秒】。",
+   "keys": "波浪大小、方向",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：液態遮罩展開 swish。"
+  },
+  {
+   "id": "filmfx",
+   "zh": "底片顆粒暗角",
+   "en": "Film Grain",
+   "cat": "後製質感",
+   "role": [
+    "overlay",
+    "bg"
+   ],
+   "energy": 1,
+   "mood": [
+    "電影感",
+    "質感"
+   ],
+   "topics": [
+    "電影",
+    "品牌",
+    "質感",
+    "整片"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": true,
+   "template": "整片加【底片顆粒＋暗角＋每段緩慢推近 4%】，顆粒強度【輕】，暗角【中等】。",
+   "keys": "顆粒強度、暗角、推近幅度",
+   "source": "時報V03",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "camshake",
+   "zh": "切點震動色散",
+   "en": "Beat Shake",
+   "cat": "後製質感",
+   "role": [
+    "overlay",
+    "transition"
+   ],
+   "energy": 3,
+   "mood": [
+    "衝擊",
+    "卡點"
+   ],
+   "topics": [
+    "卡點",
+    "運動",
+    "電子音樂",
+    "節奏"
+   ],
+   "dur": 0,
+   "loop": true,
+   "alpha": true,
+   "template": "整片在每個【128 BPM 切點】加【輕微震動＋放大 8%＋紅藍色散】，0.2 秒內回穩。",
+   "keys": "BPM、震動強度、是否要色散",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "hit"
+   ],
+   "sfx": "hit：只在卡點震動時給 hit。"
+  },
+  {
+   "id": "hud",
+   "zh": "觀景窗 HUD",
+   "en": "Viewfinder HUD",
+   "cat": "後製質感",
+   "role": [
+    "overlay"
+   ],
+   "energy": 1,
+   "mood": [
+    "紀錄",
+    "臨場"
+   ],
+   "topics": [
+    "Vlog",
+    "紀錄",
+    "章節",
+    "直播",
+    "幕後"
+   ],
+   "dur": 0,
+   "loop": true,
+   "alpha": true,
+   "template": "整片疊一層【觀景窗 HUD】：四角框線、【REC 閃爍】、右上【時間碼】、左下【章節名稱】、底部【進度條】。",
+   "keys": "章節名稱、要顯示的元素",
+   "source": "時報V03",
+   "sfx_recipes": [
+    "tick"
+   ],
+   "sfx": "tick：REC 閃爍或時間碼跳動給低音量 tick。"
+  },
+  {
+   "id": "glasswall",
+   "zh": "毛玻璃卡牆",
+   "en": "Glass Card Wall",
+   "cat": "版面介面",
+   "role": [
+    "data",
+    "bg"
+   ],
+   "energy": 1,
+   "mood": [
+    "質感",
+    "科技"
+   ],
+   "topics": [
+    "社群",
+    "平台",
+    "產品",
+    "矩陣",
+    "企業"
+   ],
+   "dur": 5,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【毛玻璃卡牆】：【8】張半透明卡片排成【前後兩排】透視牆，後排【模糊】，每張卡放【平台圖示＋名稱】，鏡頭【緩慢右移推近】，背景【深藍＋柔光球】。",
+   "keys": "卡片內容、排數、鏡頭移動方向",
+   "source": "時報V01",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "heroorbit",
+   "zh": "主視覺環繞軌道",
+   "en": "Hero Orbit",
+   "cat": "版面介面",
+   "role": [
+    "data",
+    "logo"
+   ],
+   "energy": 2,
+   "mood": [
+    "立體",
+    "展示"
+   ],
+   "topics": [
+    "App",
+    "平台",
+    "社群",
+    "產品",
+    "整合"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【主視覺環繞軌道】：中央放【手機畫面（自動捲動內容）】，【6】個【平台圖示】沿傾斜橢圓軌道繞行，後方的圖示【被擋住、變模糊】。",
+   "keys": "中央主視覺、圖示清單、轉速",
+   "source": "時報V01",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "kenburns",
+   "zh": "實拍緩推平移",
+   "en": "Ken Burns",
+   "cat": "版面介面",
+   "role": [
+    "bg",
+    "title"
+   ],
+   "energy": 1,
+   "mood": [
+    "紀錄",
+    "溫和"
+   ],
+   "topics": [
+    "照片",
+    "實拍",
+    "回顧",
+    "歷史",
+    "紀錄"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "把【我的照片／實拍片段】做【肯伯恩斯】效果：【6 秒】內從 1.04 倍緩慢放大到 1.16 倍，同時【往右平移 4%】，頭尾各【淡入淡出 0.5 秒】。",
+   "keys": "素材、放大幅度、平移方向",
+   "source": "時報V01",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "sepiacolor",
+   "zh": "舊照泛黃轉彩色",
+   "en": "Sepia to Color",
+   "cat": "後製質感",
+   "role": [
+    "transition",
+    "title"
+   ],
+   "energy": 1,
+   "mood": [
+    "懷舊",
+    "故事"
+   ],
+   "topics": [
+    "沿革",
+    "歷史",
+    "今昔",
+    "品牌故事",
+    "週年"
+   ],
+   "dur": 5,
+   "loop": false,
+   "alpha": false,
+   "template": "把【這段畫面】做成【舊照泛黃轉彩色】：前【1.8 秒】是【黑白泛黃＋顆粒】，接著在【1.4 秒】內漸漸恢復彩色，同時年份從「【1989】」換成「【2026】」。",
+   "keys": "起訖年份、褪色時長",
+   "source": "時報V01",
+   "sfx_recipes": [
+    "shimmer"
+   ],
+   "sfx": "shimmer：轉為彩色瞬間 shimmer。"
+  },
+  {
+   "id": "wordcollapse",
+   "zh": "關鍵詞收束",
+   "en": "Word Collapse",
+   "cat": "文字標題",
+   "role": [
+    "cta",
+    "logo"
+   ],
+   "energy": 2,
+   "mood": [
+    "收束",
+    "品牌感"
+   ],
+   "topics": [
+    "理念",
+    "價值",
+    "片尾",
+    "品牌",
+    "企業"
+   ],
+   "dur": 4.6,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【關鍵詞收束】：「【創新】」「【品質】」「【服務】」依序彈入，間隔【0.6 秒】，下方細線長出，最後三個詞【一起縮回中心】，接著出現【品牌名】。",
+   "keys": "三個關鍵詞、收束後出現的內容",
+   "source": "時報V01",
+   "sfx_recipes": [
+    "whoosh",
+    "hit"
+   ],
+   "sfx": "whoosh＋hit：收束過程 whoosh，關鍵詞定格 hit。"
+  },
+  {
+   "id": "gooey",
+   "zh": "黏液融合球",
+   "en": "Gooey Metaball",
+   "cat": "Logo 圖形",
+   "role": [
+    "logo",
+    "bg"
+   ],
+   "energy": 2,
+   "mood": [
+    "有機",
+    "流動"
+   ],
+   "topics": [
+    "Logo",
+    "液體",
+    "飲品",
+    "美妝",
+    "App"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【黏液融合球】：【5】顆圓繞著中心漂移，靠近時【像液體一樣黏合】，填色【橘到藍漸層】，背景【黑】。",
+   "keys": "球數、黏度、配色",
+   "source": "網路範例",
+   "ref": "https://tympanus.net/codrops/2015/03/10/creative-gooey-effects/",
+   "sfx_recipes": [
+    "pop"
+   ],
+   "sfx": "pop：球體融合時一個 pop。"
+  },
+  {
+   "id": "circletext",
+   "zh": "環形旋轉文字",
+   "en": "Circular Text",
+   "cat": "文字標題",
+   "role": [
+    "cta",
+    "overlay"
+   ],
+   "energy": 1,
+   "mood": [
+    "徽章",
+    "潮流"
+   ],
+   "topics": [
+    "追蹤",
+    "訂閱",
+    "CTA",
+    "品牌",
+    "片尾"
+   ],
+   "dur": 8,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【環形旋轉文字】：「【SCROLL · FOLLOW · SAVE · SHARE】」沿圓形排列【慢慢旋轉】，中間是【珊瑚橘圓＋「追蹤」】，透明背景。",
+   "keys": "環形文字、中心內容、轉速",
+   "source": "網路範例",
+   "ref": "https://tympanus.net/codrops/?p=53487",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "ascii",
+   "zh": "ASCII 字元成像",
+   "en": "ASCII Render",
+   "cat": "後製質感",
+   "role": [
+    "bg",
+    "hook"
+   ],
+   "energy": 2,
+   "mood": [
+    "科技",
+    "復古"
+   ],
+   "topics": [
+    "科技",
+    "程式",
+    "AI",
+    "駭客",
+    "開發"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "把【這個畫面／一顆受光球體】做成【ASCII 字元成像】：依亮度用「【 .:-=+*#%@】」字元排出，顏色【藍到橘】，光源【緩慢旋轉】。",
+   "keys": "畫面來源、字元集、格子大小",
+   "source": "網路範例",
+   "ref": "https://tympanus.net/codrops/2026/01/04/efecto-building-real-time-ascii-and-dithering-effects-with-webgl-shaders",
+   "sfx_recipes": [
+    "key"
+   ],
+   "sfx": "key：字元成像時稀疏 key。"
+  },
+  {
+   "id": "dither",
+   "zh": "抖動網點揭露",
+   "en": "Dither Reveal",
+   "cat": "後製質感",
+   "role": [
+    "hook",
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "復古",
+    "印刷"
+   ],
+   "topics": [
+    "海報",
+    "復古",
+    "產品",
+    "揭曉",
+    "雜誌"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【抖動網點揭露】：用【4×4 Bayer 網點】把【我的圖／球體】從無到有【2.5 秒】逐漸顯現，網點【珊瑚橘】，背景【深色】。",
+   "keys": "圖像、網點大小、顯現時長",
+   "source": "網路範例",
+   "ref": "https://tympanus.net/codrops/2026/01/04/efecto-building-real-time-ascii-and-dithering-effects-with-webgl-shaders",
+   "sfx_recipes": [
+    "glitch"
+   ],
+   "sfx": "glitch：網點揭露時一個 glitch。"
+  },
+  {
+   "id": "spotlight",
+   "zh": "聚光燈探照",
+   "en": "Spotlight Reveal",
+   "cat": "轉場 UI",
+   "role": [
+    "hook",
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "懸念",
+    "好奇"
+   ],
+   "topics": [
+    "懸念",
+    "揭曉",
+    "重點",
+    "產品",
+    "開場"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【聚光燈探照】：黑幕上有一個【柔邊光圈】四處移動，照出底下的「【找到重點】」，最後【光圈放大到全畫面】。",
+   "keys": "底下內容、光圈大小、移動路線",
+   "source": "網路範例",
+   "ref": "https://tympanus.net/codrops/?p=54377",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：光圈移動 swish，停住時靜音。"
+  },
+  {
+   "id": "odometer",
+   "zh": "里程表滾輪數字",
+   "en": "Odometer Roll",
+   "cat": "數據圖表",
+   "role": [
+    "data",
+    "hook"
+   ],
+   "energy": 2,
+   "mood": [
+    "機械",
+    "成就"
+   ],
+   "topics": [
+    "里程碑",
+    "粉絲",
+    "營收",
+    "價格",
+    "計數"
+   ],
+   "dur": 4.5,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【里程表滾輪數字】：數字從【0】捲到【48,216】，每一位像【機械滾輪】各自捲動、低位進位帶動高位，前兩位用【珊瑚橘】，【3 秒】先快後慢。",
+   "keys": "目標數字、位數、時長",
+   "source": "網路範例",
+   "ref": "https://www.framer.com/marketplace/components/odometer-counter-fx/",
+   "sfx_recipes": [
+    "tick",
+    "ding"
+   ],
+   "sfx": "tick＋ding：滾輪每格一個 tick（上限每秒 15 次），停住給 ding。"
+  },
+  {
+   "id": "barrace",
+   "zh": "長條圖競賽",
+   "en": "Bar Chart Race",
+   "cat": "數據圖表",
+   "role": [
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "競爭",
+    "趨勢"
+   ],
+   "topics": [
+    "排行",
+    "市占",
+    "平台",
+    "趨勢",
+    "年度"
+   ],
+   "dur": 8,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【長條圖競賽】：【5】個項目【YouTube、IG、TikTok、FB、LINE】從【2022】到【2026】，長條隨數值變化並【互相超車換名次】，右下角大字顯示年份。",
+   "keys": "項目、每年數值、年份範圍",
+   "source": "網路範例",
+   "ref": "https://flourish.studio/blog/animated-charts/",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：排名變動時一個輕 swish。"
+  },
+  {
+   "id": "linerace",
+   "zh": "折線競賽",
+   "en": "Line Chart Race",
+   "cat": "數據圖表",
+   "role": [
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "競爭",
+    "成長"
+   ],
+   "topics": [
+    "比較",
+    "成長",
+    "品牌",
+    "股價",
+    "年報"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【折線競賽】：【3】條折線【A 品牌、B 品牌、C 品牌】一起往右延伸【3.6 秒】，線頭顯示【名稱＋數值】，配色【珊瑚橘、藍紫、金】。",
+   "keys": "線條與數據、時長",
+   "source": "網路範例",
+   "ref": "https://flourish.studio/blog/animated-charts/",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：折線推進時一個輕 swish。"
+  },
+  {
+   "id": "weightwave",
+   "zh": "字重波浪",
+   "en": "Weight Wave",
+   "cat": "文字標題",
+   "role": [
+    "title",
+    "hook"
+   ],
+   "energy": 2,
+   "mood": [
+    "節奏",
+    "時尚"
+   ],
+   "topics": [
+    "標語",
+    "音樂",
+    "時尚",
+    "品牌",
+    "節奏"
+   ],
+   "dur": 4,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【字重波浪】：「【字重波浪WAVE】」每個字的【粗細與寬度】像波浪一樣由左往右起伏，顏色隨粗細在【藍到橘】之間變化。",
+   "keys": "文字、波速、粗細範圍",
+   "source": "網路範例",
+   "ref": "https://creativebloq.com/design/fonts-typography/from-variable-fonts-to-kinetic-type-these-typography-trends-could-be-big-in-2025",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "blurin",
+   "zh": "模糊逐字浮現",
+   "en": "Blur Stagger In",
+   "cat": "文字標題",
+   "role": [
+    "title",
+    "hook"
+   ],
+   "energy": 1,
+   "mood": [
+    "精緻",
+    "高級"
+   ],
+   "topics": [
+    "發表",
+    "金句",
+    "簡報",
+    "企業",
+    "精品"
+   ],
+   "dur": 4,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【模糊逐字浮現】：「【每個字都清楚登場】」每個字從【模糊＋透明＋下沉】依序清楚定位，間隔【0.09 秒】，後三字用【珊瑚橘】，最後一起模糊淡出。",
+   "keys": "文字、間隔、重點字",
+   "source": "網路範例",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "zoomtext",
+   "zh": "穿字放大轉場",
+   "en": "Zoom Through Text",
+   "cat": "轉場 UI",
+   "role": [
+    "transition",
+    "hook"
+   ],
+   "energy": 3,
+   "mood": [
+    "衝擊",
+    "電影感"
+   ],
+   "topics": [
+    "片頭",
+    "轉場",
+    "品牌",
+    "揭曉",
+    "章節"
+   ],
+   "dur": 3.2,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【穿字放大轉場】：大字「【BIG】」裡面透出下一個畫面，鏡頭從字母「【I】」【衝進去放大 60 倍】，穿過後整個畫面就是下一個場景，【2 秒】。",
+   "keys": "字、穿過哪個字母、時長",
+   "source": "網路範例",
+   "sfx_recipes": [
+    "whoosh",
+    "hit"
+   ],
+   "sfx": "whoosh＋hit：穿字放大 whoosh，穿過瞬間 hit。"
+  },
+  {
+   "id": "mosaic",
+   "zh": "動態照片牆",
+   "en": "Photo Mosaic",
+   "cat": "版面介面",
+   "role": [
+    "data",
+    "cta"
+   ],
+   "energy": 2,
+   "mood": [
+    "回顧",
+    "熱鬧"
+   ],
+   "topics": [
+    "回顧",
+    "活動",
+    "見證",
+    "作品集",
+    "年度"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【動態照片牆】：【4×3】格【我的照片】依斜向波浪【逐格翻面】出現，接著全部翻成【一張完整主圖】，最後疊上「【RECAP】」。",
+   "keys": "照片、格數、主圖",
+   "source": "網路範例",
+   "sfx_recipes": [
+    "tick"
+   ],
+   "sfx": "tick：照片出現時稀疏 tick。"
+  },
+  {
+   "id": "cardswipe",
+   "zh": "疊卡滑走",
+   "en": "Card Swipe",
+   "cat": "版面介面",
+   "role": [
+    "data",
+    "title"
+   ],
+   "energy": 2,
+   "mood": [
+    "清單",
+    "節奏"
+   ],
+   "topics": [
+    "清單",
+    "TopN",
+    "特色",
+    "重點",
+    "排行"
+   ],
+   "dur": 4.8,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【疊卡滑走】：【4】張卡疊在一起，每【1.2 秒】把最上面一張【往右甩出並旋轉】，後面的卡往前補位，卡上放【#1、#2…重點】。",
+   "keys": "卡片內容、間隔、甩出方向",
+   "source": "網路範例",
+   "sfx_recipes": [
+    "swish",
+    "thud"
+   ],
+   "sfx": "swish＋thud：卡片滑走 swish，下一張落定 thud。"
+  },
+  {
+   "id": "chat",
+   "zh": "對話泡泡",
+   "en": "Chat Bubbles",
+   "cat": "版面介面",
+   "role": [
+    "title",
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "親切",
+    "生活"
+   ],
+   "topics": [
+    "對話",
+    "客服",
+    "AI",
+    "情境",
+    "聊天"
+   ],
+   "dur": 7,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【對話泡泡】：【4】則對話左右交替出現，每則先顯示【打字中三個點 0.6 秒】再彈出泡泡，我的訊息用【珊瑚橘】，對方用【深灰】，內容「【今天剪好了嗎？】…」。",
+   "keys": "對話內容、誰說的、節奏",
+   "source": "網路範例",
+   "sfx_recipes": [
+    "pop"
+   ],
+   "sfx": "pop：每則訊息彈出一個 pop。"
+  },
+  {
+   "id": "notify",
+   "zh": "通知堆疊",
+   "en": "Notification Stack",
+   "cat": "版面介面",
+   "role": [
+    "overlay",
+    "data"
+   ],
+   "energy": 3,
+   "mood": [
+    "熱賣",
+    "急迫"
+   ],
+   "topics": [
+    "電商",
+    "訂單",
+    "社群",
+    "App",
+    "爆紅"
+   ],
+   "dur": 5.5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【通知堆疊】：手機鎖屏上，通知「【新訂單 #1024】」「【有人按讚了你的影片】」…每【1.1 秒】從上方【彈入】，舊的往下【壓疊縮小】。",
+   "keys": "通知文字、頻率、App 圖示",
+   "source": "網路範例",
+   "sfx_recipes": [
+    "pop",
+    "ding"
+   ],
+   "sfx": "pop＋ding：每則通知 pop，重點通知加 ding。"
+  },
+  {
+   "id": "checklist",
+   "zh": "步驟清單打勾",
+   "en": "Step Checklist",
+   "cat": "版面介面",
+   "role": [
+    "data",
+    "title"
+   ],
+   "energy": 1,
+   "mood": [
+    "清楚",
+    "流程"
+   ],
+   "topics": [
+    "教學",
+    "流程",
+    "步驟",
+    "SOP",
+    "導入"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【步驟清單打勾】：【4】個步驟「【上傳素材】【自動配效果】【逐字字幕】【輸出 9:16】」，進度線往下延伸【3.2 秒】，經過的圓點【亮起並畫出勾勾】。",
+   "keys": "步驟文字、時長",
+   "source": "網路範例",
+   "sfx_recipes": [
+    "click",
+    "ding"
+   ],
+   "sfx": "click＋ding：每次打勾 click，全部完成 ding。"
+  },
+  {
+   "id": "glowcard",
+   "zh": "發光卡片倒影",
+   "en": "Glow Card Reflection",
+   "cat": "版面介面",
+   "role": [
+    "overlay",
+    "title",
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "科技",
+    "精品"
+   ],
+   "topics": [
+    "功能",
+    "方案",
+    "產品",
+    "詳情",
+    "卡片"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【發光卡片倒影】：先出現一條【珊瑚橘到琥珀的漸層細條】，【0.7 秒】內橫向展開再撐開成圓角卡片，卡片上有【星形圖示＋標題「功能詳情」＋副標「重點一眼看懂」】，卡片外圍【發光呼吸】，下方有【淡出倒影】，停留【3 秒】後收回，循環【6 秒】。",
+   "keys": "卡片標題與副標、漸層顏色、圖示、停留時間",
+   "source": "第六批新技法",
+   "sfx_recipes": [
+    "swish",
+    "pop",
+    "ding"
+   ],
+   "sfx": "swish＋pop＋ding：細條展開 swish，撐開成卡片 pop，文字出現 ding。"
+  },
+  {
+   "id": "pillchain",
+   "zh": "膠囊串連",
+   "en": "Pill Chain",
+   "cat": "版面介面",
+   "role": [
+    "data",
+    "title"
+   ],
+   "energy": 1,
+   "mood": [
+    "清楚",
+    "流程"
+   ],
+   "topics": [
+    "流程",
+    "步驟",
+    "三步驟",
+    "從零到一",
+    "教學"
+   ],
+   "dur": 7.5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【膠囊串連】：米白底，【3】顆黑色膠囊「【先想】【再做】【上線】」每隔【1.5 秒】彈出，之間用【垂掛細線】依序畫出，線頭帶一顆【珊瑚橘小點】，最後一顆膠囊改用【珊瑚橘】強調，循環【7.5 秒】。",
+   "keys": "膠囊文字（建議 2～4 顆）、底色、強調色、間隔秒數",
+   "source": "第六批新技法",
+   "sfx_recipes": [
+    "pop",
+    "swish",
+    "ding"
+   ],
+   "sfx": "pop＋swish＋ding：每顆膠囊 pop，連線畫出 swish，最後一顆強調色 ding。"
+  },
+  {
+   "id": "routemap",
+   "zh": "地圖路線描繪",
+   "en": "Route Draw",
+   "cat": "數據圖表",
+   "role": [
+    "data",
+    "bg"
+   ],
+   "energy": 2,
+   "mood": [
+    "旅程",
+    "移動"
+   ],
+   "topics": [
+    "旅遊",
+    "物流",
+    "路線",
+    "展店",
+    "據點"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【地圖路線描繪】：點陣地圖上，路線經過【5 個據點】，【虛線】逐段畫出，移動點【拖著珊瑚橘尾跡】，經過的據點亮起，【4.5 秒】。",
+   "keys": "據點與順序、地圖範圍、時長",
+   "source": "網路範例",
+   "sfx_recipes": [
+    "swish",
+    "ding"
+   ],
+   "sfx": "swish＋ding：路線畫出時 swish，抵達據點給低音量 ding。"
+  },
+  {
+   "id": "lightleak",
+   "zh": "漏光疊加",
+   "en": "Light Leak",
+   "cat": "後製質感",
+   "role": [
+    "overlay",
+    "transition"
+   ],
+   "energy": 1,
+   "mood": [
+    "溫暖",
+    "回憶"
+   ],
+   "topics": [
+    "生活",
+    "婚禮",
+    "回憶",
+    "旅遊",
+    "溫暖"
+   ],
+   "dur": 0,
+   "loop": true,
+   "alpha": true,
+   "template": "在【整段畫面】上疊【漏光】：【3】團暖色光斑（橘、粉紅、金）以【濾色模式】緩慢飄過，強度【中】。",
+   "keys": "光斑顏色、強度、速度",
+   "source": "網路範例",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "lissajous",
+   "zh": "李薩如曲線",
+   "en": "Lissajous",
+   "cat": "背景氛圍",
+   "role": [
+    "bg"
+   ],
+   "energy": 1,
+   "mood": [
+    "理性",
+    "優雅"
+   ],
+   "topics": [
+    "科學",
+    "音樂",
+    "知識",
+    "數學"
+   ],
+   "dur": 8,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【李薩如曲線】背景：【3:2、5:4、4:3】三條曲線緩慢相位旋轉，線寬【1.6px】，顏色【藍到橘】，背景【深色】。",
+   "keys": "頻率比、線條數、配色",
+   "source": "第五批新技法",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "voronoi",
+   "zh": "沃羅諾伊細胞",
+   "en": "Voronoi Cells",
+   "cat": "背景氛圍",
+   "role": [
+    "bg"
+   ],
+   "energy": 1,
+   "mood": [
+    "有機",
+    "結構"
+   ],
+   "topics": [
+    "生技",
+    "醫療",
+    "都市",
+    "抽象",
+    "結構"
+   ],
+   "dur": 8,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【沃羅諾伊細胞】背景：【14】個種子點緩慢漂移，切出細胞區塊，邊界【白色發亮】，區塊【藍到橘半透明】。",
+   "keys": "細胞數、邊界顏色、漂移速度",
+   "source": "第五批新技法",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "magnetic",
+   "zh": "磁吸點陣",
+   "en": "Magnetic Dots",
+   "cat": "背景氛圍",
+   "role": [
+    "bg"
+   ],
+   "energy": 1,
+   "mood": [
+    "互動",
+    "科技"
+   ],
+   "topics": [
+    "科技",
+    "UI",
+    "互動",
+    "產品"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【磁吸點陣】：整片點陣中有一個看不見的磁點【緩慢移動】，附近的點【放大、變亮、往磁點靠攏】，顏色【藍到橘】。",
+   "keys": "點距、影響半徑、移動路線",
+   "source": "第五批新技法",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "galaxy",
+   "zh": "螺旋星系",
+   "en": "Spiral Galaxy",
+   "cat": "背景氛圍",
+   "role": [
+    "bg",
+    "hook"
+   ],
+   "energy": 1,
+   "mood": [
+    "宏大",
+    "夢幻"
+   ],
+   "topics": [
+    "宇宙",
+    "願景",
+    "冥想",
+    "科幻"
+   ],
+   "dur": 10,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【螺旋星系】：【700】顆星點組成【3 條旋臂】緩慢旋轉，中心【暖色光暈】，外圈偏藍。",
+   "keys": "星點數、旋臂數、轉速",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "drone"
+   ],
+   "sfx": "drone：極低音量 drone 墊底（-30 dB 以下）。"
+  },
+  {
+   "id": "matrixrain",
+   "zh": "數位雨",
+   "en": "Digital Rain",
+   "cat": "背景氛圍",
+   "role": [
+    "bg",
+    "hook"
+   ],
+   "energy": 2,
+   "mood": [
+    "駭客",
+    "神秘"
+   ],
+   "topics": [
+    "資安",
+    "駭客",
+    "科技",
+    "程式"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【數位雨】：直行字元【01＋片假名】往下流，每行速度不同，最前端【白色】、尾巴漸暗成【藍紫】。",
+   "keys": "字元集、密度、速度",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "drone",
+    "key"
+   ],
+   "sfx": "drone＋key：drone 墊底，偶爾稀疏的 key（每秒不超過 3 次）。"
+  },
+  {
+   "id": "bokeh",
+   "zh": "散景光斑",
+   "en": "Bokeh",
+   "cat": "背景氛圍",
+   "role": [
+    "bg",
+    "overlay"
+   ],
+   "energy": 1,
+   "mood": [
+    "浪漫",
+    "溫柔"
+   ],
+   "topics": [
+    "婚禮",
+    "節慶",
+    "夜景",
+    "浪漫"
+   ],
+   "dur": 8,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【散景光斑】背景：【34】個柔焦光圈慢慢漂浮、明暗呼吸，顏色【橘、藍紫、金】，背景【深藍漸層】。",
+   "keys": "光斑數量、大小、配色",
+   "source": "第五批新技法",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "snow",
+   "zh": "雪花飄落",
+   "en": "Snowfall",
+   "cat": "背景氛圍",
+   "role": [
+    "bg",
+    "overlay"
+   ],
+   "energy": 1,
+   "mood": [
+    "溫馨",
+    "季節"
+   ],
+   "topics": [
+    "冬季",
+    "聖誕",
+    "節慶",
+    "祝福"
+   ],
+   "dur": 0,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【雪花飄落】：【160】片雪花依遠近【大小、速度、透明度不同】，左右輕擺飄落，背景【夜空藍】。",
+   "keys": "雪量、風向、背景",
+   "source": "第五批新技法",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "halftone",
+   "zh": "半色調波點",
+   "en": "Halftone",
+   "cat": "背景氛圍",
+   "role": [
+    "bg",
+    "hook"
+   ],
+   "energy": 2,
+   "mood": [
+    "復古",
+    "普普"
+   ],
+   "topics": [
+    "漫畫",
+    "普普",
+    "復古",
+    "海報"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【半色調波點】：米白底上【珊瑚橘網點】，網點大小隨【移動光源】距離變化並帶波紋，風格【普普藝術】。",
+   "keys": "網點大小、顏色、光源路線",
+   "source": "第五批新技法",
+   "sfx_recipes": [],
+   "sfx": "背景層不加音效。"
+  },
+  {
+   "id": "kaleido",
+   "zh": "萬花筒",
+   "en": "Kaleidoscope",
+   "cat": "背景氛圍",
+   "role": [
+    "bg",
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "迷幻",
+    "對稱"
+   ],
+   "topics": [
+    "音樂",
+    "MV",
+    "節慶",
+    "迷幻"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【萬花筒】：扇形內的【5 個圓點】緩慢移動，鏡射成【12 等分】對稱花樣，顏色【藍到橘】。",
+   "keys": "鏡射數、圖形、速度",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：作轉場時變形瞬間一個 swish，作背景時靜音。"
+  },
+  {
+   "id": "splitflap",
+   "zh": "機場翻牌字",
+   "en": "Split-Flap Board",
+   "cat": "文字標題",
+   "role": [
+    "title",
+    "hook"
+   ],
+   "energy": 2,
+   "mood": [
+    "期待",
+    "復古"
+   ],
+   "topics": [
+    "旅遊",
+    "啟程",
+    "公告",
+    "活動"
+   ],
+   "dur": 5,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【機場翻牌字】：兩行「【NOW】」「【BOARDING】」每格先【快速亂翻字母】，再由左到右依序定格，第二行用【珊瑚橘】。",
+   "keys": "文字、定格順序、配色",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "key",
+    "click"
+   ],
+   "sfx": "key＋click：翻牌過程連續 key（上限每秒 20 次），每個定格 click。"
+  },
+  {
+   "id": "flip3d",
+   "zh": "立體翻轉逐字",
+   "en": "3D Flip In",
+   "cat": "文字標題",
+   "role": [
+    "title",
+    "hook"
+   ],
+   "energy": 2,
+   "mood": [
+    "立體",
+    "俐落"
+   ],
+   "topics": [
+    "標題",
+    "發表",
+    "開場"
+   ],
+   "dur": 4,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【立體翻轉逐字】：「【立體翻轉登場】」每個字【繞橫軸翻轉進場】並回彈，間隔【0.12 秒】，後兩字【珊瑚橘】。",
+   "keys": "文字、間隔、翻轉軸",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "tick"
+   ],
+   "sfx": "tick：每字翻轉進場一個 tick。"
+  },
+  {
+   "id": "echo",
+   "zh": "殘影拖尾字",
+   "en": "Echo Trail",
+   "cat": "文字標題",
+   "role": [
+    "title",
+    "hook"
+   ],
+   "energy": 2,
+   "mood": [
+    "迷幻",
+    "速度"
+   ],
+   "topics": [
+    "音樂",
+    "運動",
+    "潮流",
+    "節奏"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【殘影拖尾字】：「【ECHO】」沿【8 字曲線】移動，身後拖著【8 層】漸淡的彩色殘影（藍到橘）。",
+   "keys": "文字、殘影層數、移動路線",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：字移動時一個 swish。"
+  },
+  {
+   "id": "outlinefill",
+   "zh": "描邊注滿字",
+   "en": "Outline Fill",
+   "cat": "文字標題",
+   "role": [
+    "title",
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "療癒",
+    "進度"
+   ],
+   "topics": [
+    "飲品",
+    "達成",
+    "進度",
+    "目標"
+   ],
+   "dur": 4,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【描邊注滿字】：空心大字「【FILL UP】」被【珊瑚橘液體】從下往上注滿，液面帶【波浪】，【2.2 秒】注滿。",
+   "keys": "文字、液體顏色、注滿時長",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "swish",
+    "ding"
+   ],
+   "sfx": "swish＋ding：注滿期間 swish，注滿瞬間 ding。"
+  },
+  {
+   "id": "textpath",
+   "zh": "曲線流動文字",
+   "en": "Text on Path",
+   "cat": "文字標題",
+   "role": [
+    "bg",
+    "title"
+   ],
+   "energy": 1,
+   "mood": [
+    "流動",
+    "柔和"
+   ],
+   "topics": [
+    "標語",
+    "音樂",
+    "品牌",
+    "緞帶"
+   ],
+   "dur": 0,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【曲線流動文字】：「【沿著曲線流動的文字】」沿著【波浪曲線】持續往左流動，每個字隨曲線旋轉，顏色【藍到橘】漸變。",
+   "keys": "文字、曲線形狀、速度",
+   "source": "第五批新技法",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "treemap",
+   "zh": "矩形樹狀圖",
+   "en": "Treemap",
+   "cat": "數據圖表",
+   "role": [
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "理性",
+    "結構"
+   ],
+   "topics": [
+    "占比",
+    "營收",
+    "預算",
+    "流量",
+    "結構"
+   ],
+   "dur": 4.5,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【矩形樹狀圖】：【影音 42%、新聞 26%、社群 19%、Podcast 8%、其他 5%】依比例拼成矩形，依序【彈出】，每塊不同顏色並標示名稱與比例。",
+   "keys": "項目與比例、配色",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "pop"
+   ],
+   "sfx": "pop：每個方塊彈出一個 pop。"
+  },
+  {
+   "id": "heatmap",
+   "zh": "熱力格",
+   "en": "Heatmap Grid",
+   "cat": "數據圖表",
+   "role": [
+    "data"
+   ],
+   "energy": 1,
+   "mood": [
+    "紀律",
+    "累積"
+   ],
+   "topics": [
+    "活躍",
+    "頻率",
+    "打卡",
+    "紀錄",
+    "習慣"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【熱力格】：【26 週 × 7 天】格子由左往右一欄欄填色，深淺代表【活躍度】，主色【珊瑚橘】，上方標題「【半年更新紀錄】」。",
+   "keys": "時間範圍、數據、配色",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "tick"
+   ],
+   "sfx": "tick：填色過程稀疏 tick。"
+  },
+  {
+   "id": "funnel",
+   "zh": "漏斗圖",
+   "en": "Funnel",
+   "cat": "數據圖表",
+   "role": [
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "理性",
+    "說服"
+   ],
+   "topics": [
+    "行銷",
+    "轉換",
+    "電商",
+    "成效"
+   ],
+   "dur": 5,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【漏斗圖】：【曝光 10,000 → 點擊 3,200 → 加入購物車 900 → 下單 240】四層由寬到窄依序出現，數字跳動，顏色由【橘漸變到藍】。",
+   "keys": "各層名稱與數字",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "thud"
+   ],
+   "sfx": "thud：每一層落定一個 thud。"
+  },
+  {
+   "id": "ecg",
+   "zh": "心電圖",
+   "en": "ECG Line",
+   "cat": "數據圖表",
+   "role": [
+    "data",
+    "bg"
+   ],
+   "energy": 2,
+   "mood": [
+    "生命",
+    "緊張"
+   ],
+   "topics": [
+    "醫療",
+    "健康",
+    "運動",
+    "心率"
+   ],
+   "dur": 3.3,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【心電圖】：格線背景上【發光心電圖線】由左往右畫出，主色【珊瑚橘】，右上顯示「【72 BPM】」。",
+   "keys": "心率、顏色、速度",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "tick"
+   ],
+   "sfx": "tick：每次心跳一個低音量 tick。"
+  },
+  {
+   "id": "oscillo",
+   "zh": "聲波曲線",
+   "en": "Voice Wave",
+   "cat": "數據圖表",
+   "role": [
+    "overlay",
+    "bg"
+   ],
+   "energy": 2,
+   "mood": [
+    "科技",
+    "聲音"
+   ],
+   "topics": [
+    "語音",
+    "AI",
+    "Podcast",
+    "對話"
+   ],
+   "dur": 0,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【聲波曲線】：【3】條半透明聲波（橘、藍紫、金）交疊，振幅【隨聲音起伏】，兩端收窄，【接我的音檔／先用假資料】。",
+   "keys": "條數、是否接音檔、配色",
+   "source": "第五批新技法",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "speedlines",
+   "zh": "漫畫速度線",
+   "en": "Speed Lines",
+   "cat": "轉場 UI",
+   "role": [
+    "hook",
+    "transition"
+   ],
+   "energy": 3,
+   "mood": [
+    "衝擊",
+    "搞笑"
+   ],
+   "topics": [
+    "爆點",
+    "搞笑",
+    "動漫",
+    "強調"
+   ],
+   "dur": 1.6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【漫畫速度線】：米白底上【70 條黑色放射線】快速閃動，中央大字「【爆！】」【重擊放大】並微傾斜，字【珊瑚橘黑邊】。",
+   "keys": "中央文字、線條密度",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "hit"
+   ],
+   "sfx": "hit：速度線爆開瞬間 hit。"
+  },
+  {
+   "id": "fireworks",
+   "zh": "煙火",
+   "en": "Fireworks",
+   "cat": "轉場 UI",
+   "role": [
+    "cta",
+    "bg"
+   ],
+   "energy": 3,
+   "mood": [
+    "歡慶",
+    "熱鬧"
+   ],
+   "topics": [
+    "節慶",
+    "跨年",
+    "慶祝",
+    "週年"
+   ],
+   "dur": 0,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【煙火】：夜空中【4 發】煙火此起彼落，升空後炸開成【40 顆火花】，受重力下墜淡出，顏色【橘、藍紫、金、綠】。",
+   "keys": "發數、顏色、頻率",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "hit",
+    "shimmer"
+   ],
+   "sfx": "hit＋shimmer：發射 hit，炸開 shimmer（兩發以上錯開，勿同時）。"
+  },
+  {
+   "id": "sticker",
+   "zh": "貼紙彈出",
+   "en": "Sticker Pop",
+   "cat": "Logo 圖形",
+   "role": [
+    "overlay",
+    "cta"
+   ],
+   "energy": 3,
+   "mood": [
+    "活潑",
+    "吸睛"
+   ],
+   "topics": [
+    "新品",
+    "優惠",
+    "提醒",
+    "促銷"
+   ],
+   "dur": 3,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【貼紙彈出】：鋸齒圓形貼紙「【NEW!】」【彈性彈出並晃動回正】，底色【珊瑚橘】白邊，周圍【6 顆金色小星】閃爍，透明背景。",
+   "keys": "貼紙文字、形狀、顏色",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "pop"
+   ],
+   "sfx": "pop：貼紙彈出一個 pop。"
+  },
+  {
+   "id": "arrow",
+   "zh": "手繪箭頭指引",
+   "en": "Hand-drawn Arrow",
+   "cat": "版面介面",
+   "role": [
+    "overlay"
+   ],
+   "energy": 2,
+   "mood": [
+    "指引",
+    "親切"
+   ],
+   "topics": [
+    "教學",
+    "指引",
+    "點擊",
+    "重點"
+   ],
+   "dur": 4,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【手繪箭頭指引】：從【左下】畫出一條【弧形手繪箭頭】指向「【點這裡】」按鈕，到位後按鈕外圈【脈動一圈】，線條【珊瑚橘 4px 圓頭】。",
+   "keys": "起點、目標、文字",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：箭頭畫出 swish。"
+  },
+  {
+   "id": "cursor",
+   "zh": "滑鼠點擊示範",
+   "en": "Cursor Click",
+   "cat": "版面介面",
+   "role": [
+    "data",
+    "cta"
+   ],
+   "energy": 2,
+   "mood": [
+    "示範",
+    "清楚"
+   ],
+   "topics": [
+    "教學",
+    "訂閱",
+    "App",
+    "操作",
+    "示範"
+   ],
+   "dur": 4,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【滑鼠點擊示範】：游標從【左上】移到「【訂閱】」按鈕，點擊時出現【漣漪】，按鈕變成「【已訂閱 ✓】」並變灰。",
+   "keys": "按鈕文字、點擊後狀態",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "click"
+   ],
+   "sfx": "click：點擊瞬間 click。"
+  },
+  {
+   "id": "pricetag",
+   "zh": "降價標籤",
+   "en": "Price Drop",
+   "cat": "版面介面",
+   "role": [
+    "cta",
+    "data"
+   ],
+   "energy": 3,
+   "mood": [
+    "促銷",
+    "急迫"
+   ],
+   "topics": [
+    "促銷",
+    "電商",
+    "特價",
+    "折扣"
+   ],
+   "dur": 4.5,
+   "loop": false,
+   "alpha": true,
+   "template": "做一個【降價標籤】：原價「【$2,980】」被【珊瑚橘線】劃掉，接著新價「【$1,780】」彈出，右上吊牌「【SALE -40%】」晃動後停下。",
+   "keys": "原價、新價、折扣",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "hit",
+    "ding"
+   ],
+   "sfx": "hit＋ding：劃掉原價 hit，新價彈出 ding。"
+  },
+  {
+   "id": "quote",
+   "zh": "引言卡",
+   "en": "Quote Card",
+   "cat": "文字標題",
+   "role": [
+    "title"
+   ],
+   "energy": 1,
+   "mood": [
+    "沉穩",
+    "觀點"
+   ],
+   "topics": [
+    "語錄",
+    "見證",
+    "觀點",
+    "金句"
+   ],
+   "dur": 5,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【引言卡】：左上【珊瑚橘大引號】彈出，引言「【好的設計是】」「【讓人看不見設計】」逐行升起，最後出現「【— 作者名】」。",
+   "keys": "引言、作者、配色",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "chime"
+   ],
+   "sfx": "chime：引言落定、署名出現時一個 chime。"
+  },
+  {
+   "id": "letterbox",
+   "zh": "電影黑邊",
+   "en": "Letterbox",
+   "cat": "後製質感",
+   "role": [
+    "overlay",
+    "hook"
+   ],
+   "energy": 1,
+   "mood": [
+    "電影感",
+    "沉穩"
+   ],
+   "topics": [
+    "電影",
+    "形象",
+    "預告",
+    "品牌"
+   ],
+   "dur": 5,
+   "loop": false,
+   "alpha": true,
+   "template": "整段畫面加【電影黑邊】：上下黑邊在【0.8 秒】內滑入成【寬銀幕】，畫面緩慢推近，下方黑邊淡入「【A FILM BY YOU】」。",
+   "keys": "黑邊比例、片名",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "whoosh"
+   ],
+   "sfx": "whoosh：黑邊滑入一個低音量 whoosh。"
+  },
+  {
+   "id": "laserwipe",
+   "zh": "雷射掃描轉場",
+   "en": "Laser Scan",
+   "cat": "轉場 UI",
+   "role": [
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "科技",
+    "精準"
+   ],
+   "topics": [
+    "科技",
+    "掃描",
+    "產品",
+    "資料"
+   ],
+   "dur": 1.4,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【雷射掃描轉場】：一道【藍白發光雷射線】由上往下掃過，掃過處換成下一個畫面，轉場【1.4 秒】。",
+   "keys": "掃描方向、顏色、時長",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "zap"
+   ],
+   "sfx": "zap：雷射掃過時一個 zap。"
+  },
+  {
+   "id": "pageturn",
+   "zh": "翻頁轉場",
+   "en": "Page Turn",
+   "cat": "轉場 UI",
+   "role": [
+    "transition"
+   ],
+   "energy": 1,
+   "mood": [
+    "故事",
+    "溫和"
+   ],
+   "topics": [
+    "故事",
+    "雜誌",
+    "章節",
+    "教育"
+   ],
+   "dur": 1.4,
+   "loop": false,
+   "alpha": false,
+   "template": "做一個【翻頁轉場】：目前畫面像【書頁從右往左翻】，翻起處露出【淺灰紙背＋陰影】，露出下一個畫面，【1.4 秒】。",
+   "keys": "翻頁方向、紙背顏色",
+   "source": "第五批新技法",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：翻頁時 swish。"
+  },
+  {
+   "id": "cmb_launch",
+   "zh": "組合｜發表會開場",
+   "en": "Combo: Launch",
+   "cat": "組合疊加",
+   "role": [
+    "hook"
+   ],
+   "energy": 3,
+   "mood": [
+    "期待",
+    "科技"
+   ],
+   "topics": [
+    "發表",
+    "開場",
+    "科技",
+    "年度"
+   ],
+   "dur": 4,
+   "loop": true,
+   "alpha": false,
+   "template": "做【發表會開場組合】：底層【星空穿梭】，中層【透視網格 55% 透明】，上層【亂碼解碼「【MOTION 2026】」】，再加輕微【顆粒＋暗角】。",
+   "keys": "主標文字、網格透明度",
+   "source": "組合疊加",
+   "sfx_recipes": [
+    "riser",
+    "hit"
+   ],
+   "sfx": "riser＋hit：開場 riser，標題定格 hit。"
+  },
+  {
+   "id": "cmb_platform",
+   "zh": "組合｜平台三層",
+   "en": "Combo: Platform",
+   "cat": "組合疊加",
+   "role": [
+    "data",
+    "hook"
+   ],
+   "energy": 3,
+   "mood": [
+    "卡點",
+    "立體"
+   ],
+   "topics": [
+    "平台",
+    "品牌",
+    "社群",
+    "卡點"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做【平台三層組合】：背景【透視網格 50%】，中景【環形旋轉木馬（平台卡片）】，前景【逐拍重擊字（平台名）】，加顆粒暗角。",
+   "keys": "平台清單、BPM",
+   "source": "組合疊加",
+   "sfx_recipes": [
+    "hit"
+   ],
+   "sfx": "hit：平台名對拍重擊 hit。"
+  },
+  {
+   "id": "cmb_globe",
+   "zh": "組合｜全球佈局",
+   "en": "Combo: Global",
+   "cat": "組合疊加",
+   "role": [
+    "data",
+    "bg"
+   ],
+   "energy": 1,
+   "mood": [
+    "宏大",
+    "全球"
+   ],
+   "topics": [
+    "全球",
+    "國際",
+    "海外",
+    "跨國"
+   ],
+   "dur": 8,
+   "loop": true,
+   "alpha": false,
+   "template": "做【全球佈局組合】：底層【極光 55%】，中層【點陣球體 45%】，上層【經緯線地球＋閃爍據點】，加暗角。",
+   "keys": "據點、配色",
+   "source": "組合疊加",
+   "sfx_recipes": [
+    "drone",
+    "shimmer"
+   ],
+   "sfx": "drone＋shimmer：極輕 drone 墊底，據點亮起 shimmer。"
+  },
+  {
+   "id": "cmb_ai",
+   "zh": "組合｜AI 生成中",
+   "en": "Combo: AI",
+   "cat": "組合疊加",
+   "role": [
+    "bg",
+    "title"
+   ],
+   "energy": 2,
+   "mood": [
+    "智慧",
+    "科技"
+   ],
+   "topics": [
+    "AI",
+    "自動化",
+    "程式",
+    "科技"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做【AI 生成中組合】：底層【神經網路訊號 55%】，中層【ASCII 字元成像 35%】，上層【打字機逐行輸出「【我提供的文字】」】。",
+   "keys": "輸出文字、背景強度",
+   "source": "組合疊加",
+   "sfx_recipes": [
+    "key",
+    "zap"
+   ],
+   "sfx": "key＋zap：打字 key，完成 zap。"
+  },
+  {
+   "id": "cmb_milestone",
+   "zh": "組合｜里程碑揭曉",
+   "en": "Combo: Milestone",
+   "cat": "組合疊加",
+   "role": [
+    "data",
+    "cta"
+   ],
+   "energy": 2,
+   "mood": [
+    "成就",
+    "聚焦"
+   ],
+   "topics": [
+    "里程碑",
+    "粉絲",
+    "營收",
+    "成果"
+   ],
+   "dur": 4.5,
+   "loop": true,
+   "alpha": false,
+   "template": "做【里程碑揭曉組合】：底層【網格波動 30%】，中層【星芒放射 55%】置中，上層【里程表滾輪數字 0→【48,216】】。",
+   "keys": "目標數字、配色",
+   "source": "組合疊加",
+   "sfx_recipes": [
+    "tick",
+    "ding"
+   ],
+   "sfx": "tick＋ding：數字滾動 tick，揭曉 ding。"
+  },
+  {
+   "id": "cmb_podcast",
+   "zh": "組合｜Podcast 字幕",
+   "en": "Combo: Podcast",
+   "cat": "組合疊加",
+   "role": [
+    "bg",
+    "overlay"
+   ],
+   "energy": 2,
+   "mood": [
+    "聲音",
+    "清楚"
+   ],
+   "topics": [
+    "Podcast",
+    "訪談",
+    "口播",
+    "語音"
+   ],
+   "dur": 0,
+   "loop": true,
+   "alpha": false,
+   "template": "做【Podcast 字幕組合】：底層【極光 50%】，中層【音波頻譜 60%（接音檔）】，上層【字幕逐字高亮（接逐字時間碼）】。",
+   "keys": "音檔、逐字稿",
+   "source": "組合疊加",
+   "sfx_recipes": [],
+   "sfx": "以口播與聲音為主，不加音效。"
+  },
+  {
+   "id": "cmb_luxury",
+   "zh": "組合｜精品質感",
+   "en": "Combo: Luxury",
+   "cat": "組合疊加",
+   "role": [
+    "title",
+    "hook"
+   ],
+   "energy": 1,
+   "mood": [
+    "精緻",
+    "高級"
+   ],
+   "topics": [
+    "精品",
+    "企業",
+    "美妝",
+    "形象"
+   ],
+   "dur": 4,
+   "loop": true,
+   "alpha": false,
+   "template": "做【精品質感組合】：底層【液態變形 35%】，中層【遮罩滑升文字】，上層【散景光斑 45% 濾色】，全片【顆粒＋暗角】。",
+   "keys": "標題文字、光斑強度",
+   "source": "組合疊加",
+   "sfx_recipes": [
+    "shimmer"
+   ],
+   "sfx": "shimmer：標題出現 shimmer，其餘靜音。"
+  },
+  {
+   "id": "cmb_social",
+   "zh": "組合｜社群爆量",
+   "en": "Combo: Social Proof",
+   "cat": "組合疊加",
+   "role": [
+    "data",
+    "hook"
+   ],
+   "energy": 3,
+   "mood": [
+    "熱鬧",
+    "證明"
+   ],
+   "topics": [
+    "社群",
+    "App",
+    "電商",
+    "爆紅"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做【社群爆量組合】：底層【粒子連線 40%】，中層【主視覺環繞軌道（手機＋平台圖示）】，上層【通知堆疊 55%】。",
+   "keys": "平台圖示、通知文字",
+   "source": "組合疊加",
+   "sfx_recipes": [
+    "pop",
+    "ding"
+   ],
+   "sfx": "pop＋ding：通知 pop，重點通知 ding。"
+  },
+  {
+   "id": "cmb_retro",
+   "zh": "組合｜復古電玩",
+   "en": "Combo: Retro",
+   "cat": "組合疊加",
+   "role": [
+    "hook",
+    "title"
+   ],
+   "energy": 3,
+   "mood": [
+    "復古",
+    "衝擊"
+   ],
+   "topics": [
+    "電競",
+    "復古",
+    "電子音樂",
+    "遊戲"
+   ],
+   "dur": 4,
+   "loop": true,
+   "alpha": false,
+   "template": "做【復古電玩組合】：底層【透視網格】，上層【故障 Glitch 大字「【GLITCH】」】，全片加【掃描線＋顆粒＋暗角】。",
+   "keys": "標題文字、故障頻率",
+   "source": "組合疊加",
+   "sfx_recipes": [
+    "glitch",
+    "hit"
+   ],
+   "sfx": "glitch＋hit：故障 glitch，落點 hit。"
+  },
+  {
+   "id": "cmb_finance",
+   "zh": "組合｜財經快訊",
+   "en": "Combo: Finance",
+   "cat": "組合疊加",
+   "role": [
+    "data",
+    "bg"
+   ],
+   "energy": 2,
+   "mood": [
+    "專業",
+    "即時"
+   ],
+   "topics": [
+    "財經",
+    "投資",
+    "股市",
+    "新聞"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做【財經快訊組合】：底層【粒子連線 30%】，中層【K 線行情＋跑馬燈】，上層【觀景窗 HUD 60%（REC、時間碼）】。",
+   "keys": "行情文字、HUD 元素",
+   "source": "組合疊加",
+   "sfx_recipes": [
+    "tick"
+   ],
+   "sfx": "tick：行情跳動稀疏 tick。"
+  },
+  {
+   "id": "cmb_journey",
+   "zh": "組合｜旅程路線",
+   "en": "Combo: Journey",
+   "cat": "組合疊加",
+   "role": [
+    "data",
+    "bg"
+   ],
+   "energy": 2,
+   "mood": [
+    "旅程",
+    "溫暖"
+   ],
+   "topics": [
+    "旅遊",
+    "展店",
+    "物流",
+    "路線"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做【旅程路線組合】：底層【水波漣漪 35%】，中層【地圖路線描繪（5 個據點）】，上層【散景光斑 30% 濾色】。",
+   "keys": "據點與順序、光斑顏色",
+   "source": "組合疊加",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：路線畫出 swish。"
+  },
+  {
+   "id": "cmb_recap",
+   "zh": "組合｜年度回顧",
+   "en": "Combo: Recap",
+   "cat": "組合疊加",
+   "role": [
+    "cta",
+    "data"
+   ],
+   "energy": 3,
+   "mood": [
+    "歡慶",
+    "回憶"
+   ],
+   "topics": [
+    "回顧",
+    "年度",
+    "活動",
+    "週年"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做【年度回顧組合】：底層【動態照片牆（我的照片）】，上層【彩帶慶祝 90%】於主圖出現時噴發，全片加輕微顆粒。",
+   "keys": "照片、慶祝文字",
+   "source": "組合疊加",
+   "sfx_recipes": [
+    "hit",
+    "shimmer"
+   ],
+   "sfx": "hit＋shimmer：彩帶噴發 hit，之後 shimmer。"
+  },
+  {
+   "id": "cmb_hook",
+   "zh": "組合｜爆點開場",
+   "en": "Combo: Hook",
+   "cat": "組合疊加",
+   "role": [
+    "hook"
+   ],
+   "energy": 3,
+   "mood": [
+    "衝擊",
+    "卡點"
+   ],
+   "topics": [
+    "開場",
+    "卡點",
+    "運動",
+    "爆點"
+   ],
+   "dur": 3,
+   "loop": true,
+   "alpha": false,
+   "template": "做【爆點開場組合】：底層【無限隧道 70%】，中層【漫畫速度線 18% 濾色】，上層【切點震動色散（CUT／BEAT／HIT）】，依【128 BPM】。",
+   "keys": "BPM、字詞",
+   "source": "組合疊加",
+   "sfx_recipes": [
+    "hit"
+   ],
+   "sfx": "hit：每個切點 hit（對準節拍）。"
+  },
+  {
+   "id": "cmb_cozy",
+   "zh": "組合｜溫馨回憶",
+   "en": "Combo: Cozy",
+   "cat": "組合疊加",
+   "role": [
+    "bg",
+    "cta"
+   ],
+   "energy": 1,
+   "mood": [
+    "溫暖",
+    "回憶"
+   ],
+   "topics": [
+    "節慶",
+    "家庭",
+    "祝福",
+    "冬季"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做【溫馨回憶組合】：底層【實拍緩推平移（我的照片）】，中層【雪花 50% 濾色】，上層【散景光斑 30%】，全片【顆粒＋暗角】。",
+   "keys": "照片、季節元素",
+   "source": "組合疊加",
+   "sfx_recipes": [
+    "chime"
+   ],
+   "sfx": "chime：收尾一個 chime，其餘靜音。"
+  },
+  {
+   "id": "kpitrend",
+   "zh": "成長指標卡",
+   "en": "KPI Trend Card",
+   "cat": "介面微動態",
+   "role": [
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "成長",
+    "理性"
+   ],
+   "topics": [
+    "成長",
+    "業績",
+    "KPI",
+    "報告",
+    "數據"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【成長指標卡】：白色圓角卡片，標題「【Weekly sign-ups】」，【7】根長條【逐根長高】，上面疊【綠色趨勢折線】，左上標籤「【+200%】」從 0 跳到目標值。",
+   "keys": "標題、數據、成長百分比",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DeZYQm2iPvw/",
+   "sfx_recipes": [
+    "pop",
+    "ding"
+   ],
+   "sfx": "pop＋ding：指標卡彈出 pop，達標 ding。"
+  },
+  {
+   "id": "pricetoggle",
+   "zh": "月繳年繳切換",
+   "en": "Price Toggle",
+   "cat": "介面微動態",
+   "role": [
+    "data",
+    "cta"
+   ],
+   "energy": 2,
+   "mood": [
+    "清楚",
+    "說服"
+   ],
+   "topics": [
+    "訂閱",
+    "價格",
+    "方案",
+    "SaaS",
+    "優惠"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【月繳年繳切換】：卡片上方切換開關由【Monthly】滑到【Yearly】，價格由【$29】滾動變成【$290】，同時跳出綠色標籤「【2 months free】」。",
+   "keys": "方案名稱、兩種價格、標籤文字",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DeZYQm2iPvw/",
+   "sfx_recipes": [
+    "click"
+   ],
+   "sfx": "click：切換瞬間 click。"
+  },
+  {
+   "id": "island",
+   "zh": "動態島展開",
+   "en": "Dynamic Island",
+   "cat": "介面微動態",
+   "role": [
+    "hook",
+    "overlay"
+   ],
+   "energy": 2,
+   "mood": [
+    "即時",
+    "科技"
+   ],
+   "topics": [
+    "直播",
+    "提醒",
+    "通知",
+    "App",
+    "活動"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【動態島展開】：手機頂端的黑色小膠囊先【彈性展開】成橫幅，顯示【紅點閃爍＋LIVE】與「【Webinar starts now】」，停留後縮回。",
+   "keys": "提示文字、手機桌布",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DeZYQm2iPvw/",
+   "sfx_recipes": [
+    "pop"
+   ],
+   "sfx": "pop：展開 pop。"
+  },
+  {
+   "id": "particlefunnel",
+   "zh": "粒子漏斗",
+   "en": "Particle Funnel",
+   "cat": "介面微動態",
+   "role": [
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "轉換",
+    "直覺"
+   ],
+   "topics": [
+    "漏斗",
+    "轉換",
+    "成交",
+    "銷售",
+    "行銷"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【粒子漏斗】：【110】顆藍色粒子從漏斗上方落下、收窄通過漏斗頸，底部卡片的數字從 0 跳到【600 sales】。",
+   "keys": "終點數字與單位、粒子顏色",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DeZYQm2iPvw/",
+   "sfx_recipes": [
+    "swish",
+    "ding"
+   ],
+   "sfx": "swish＋ding：粒子匯聚 swish，成果 ding。"
+  },
+  {
+   "id": "buttondone",
+   "zh": "按鈕完成變形",
+   "en": "Button to Done",
+   "cat": "介面微動態",
+   "role": [
+    "cta",
+    "overlay"
+   ],
+   "energy": 2,
+   "mood": [
+    "完成",
+    "清楚"
+   ],
+   "topics": [
+    "發布",
+    "完成",
+    "成功",
+    "操作",
+    "表單"
+   ],
+   "dur": 4,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【按鈕完成變形】：按鈕「【Publish】」被游標點下，【縮成圓形並變綠】，畫出【白色勾勾】，外圈泛起【綠色光環】。",
+   "keys": "按鈕文字、完成後顏色",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DeZYQm2iPvw/",
+   "sfx_recipes": [
+    "click",
+    "ding"
+   ],
+   "sfx": "click＋ding：按下 click，變成完成 ding。"
+  },
+  {
+   "id": "paybutton",
+   "zh": "支付按鈕狀態",
+   "en": "Pay Button",
+   "cat": "介面微動態",
+   "role": [
+    "cta",
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "安心",
+    "俐落"
+   ],
+   "topics": [
+    "支付",
+    "結帳",
+    "電商",
+    "App",
+    "訂單"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【支付按鈕狀態】：按鈕「【Pay $48.00】」被點下，縮成【轉圈載入】，再展開成綠色【Paid ✓】。",
+   "keys": "金額、按鈕顏色",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DeZYQm2iPvw/",
+   "sfx_recipes": [
+    "click",
+    "chime"
+   ],
+   "sfx": "click＋chime：按下 click，付款成功 chime。"
+  },
+  {
+   "id": "sketchapp",
+   "zh": "草圖變 App",
+   "en": "Sketch to App",
+   "cat": "介面微動態",
+   "role": [
+    "data",
+    "title"
+   ],
+   "energy": 2,
+   "mood": [
+    "設計",
+    "進化"
+   ],
+   "topics": [
+    "設計",
+    "雛形",
+    "提案",
+    "App",
+    "從無到有"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【草圖變 App】：先是【灰色虛線線框】的手機畫面，【1.6 秒】內逐步填色成完整介面，中間圓環跳到【86%】，下方兩張數據卡。",
+   "keys": "App 畫面內容、數字",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DeZYQm2iPvw/",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：草圖變介面時 swish。"
+  },
+  {
+   "id": "calendardrag",
+   "zh": "日曆拖曳預約",
+   "en": "Calendar Drag",
+   "cat": "介面微動態",
+   "role": [
+    "data",
+    "overlay"
+   ],
+   "energy": 2,
+   "mood": [
+    "示範",
+    "清楚"
+   ],
+   "topics": [
+    "預約",
+    "行程",
+    "日曆",
+    "排程",
+    "功能示範"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【日曆拖曳預約】：游標抓起【紫色活動方塊「Call with Sam」】，從【16 日 10:00】拖到【17 日 11:00】，放下後變綠、顯示【Booked ✓】。",
+   "keys": "活動名稱、日期時段",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DeZYQm2iPvw/",
+   "sfx_recipes": [
+    "tick",
+    "click"
+   ],
+   "sfx": "tick＋click：拖曳經過日期 tick，放下 click。"
+  },
+  {
+   "id": "ringclose",
+   "zh": "圓環閉合達標",
+   "en": "Ring Close",
+   "cat": "介面微動態",
+   "role": [
+    "data",
+    "cta"
+   ],
+   "energy": 2,
+   "mood": [
+    "達成",
+    "成就"
+   ],
+   "topics": [
+    "達標",
+    "目標",
+    "健身",
+    "進度",
+    "完成"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【圓環閉合達標】：綠色進度環從 0 畫到【100%】，圓環【填成實心圓】並彈出「【Goal hit】」，外圍迸出【10 顆綠點】。",
+   "keys": "目標文字、顏色",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DeZYQm2iPvw/",
+   "sfx_recipes": [
+    "swish",
+    "ding"
+   ],
+   "sfx": "swish＋ding：圓環閉合 swish，達標 ding。"
+  },
+  {
+   "id": "dockmagnify",
+   "zh": "Dock 放大展開",
+   "en": "Dock Magnify",
+   "cat": "介面微動態",
+   "role": [
+    "data",
+    "overlay"
+   ],
+   "energy": 2,
+   "mood": [
+    "精緻",
+    "互動"
+   ],
+   "topics": [
+    "軟體",
+    "桌面",
+    "App",
+    "功能",
+    "導覽"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【Dock 放大展開】：底部【7】個圖示隨游標靠近【放大】，其中第 4 個【彈跳】後，上方展開視窗「【Campaign report +37%】」。",
+   "keys": "圖示數量、展開的視窗內容",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DeZYQm2iPvw/",
+   "sfx_recipes": [
+    "tick"
+   ],
+   "sfx": "tick：游標經過圖示稀疏 tick。"
+  },
+  {
+   "id": "product360",
+   "zh": "產品 360 旋轉",
+   "en": "Product 360",
+   "cat": "介面微動態",
+   "role": [
+    "data",
+    "hook"
+   ],
+   "energy": 2,
+   "mood": [
+    "立體",
+    "展示"
+   ],
+   "topics": [
+    "新品",
+    "產品",
+    "規格",
+    "開箱",
+    "3C"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【產品 360 旋轉】：【耳機】繞軸緩慢旋轉，右側依序浮出「【主動降噪】【40 小時續航】【空間音訊】」並打勾，底部價格【$129】。",
+   "keys": "產品、特色清單、價格",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DeZYQm2iPvw/",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：旋轉 swish。"
+  },
+  {
+   "id": "buttonplayer",
+   "zh": "按鈕展開播放器",
+   "en": "Button to Player",
+   "cat": "介面微動態",
+   "role": [
+    "overlay",
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "精緻",
+    "聲音"
+   ],
+   "topics": [
+    "播放器",
+    "預覽",
+    "Podcast",
+    "音樂",
+    "影片"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【按鈕展開播放器】：小按鈕「【▶ Preview】」【彈性展開】成播放器，顯示曲名「【Summer reel】」、跳動波形與進度條，結束後收回。",
+   "keys": "標題、波形顏色",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DdzGLp5gG_n/",
+   "sfx_recipes": [
+    "click",
+    "pop"
+   ],
+   "sfx": "click＋pop：按下 click，播放器展開 pop。"
+  },
+  {
+   "id": "cardexpand",
+   "zh": "卡片展開工作區",
+   "en": "Card to Workspace",
+   "cat": "介面微動態",
+   "role": [
+    "data",
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "聚焦",
+    "清楚"
+   ],
+   "topics": [
+    "專案",
+    "功能",
+    "摘要",
+    "細節",
+    "工作區"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【卡片展開工作區】：小卡「【Q3 brief】」【放大展開】成完整視窗，內容依序浮現【側邊選單、標題、內容行、Open 按鈕】。",
+   "keys": "卡片標題、展開後的內容",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DdzGLp5gG_n/",
+   "sfx_recipes": [
+    "pop"
+   ],
+   "sfx": "pop：卡片展開 pop。"
+  },
+  {
+   "id": "tabspanels",
+   "zh": "分頁切換面板",
+   "en": "Tabs and Panels",
+   "cat": "介面微動態",
+   "role": [
+    "data",
+    "overlay"
+   ],
+   "energy": 1,
+   "mood": [
+    "清楚",
+    "俐落"
+   ],
+   "topics": [
+    "分頁",
+    "分類",
+    "App",
+    "內容",
+    "介面"
+   ],
+   "dur": 5.4,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【分頁切換面板】：分頁【Reels／Posts／Email】的黑色膠囊每【1.8 秒】滑到下一頁，下方列表【滑動淡出淡入】換內容。",
+   "keys": "分頁名稱、各頁內容",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DdzGLp5gG_n/",
+   "sfx_recipes": [
+    "click"
+   ],
+   "sfx": "click：切換分頁 click。"
+  },
+  {
+   "id": "chartmorph",
+   "zh": "圖表形態變換",
+   "en": "Chart Morph",
+   "cat": "介面微動態",
+   "role": [
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "理性",
+    "流暢"
+   ],
+   "topics": [
+    "圖表",
+    "趨勢",
+    "報表",
+    "數據",
+    "簡報"
+   ],
+   "dur": 5.2,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【圖表形態變換】：【7】根長條【縮成圓點並連成折線】，折線下方淡入漸層面積，最後再變回長條，每段【1.1 秒】。",
+   "keys": "數據、每段時長",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DdzGLp5gG_n/",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：圖表變形 swish。"
+  },
+  {
+   "id": "dashzoom",
+   "zh": "儀表板聚焦推近",
+   "en": "Dashboard Zoom",
+   "cat": "介面微動態",
+   "role": [
+    "data"
+   ],
+   "energy": 2,
+   "mood": [
+    "聚焦",
+    "專業"
+   ],
+   "topics": [
+    "重點",
+    "儀表板",
+    "數據",
+    "聚焦",
+    "報告"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【儀表板聚焦推近】：鏡頭由全景【推近 2.35 倍】到「【Click rate 6.2%】」，其餘卡片【變淡】，該卡片亮起【藍色外框】，之後拉回。",
+   "keys": "聚焦哪張卡、放大倍率",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DdzGLp5gG_n/",
+   "sfx_recipes": [
+    "whoosh"
+   ],
+   "sfx": "whoosh：聚焦推近 whoosh。"
+  },
+  {
+   "id": "springstack",
+   "zh": "彈簧疊牌",
+   "en": "Spring Stack",
+   "cat": "介面微動態",
+   "role": [
+    "data",
+    "title"
+   ],
+   "energy": 2,
+   "mood": [
+    "活潑",
+    "彈性"
+   ],
+   "topics": [
+    "商品",
+    "展示",
+    "方案",
+    "選擇",
+    "相簿"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【彈簧疊牌】：【3】張卡片從疊在一起【彈簧展開】成扇形（-12°／+10°／0°），最上面卡片顯示「【Summer kit $24 ✓】」，之後收回。",
+   "keys": "卡片數量、最上面卡片內容",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DdzGLp5gG_n/",
+   "sfx_recipes": [
+    "thud"
+   ],
+   "sfx": "thud：每張牌落定 thud。"
+  },
+  {
+   "id": "elastictype",
+   "zh": "彈性字距拉伸",
+   "en": "Elastic Type",
+   "cat": "介面微動態",
+   "role": [
+    "title",
+    "hook"
+   ],
+   "energy": 2,
+   "mood": [
+    "彈性",
+    "設計感"
+   ],
+   "topics": [
+    "字體",
+    "標題",
+    "設計",
+    "品牌",
+    "動態字"
+   ],
+   "dur": 5.7,
+   "loop": true,
+   "alpha": true,
+   "template": "做一個【彈性字距拉伸】：大字「【STRETCH】」的【寬度與粗細】隨滑桿來回變化（wdth 70→160、wght 300→900），第三個字用【珊瑚橘】。",
+   "keys": "文字、拉伸範圍",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DdzGLp5gG_n/",
+   "sfx_recipes": [
+    "pop"
+   ],
+   "sfx": "pop：字距彈開 pop。"
+  },
+  {
+   "id": "textlayout",
+   "zh": "文字拆成版面",
+   "en": "Text to Layout",
+   "cat": "介面微動態",
+   "role": [
+    "title",
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "設計感",
+    "結構"
+   ],
+   "topics": [
+    "設計",
+    "版面",
+    "標題",
+    "理念",
+    "作品"
+   ],
+   "dur": 5.5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【文字拆成版面】：標題「【Design that moves people】」的四個詞【飛向版面】，「Design」進頂部橫幅，其餘三詞各進一張卡片。",
+   "keys": "標題、版面配置",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DdzGLp5gG_n/",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：文字重排 swish。"
+  },
+  {
+   "id": "curtainreveal",
+   "zh": "直條簾幕揭露",
+   "en": "Curtain Reveal",
+   "cat": "介面微動態",
+   "role": [
+    "hook",
+    "transition"
+   ],
+   "energy": 2,
+   "mood": [
+    "戲劇",
+    "俐落"
+   ],
+   "topics": [
+    "圖片",
+    "揭曉",
+    "作品",
+    "開場",
+    "寫真"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【直條簾幕揭露】：畫面切成【12】條直條，【由左到右依序往下展開】露出【我的圖片】，停留後再依序收起，每條間隔【0.07 秒】。",
+   "keys": "圖片、條數、間隔",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DdzGLp5gG_n/",
+   "sfx_recipes": [
+    "whoosh"
+   ],
+   "sfx": "whoosh：簾幕揭開 whoosh。"
+  },
+  {
+   "id": "perspshift",
+   "zh": "透視層疊位移",
+   "en": "Perspective Shift",
+   "cat": "介面微動態",
+   "role": [
+    "data",
+    "bg"
+   ],
+   "energy": 1,
+   "mood": [
+    "立體",
+    "結構"
+   ],
+   "topics": [
+    "分層",
+    "架構",
+    "服務",
+    "三步驟",
+    "系統"
+   ],
+   "dur": 5,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【透視層疊位移】：【3】張卡片以【等角透視】疊在一起，【拉開成三層】再收回，每張卡片左上角用不同顏色。",
+   "keys": "層數、每層內容",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DdzGLp5gG_n/",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：層疊位移 swish。"
+  },
+  {
+   "id": "glassfocus",
+   "zh": "毛玻璃列聚焦",
+   "en": "Glass Focus",
+   "cat": "介面微動態",
+   "role": [
+    "data"
+   ],
+   "energy": 1,
+   "mood": [
+    "專業",
+    "聚焦"
+   ],
+   "topics": [
+    "報表",
+    "KPI",
+    "逐項",
+    "數據",
+    "重點"
+   ],
+   "dur": 8,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【毛玻璃列聚焦】：報表「【Campaign report】」的【4】行數據，一條【半透明玻璃條】逐行移動，被框住的那行【數字放大】，其餘變淡。",
+   "keys": "每行名稱與數值",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/DdzGLp5gG_n/",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "gradientwave",
+   "zh": "流動色帶波",
+   "en": "Gradient Wave",
+   "cat": "介面微動態",
+   "role": [
+    "bg",
+    "title"
+   ],
+   "energy": 1,
+   "mood": [
+    "柔和",
+    "流動"
+   ],
+   "topics": [
+    "品牌",
+    "背景",
+    "封面",
+    "簡報",
+    "設計"
+   ],
+   "dur": 0,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【流動色帶波】：【4】層漸層色帶（橘→粉→紫→藍）像海浪一樣【緩慢起伏】，每層速度不同，淺色底，左上放標題「【Flow】」。",
+   "keys": "層數、配色、速度",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/Dez_3s4CES-/",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "glasstilt",
+   "zh": "玻璃卡傾斜",
+   "en": "Glass Tilt",
+   "cat": "介面微動態",
+   "role": [
+    "data",
+    "hook"
+   ],
+   "energy": 1,
+   "mood": [
+    "高級",
+    "科技"
+   ],
+   "topics": [
+    "支付",
+    "金融",
+    "會員",
+    "卡片",
+    "質感"
+   ],
+   "dur": 7,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【玻璃卡傾斜】：半透明玻璃卡片【緩慢左右傾斜】，表面有【白色光澤掃過】，卡面「【4242 4242 4242 4242】」，背景【深藍紫＋彩色柔光】。",
+   "keys": "卡面文字、傾斜幅度",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/Dez_3s4CES-/",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "dotmesh",
+   "zh": "點陣波浪網",
+   "en": "Dot Mesh Wave",
+   "cat": "介面微動態",
+   "role": [
+    "bg",
+    "hook"
+   ],
+   "energy": 1,
+   "mood": [
+    "科技",
+    "優雅"
+   ],
+   "topics": [
+    "科技",
+    "數據",
+    "背景",
+    "抽象",
+    "片頭"
+   ],
+   "dur": 8,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【點陣波浪網】：【48×22】個點排成透視網格，隨【正弦波】起伏，點隨高度【變大變亮】，顏色【橘到藍】，淺色底。",
+   "keys": "點數、波浪方向、配色",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/Dez_3s4CES-/",
+   "sfx_recipes": [],
+   "sfx": "不加音效（靜音是設計）。"
+  },
+  {
+   "id": "cardshuffle",
+   "zh": "卡片洗牌",
+   "en": "Card Shuffle",
+   "cat": "介面微動態",
+   "role": [
+    "data",
+    "title"
+   ],
+   "energy": 2,
+   "mood": [
+    "輪替",
+    "俐落"
+   ],
+   "topics": [
+    "輪播",
+    "功能",
+    "亮點",
+    "相簿",
+    "方案"
+   ],
+   "dur": 5.2,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【卡片洗牌】：【4】張漸層卡片疊在一起，每【1.3 秒】最上面一張【往右滑出並移到最後面】，其餘往前補位。",
+   "keys": "卡片顏色、內容、間隔",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/Dez_3s4CES-/",
+   "sfx_recipes": [
+    "swish",
+    "thud"
+   ],
+   "sfx": "swish＋thud：洗牌 swish，落定 thud。"
+  },
+  {
+   "id": "ribbontwist",
+   "zh": "緞帶扭轉",
+   "en": "Ribbon Twist",
+   "cat": "介面微動態",
+   "role": [
+    "bg",
+    "logo"
+   ],
+   "energy": 2,
+   "mood": [
+    "優雅",
+    "流動"
+   ],
+   "topics": [
+    "品牌",
+    "音樂",
+    "片頭",
+    "設計",
+    "抽象"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【緞帶扭轉】：一條【橘到藍漸層緞帶】沿【波浪路徑】前進，同時沿長度方向【扭轉】，兩端收窄，黑色背景。",
+   "keys": "緞帶顏色、扭轉圈數",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/Dez_3s4CES-/",
+   "sfx_recipes": [
+    "swish"
+   ],
+   "sfx": "swish：緞帶扭轉 swish。"
+  },
+  {
+   "id": "metaball3d",
+   "zh": "立體液滴融合",
+   "en": "3D Liquid Merge",
+   "cat": "介面微動態",
+   "role": [
+    "logo",
+    "bg"
+   ],
+   "energy": 1,
+   "mood": [
+    "可愛",
+    "液態"
+   ],
+   "topics": [
+    "Logo",
+    "液體",
+    "App",
+    "啟動",
+    "設計"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【立體液滴融合】：【3】顆有高光的【紫色液滴】互相靠近時【黏合成一團】、分開時拉出細橋，底下有淡影，淺色底。",
+   "keys": "液滴數量、顏色",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/Dez_3s4CES-/",
+   "sfx_recipes": [
+    "pop"
+   ],
+   "sfx": "pop：液滴融合 pop。"
+  },
+  {
+   "id": "phoneexplode",
+   "zh": "手機爆炸圖",
+   "en": "Phone Explode",
+   "cat": "介面微動態",
+   "role": [
+    "data",
+    "hook"
+   ],
+   "energy": 2,
+   "mood": [
+    "科技",
+    "結構"
+   ],
+   "topics": [
+    "拆解",
+    "結構",
+    "產品",
+    "科技",
+    "發表"
+   ],
+   "dur": 6,
+   "loop": true,
+   "alpha": false,
+   "template": "做一個【手機爆炸圖】：【4】層【Case／Board／Display／Glass】以【等角透視】往上拉開，旁邊標示名稱，停留後再收合。",
+   "keys": "各層名稱與內容、拉開高度",
+   "source": "IG貼文_CharlieHills",
+   "ref": "https://www.instagram.com/p/Dez_3s4CES-/",
+   "sfx_recipes": [
+    "hit",
+    "swish"
+   ],
+   "sfx": "hit＋swish：爆開 hit，零件散開 swish。"
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>圖表類資料參數化預覽</title>
+<!-- 只供目視與程式檢查 8 個圖表效果的資料參數：每格畫「自訂資料」，同時算它與「預設資料」同一時間點的像素差異（必須 > 0 才算參數有效）。不進建置。 -->
+<script src="../fx_runtime.js"></script>
+<script src="donut.js"></script><script src="linechart.js"></script><script src="radar.js"></script><script src="waffle.js"></script>
+<script src="funnel.js"></script><script src="heatmap.js"></script><script src="treemap.js"></script><script src="countdown.js"></script>
+<script>
+const W = 1130, H = 760, pal = { coral: "#f5b942", indigo: "#5b8def", gold: "#ffd36b", cyan: "#2fd3b5", green: "#3ddc97" };
+const F = { font: '"Noto Sans TC"', numFont: '"Noto Sans TC"' };
+const hm = Array.from({ length: 14 }, (_, i) => Array.from({ length: 5 }, (_, j) => ((i * 3 + j * 5) % 10) / 10));
+const cases = [
+  ["donut 三段自訂", "donut", 3.2, { ...F, data: [0.5, 0.3, 0.2], labels: ["台北 50%", "台中 30%", "高雄 20%"], center: 50, colors: ["#f5b942", "#2fd3b5", "#5b8def"] }],
+  ["linechart 另一組資料", "linechart", 3.2, { ...F, data: [0.9, 0.7, 0.75, 0.5, 0.4, 0.45, 0.2] }],
+  ["radar 五軸＋標籤", "radar", 3.2, { ...F, values: [0.8, 0.6, 0.9, 0.5, 0.7], labels: ["速度", "品質", "價格", "服務", "口碑"] }],
+  ["waffle 35%＋說明", "waffle", 3.2, { ...F, value: 0.35, cols: 20, rows: 8, label: "民眾支持" }],
+  ["funnel 三層", "funnel", 3.5, { ...F, stages: [["報名", 5000], ["出席", 2600], ["成交", 410]], stepW: 0.25 }],
+  ["heatmap 自訂矩陣", "heatmap", 4.2, { ...F, values: hm, title: "近兩週活躍度" }],
+  ["treemap 自動版面", "treemap", 3.2, { ...F, items: [{ label: "A 產品 45%", value: 45 }, { label: "B 產品 30%", value: 30 }, { label: "C 產品 15%", value: 15 }, { label: "其他 10%", value: 10 }] }],
+  ["countdown 從 5 開始", "countdown", 2.2, { ...F, from: 5, per: 1 }],
+];
+const out = [];
+const mkc = () => { const c = document.createElement("canvas"); c.width = W; c.height = H; return c; };
+const sheet = document.createElement("canvas"); sheet.width = 4 * 560; sheet.height = 2 * 400; const sx = sheet.getContext("2d"); sx.fillStyle = "#0b1020"; sx.fillRect(0, 0, sheet.width, sheet.height);
+cases.forEach(([title, id, t, P], k) => {
+  const K = fxHelpers(pal, "#12151D"), ca = mkc(), cb = mkc(); K.canvas = ca; K.dpr = 1;
+  FX[id].draw(ca.getContext("2d"), W, H, t, Object.assign({}, FX[id].defaults, P), K);
+  const K2 = fxHelpers(pal, "#12151D"); K2.canvas = cb; K2.dpr = 1;
+  FX[id].draw(cb.getContext("2d"), W, H, t, Object.assign({}, FX[id].defaults, { font: P.font, numFont: P.numFont }), K2);
+  const a = ca.getContext("2d").getImageData(0, 0, W, H).data, b = cb.getContext("2d").getImageData(0, 0, W, H).data; let n = 0; for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) n++;
+  out.push({ title, diffVsDefault: n });
+  const X = (k % 4) * 560, Y = Math.floor(k / 4) * 400; sx.drawImage(ca, X + 5, Y + 22, 550, 372); sx.fillStyle = "#cfe3ff"; sx.font = "16px sans-serif"; sx.fillText(title, X + 8, Y + 16);
+});
+window.RESULT = out; window.SHEET = sheet.toDataURL("image/png"); document.title = "done";
+</script>

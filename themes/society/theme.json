@@ -1,0 +1,57 @@
+{
+  "id": "society",
+  "name": "社會",
+  "version": 1,
+  "desc": "社會主題：玫瑰紅主色、鋼藍輔色、城市天際線與擴音器圖示、夜間城市底圖",
+  "palette": {
+    "coral": "#e8496b",
+    "coral_rgb": "232,73,107",
+    "hot": "#ff7a93",
+    "soft": "#ffc2cf",
+    "on": "#20050c",
+    "indigo": "#5aa9ff",
+    "cyan": "#5fc4e8",
+    "green": "#52d68a",
+    "red": "#ff5a5f",
+    "gold": "#ffd166",
+    "ink": "#0a1020"
+  },
+  "bgm": {
+    "bpm": 88
+  },
+  "match_keywords": [
+    "警方",
+    "事故",
+    "社會",
+    "民眾",
+    "法院",
+    "判決",
+    "詐騙",
+    "車禍",
+    "火災",
+    "學校",
+    "政府",
+    "政策",
+    "交通",
+    "居民",
+    "救援",
+    "檢察",
+    "地震",
+    "停電"
+  ],
+  "assets_file": "assets/assets.json",
+  "scenes": [
+    {
+      "id": "g_timeline",
+      "title": "事件時間軸",
+      "file": "g_timeline.js"
+    }
+  ],
+  "art": {
+    "primary": "rose-crimson",
+    "secondary": "steel blue",
+    "badge_motif": "a stylized city skyline silhouette with a megaphone, in rose-crimson and steel blue",
+    "nameplate_icon": "a small white megaphone icon",
+    "panel_motif": "dark night city seen through soft bokeh: blurred skyline lights in amber and steel blue, calm and slightly desaturated"
+  }
+}

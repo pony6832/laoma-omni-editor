@@ -1,0 +1,1225 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>動態效果圖鑑</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Unbounded:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: studio contact sheet — a short "how to ask" brief, then a filterable grid of live animated swatches. */
+:root{
+  --bg:#EDEFF4; --panel:#FFFFFF; --ink:#161922; --muted:#5B6274; --line:#D6DAE3;
+  --coral:#D9472E; --blue:#3554CF; --chip:#E3E7F0; --stage:#12151D; --stage-line:#12151D;
+  --slot:#FBEDE9;
+  --f-display:"Unbounded","Noto Sans TC",system-ui,sans-serif;
+  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","Noto Sans TC",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1016; --panel:#171A22; --ink:#E8EAF0; --muted:#9AA1B3; --line:#2A2F3B;
+  --coral:#FF6A4D; --blue:#8197FF; --chip:#222633; --stage:#0A0C11; --stage-line:#2A2F3B;
+  --slot:#2B1D1B; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1016; --panel:#171A22; --ink:#E8EAF0; --muted:#9AA1B3; --line:#2A2F3B;
+  --coral:#FF6A4D; --blue:#8197FF; --chip:#222633; --stage:#0A0C11; --stage-line:#2A2F3B;
+  --slot:#2B1D1B; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.65}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:20px;padding-block:40px 72px;display:flex;flex-direction:column;gap:48px}
+h1,h2,h3{margin:0;text-wrap:balance}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--coral)}
+
+header{display:flex;flex-direction:column;gap:12px;max-width:760px}
+header h1{font-family:var(--f-body);font-weight:900;font-size:clamp(32px,5vw,52px);line-height:1.1;letter-spacing:-.01em}
+header h1 span{font-family:var(--f-display);font-weight:700;color:var(--coral)}
+header p{margin:0;color:var(--muted);font-size:16px;max-width:62ch}
+
+section>h2{font-size:22px;font-weight:900;margin-bottom:6px}
+section>.sub{color:var(--muted);margin:0 0 20px;max-width:65ch}
+
+/* formula */
+.formula{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.slot{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.slot b{font-size:15px}
+.slot .k{font-family:var(--f-mono);font-size:11px;color:var(--muted);letter-spacing:.08em}
+.slot em{font-style:normal;color:var(--muted);font-size:13px}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:14px}
+.ex{border-radius:10px;padding:14px 16px;border:1px solid var(--line);background:var(--panel);min-width:0}
+.ex .tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;font-weight:600}
+.ex.bad .tag{color:var(--muted)} .ex.good .tag{color:var(--coral)}
+.ex p{margin:6px 0 0}
+.ex.bad p{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+mark{background:var(--slot);color:var(--ink);padding:0 3px;border-radius:3px}
+
+/* output formats */
+.formats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.fmt{background:var(--panel);padding:14px 16px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.fmt b{font-size:14px}.fmt span{font-size:13px;color:var(--muted)}
+.fmt .best{font-family:var(--f-mono);font-size:10px;color:var(--coral);letter-spacing:.1em}
+.note{font-size:13px;color:var(--muted);margin-top:12px;max-width:80ch}
+
+/* filters */
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:18px}
+.bar button{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:6px 14px;border-radius:999px;cursor:pointer}
+.bar button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.bar button:focus-visible,.copy:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+.bar .count{margin-left:auto;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+
+/* catalog */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card[hidden]{display:none}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.stage{position:relative;background:var(--stage);border-bottom:1px solid var(--stage-line);aspect-ratio:16/10;max-width:100%}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.stage .cat{position:absolute;left:10px;top:10px;font-size:11px;padding:2px 8px;border-radius:999px;background:rgba(237,239,245,.12);color:#EDEFF5;backdrop-filter:blur(4px)}
+.stage .new{position:absolute;right:10px;top:10px;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;padding:2px 8px;border-radius:999px;background:#FF6A4D;color:#12151D;font-weight:600}
+.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px;flex:1;min-width:0}
+.name{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.name h3{font-size:18px;font-weight:900}
+.name small{font-family:var(--f-display);font-size:11px;color:var(--muted);letter-spacing:.02em}
+.desc{margin:0;font-size:14px}
+.uses{display:flex;flex-wrap:wrap;gap:6px}
+.uses span{font-size:12px;background:var(--chip);padding:2px 8px;border-radius:4px}
+.lbl{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.prompt{position:relative;background:var(--bg);border-radius:8px;padding:12px 12px 12px 12px;font-size:13.5px;line-height:1.7;margin-top:auto}
+.prompt p{margin:4px 0 0;padding-right:4px}
+.prompt .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.copy{font:inherit;font-size:12px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:6px;padding:2px 10px;cursor:pointer}
+.keys{font-size:12.5px;color:var(--muted)}
+.keys b{color:var(--ink);font-weight:500}
+footer{color:var(--muted);font-size:13px}
+@media (max-width:480px){.wrap{padding-inline:16px}}
+</head>
+<body>
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow" id="eyebrow">Motion Catalog · 151 種效果</div>
+    <h1>動態效果圖鑑 <span>Motion</span></h1>
+    <p>下面每張卡片都是實際在跑的範例。挑一個喜歡的，複製它的說明範本，把【】裡的內容換成你要的，貼給我就能做。</p>
+  </header>
+
+  <section>
+    <h2>跟我說明的公式</h2>
+    <p class="sub">一段好的說明包含這 6 件事。不確定的可以省略，我會用合理的預設值。</p>
+    <div class="formula">
+      <div class="slot"><span class="k">1 · 效果</span><b>要哪一種動態</b><em>網格波動、粒子、打字機…</em></div>
+      <div class="slot"><span class="k">2 · 內容</span><b>畫面上有什麼</b><em>文字、Logo、數字、形狀</em></div>
+      <div class="slot"><span class="k">3 · 動作節奏</span><b>怎麼動、多快</b><em>彈入、旋轉、0.3 秒間隔</em></div>
+      <div class="slot"><span class="k">4 · 風格配色</span><b>顏色與氣氛</b><em>深色底、珊瑚橘、科技感</em></div>
+      <div class="slot"><span class="k">5 · 尺寸時長</span><b>比例與秒數</b><em>9:16、16:9、循環 4 秒</em></div>
+      <div class="slot"><span class="k">6 · 輸出</span><b>要什麼檔案</b><em>HTML、GIF、MP4、AE 腳本</em></div>
+    </div>
+    <div class="compare">
+      <div class="ex bad"><span class="tag">說不清楚</span><p>幫我做一個很酷的動畫。</p></div>
+      <div class="ex good"><span class="tag">說得清楚</span><p>做一個<mark>網格波動</mark>動畫，<mark>20×12 個圓角方塊</mark>從中心往外<mark>一波波縮放變色</mark>，<mark>珊瑚橘到藍紫、深灰背景</mark>，<mark>9:16、循環 4 秒</mark>，輸出成 <mark>HTML</mark>。</p></div>
+    </div>
+    <p class="note">手上有參考影片的話，截 2～3 張關鍵畫面給我，再補一句「哪裡要一樣、哪裡要改」，效果最好。</p>
+  </section>
+
+  <section>
+    <h2>我能交給你的格式</h2>
+    <p class="sub">所有動態都是用程式產生的。選格式時，看你最後要放在哪裡。</p>
+    <div class="formats">
+      <div class="fmt"><span class="best">最推薦</span><b>HTML 網頁（Canvas / CSS）</b><span>用瀏覽器打開就能看，也能螢幕錄影做成 Reels。</span></div>
+      <div class="fmt"><span class="best">影片</span><b>GIF / MP4</b><span>我寫 Python 程式並在這裡執行，直接產出檔案（電腦需要有 ffmpeg）。</span></div>
+      <div class="fmt"><span class="best">剪輯軟體</span><b>After Effects 表達式 / 腳本</b><span>貼進 AE 執行，產生的圖層可以繼續手動調整。</span></div>
+      <div class="fmt"><span class="best">網站 / App</span><b>SVG、CSS、Lottie</b><span>檔案輕，適合 Logo、按鈕、載入動畫。</span></div>
+      <div class="fmt"><span class="best">3D</span><b>Three.js</b><span>立體球體、粒子、可用滑鼠旋轉的場景。</span></div>
+    </div>
+    <p class="note">做不到的：我沒辦法直接操作 AE 或剪映的介面，也不適合做寫實人物或實拍畫面。這類需求交給影片生成工具或實際拍攝會比較好。</p>
+  </section>
+
+  <section>
+    <h2>效果一覽</h2>
+    <p class="sub">依用途分成 9 類，標 NEW 的是第六批新增的 29 種「介面微動態」：比對 3 篇 Charlie Hills 的 Claude 動態圖形貼文後，補進圖鑑沒有的 UI 微動作（按鈕變形、日曆拖曳、Dock 放大、卡片展開等），卡片下方附貼文連結。每張卡片下方是可以直接複製的說明範本。</p>
+    <div class="bar" id="bar"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <footer>想要的效果不在清單上嗎？描述它長什麼樣子就好，或是像這次一樣直接貼影片連結給我。</footer>
+</div>
+
+<script>
+const EFFECTS=[
+ {id:'grid',zh:'網格波動',en:'Grid Wave',cat:'背景氛圍',desc:'一格格小方塊從中心往外一波波起伏、縮放、變色。你給我的那支 Reel 就是這種效果。',use:['品牌開場','科技產品','AI 主題'],
+  prompt:'做一個【16:9】的網格波動動畫：【20×12】個圓角小方塊，從【中心】往外擴散波紋，方塊會【縮放＋變色】，顏色從【珊瑚橘】漸變到【藍紫】，背景【深灰】，循環【4 秒】，輸出成【HTML】。',keys:'格子數量、波紋起點、動作、配色、秒數'},
+ {id:'flow',zh:'粒子流場',en:'Flow Field',cat:'背景氛圍',desc:'大量粒子順著看不見的氣流移動，留下淡淡的拖尾，看起來很平靜。',use:['影片背景','AI / 數據主題','冥想、音樂'],
+  prompt:'做一個【粒子流場】背景動畫：【300】顆粒子沿著氣流移動，留下【淡淡拖尾】，顏色用【珊瑚橘與藍紫】，背景【深藍黑】，速度【慢、平靜】，尺寸【1920×1080】，無縫循環，輸出【HTML】。',keys:'粒子數、拖尾長短、速度、配色'},
+ {id:'blob',zh:'液態變形',en:'Morphing Blob',cat:'背景氛圍',desc:'有機的圓形邊緣像液體一樣緩慢起伏，常拿來當柔和的視覺主體。',use:['美妝保養','音樂封面','網站 Hero'],
+  prompt:'做一個【液態變形】的有機圓形：邊緣【緩慢起伏】像液體，填色【橘到藍漸層】，後面有一顆【半透明小 blob】跟著漂，循環【6 秒】，輸出【HTML 背景元件】。',keys:'形狀起伏程度、漸層顏色、數量'},
+ {id:'gradient',zh:'流動漸層',en:'Gradient Mesh',cat:'背景氛圍',desc:'幾團柔和光暈慢慢漂移、互相混色，不搶文字，最適合墊在標題後面。',use:['網站背景','直播待機畫面','簡報封面'],
+  prompt:'做一個【流動漸層】背景：【3】團柔和光暈在畫面中【慢慢漂移、互相混色】，顏色【珊瑚橘、藍紫、金黃】，背景【深色】，要非常平順、不搶文字，輸出【CSS 或 Canvas 背景】。',keys:'光暈數量、顏色、速度'},
+ {id:'parallax',zh:'視差層次',en:'Parallax Layers',cat:'背景氛圍',desc:'好幾層景物用不同速度移動，近的快、遠的慢，做出空間深度。',use:['故事型開場','旅遊、戶外','遊戲畫面'],
+  prompt:'做一個【視差層次】場景：【3】層山脈以【不同速度】往左移動，越近越快，背景有【發光太陽】，顏色【夜晚藍紫＋前景珊瑚橘】，無縫循環，輸出【HTML】。',keys:'層數、每層內容、速度差'},
+
+ {id:'kinetic',zh:'文字動態',en:'Kinetic Type',cat:'文字標題',desc:'標題逐行彈入、停留後一起淡出，重點字換顏色。Reels 開頭最常用。',use:['Reels 開頭','金句、標語','廣告文案'],
+  prompt:'做一段【文字動態】：標題「【動態讓內容開口說話】」分成【3】行，每行【由下往上彈入】，間隔【0.3 秒】，重點字「【內容】」用【珊瑚橘】，停留【2 秒】後一起往上淡出，尺寸【9:16】，輸出【HTML】。',keys:'文字內容、斷行、進場方式、重點字'},
+ {id:'typewriter',zh:'打字機',en:'Typewriter',cat:'文字標題',desc:'文字一個字一個字打出來，加上閃爍游標，有「正在生成」的感覺。',use:['程式教學','AI 示範','引言、對話'],
+  prompt:'做一個【打字機】效果：一行一行打出【我提供的文字】，每個字【0.05 秒】，游標【方塊閃爍】，字型【等寬】，指令符號用【珊瑚橘】，打完停留【2 秒】重來，輸出【HTML】。',keys:'文字內容、打字速度、游標樣式'},
+ {id:'glitch',zh:'故障效果',en:'Glitch',cat:'文字標題',desc:'畫面不時出現紅藍錯位、橫向切片位移和掃描線，風格強烈。',use:['遊戲、電競','電子音樂','科技揭曉'],
+  prompt:'做一個【故障 Glitch】文字效果：大字「【GLITCH】」，每隔【不規則時間】出現【紅藍錯位＋橫向切片位移＋掃描線】，其餘時間保持乾淨，輸出【HTML，可錄成短片】。',keys:'文字、故障頻率、強度'},
+ {id:'marquee',zh:'跑馬燈',en:'Marquee',cat:'文字標題',desc:'好幾行文字左右交錯滾動，中間一條斜色帶，促銷感很強。',use:['促銷活動','電商橫幅','活動倒數'],
+  prompt:'做一個【跑馬燈】橫幅：【3】行文字【左右交錯】滾動，內容「【限時優惠・全館5折】」「【新品上市】」「【免運】」，中間那行用【珊瑚橘色帶、微微傾斜】，無縫循環，輸出【HTML / CSS】。',keys:'每行文字、方向、速度、色帶'},
+
+ {id:'counter',zh:'數字跳動',en:'Number Counter',cat:'數據圖表',desc:'數字從 0 快速跳到目標值、越接近越慢，最後跳出成長標籤。',use:['成果報告','募資、業績','社群里程碑'],
+  prompt:'做一個【數字跳動】動畫：數字從【0】跳到【12,480】，【2 秒】內先快後慢，上方標籤「【本月新增使用者】」，下方進度條同步長出，結束時跳出「【+38%】」，輸出【HTML，16:9】。',keys:'起訖數字、標籤、單位、秒數'},
+ {id:'chart',zh:'圖表生長',en:'Chart Grow',cat:'數據圖表',desc:'長條依序由下往上彈出，最後一根用強調色，讓趨勢一眼就看懂。',use:['簡報','年度回顧','數據新聞'],
+  prompt:'做一個【長條圖生長】動畫：【7】根長條依序【由下往上彈出】，數據【35, 50, 42, 68, 60, 82, 95】，最後一根用【珊瑚橘】強調，每根間隔【0.12 秒】，輸出【HTML，可放進簡報】。',keys:'實際數據、圖表類型、強調哪一根'},
+ {id:'sphere',zh:'點陣球體',en:'Dot Sphere',cat:'數據圖表',desc:'數百個點組成會自轉的立體球，前面亮、後面暗，看起來像地球或數據雲。',use:['全球服務','科技公司','AI 視覺'],
+  prompt:'做一個【3D 點陣球體】：用【400】個小點組成球，【緩慢自轉】並【微微傾斜】，前面的點【較大較亮】、後面的點【淡出】，顏色【藍到橘】，輸出【Three.js 或 Canvas】。',keys:'點數、轉速、傾斜角、配色'},
+ {id:'audio',zh:'音波頻譜',en:'Audio Bars',cat:'數據圖表',desc:'直條上下對稱跳動，可以接你的音檔，跟著聲音動。',use:['Podcast','音樂預告','語音貼文'],
+  prompt:'做一個【音波頻譜】：【48】根直條上下對稱跳動，中間高兩邊低，顏色【藍到橘】由左到右漸變，【接我的音檔／先用假資料】，輸出【HTML】。',keys:'條數、是否接音檔、配色'},
+
+ {id:'line',zh:'描邊揭露',en:'Stroke Reveal',cat:'Logo 圖形',desc:'用線條把 Logo 或圖形一筆一筆畫出來，畫完再補上色塊。',use:['Logo 開場','品牌片頭','簽名動畫'],
+  prompt:'做一個【Logo 描邊揭露】：把【我附上的 SVG Logo】用線條在【2 秒】內畫出來，畫完後【填色＋輕微彈跳】，線條【珊瑚橘、4px】，背景【深色】，輸出【SVG＋CSS 動畫】。',keys:'Logo 檔（SVG 最好）、線寬、時長'},
+ {id:'burst',zh:'星芒放射',en:'Starburst',cat:'Logo 圖形',desc:'圓頭射線慢慢旋轉、一伸一縮像在呼吸。那支 Reel 角落的橘色裝飾就是這個。',use:['影片角落裝飾','強調貼圖','新品標記'],
+  prompt:'做一個【星芒放射】貼圖：【16】條圓頭射線【慢慢旋轉】，長度【一伸一縮】像在呼吸，顏色【珊瑚橘】，疊在影片角落當裝飾，輸出【透明背景 GIF / SVG】。',keys:'射線數、粗細、轉速、顏色'},
+ {id:'bounce',zh:'彈跳物理',en:'Squash & Bounce',cat:'Logo 圖形',desc:'球落地時會壓扁再彈起，影子跟著縮放，風格可愛又有彈性。',use:['兒童、寵物','App 引導頁','輕鬆品牌'],
+  prompt:'做一個【彈跳球】動畫：【3】顆不同顏色的球【錯開節奏】彈跳，落地時【壓扁再彈回】，地面有【跟著縮放的影子】，風格【可愛 Q 彈】，輸出【HTML / Lottie】。',keys:'物件、數量、彈性、節奏'},
+
+ {id:'tunnel',zh:'無限隧道',en:'Tunnel Zoom',cat:'轉場 UI',desc:'方框不斷從中心朝鏡頭放大旋轉，有被吸進去的感覺，適合當轉場。',use:['段落轉場','音樂 MV','倒數開場'],
+  prompt:'做一個【無限隧道】轉場：【14】個方框從中心往鏡頭【放大並旋轉】，越近越亮越粗，顏色【藍轉橘】，速度【中等】，長度【3 秒】，輸出【MP4 / HTML】。',keys:'形狀（方／圓／三角）、速度、時長'},
+ {id:'loader',zh:'載入動畫',en:'Loader',cat:'轉場 UI',desc:'弧線一邊旋轉一邊伸縮，中間顯示百分比，可以直接用在網站或 App。',use:['網站、App','等待畫面','進度提示'],
+  prompt:'做一個【載入動畫】：圓環上的弧線【一邊旋轉一邊伸縮】，中間顯示【百分比】，粗細【8px】、【圓角端點】，顏色【珊瑚橘】，輸出【CSS / SVG，可放進網站】。',keys:'樣式、尺寸、是否顯示百分比'},
+
+ {id:'starfield',zh:'星空穿梭',en:'Starfield Warp',cat:'背景氛圍',desc:'星點從畫面中心朝鏡頭飛來，拉出光痕，像在太空中高速前進。',use:['科幻開場','發表會倒數','遊戲載入'],
+  prompt:'做一個【星空穿梭】背景：【300】顆星從中心往鏡頭飛，越近越亮、拉出【光痕】，少數星點用【珊瑚橘】，速度【中快】，尺寸【16:9】，無縫循環，輸出【HTML / MP4】。',keys:'星點數量、速度、光痕長短'},
+ {id:'plexus',zh:'粒子連線',en:'Plexus Network',cat:'背景氛圍',desc:'漂浮的節點靠近時自動連線，距離越近線越亮，很有網路、數據的感覺。',use:['科技公司','區塊鏈、資安','簡報背景'],
+  prompt:'做一個【粒子連線】背景：【60】個節點緩慢漂浮，距離小於【畫面 1/4】時自動連線，越近越亮，線條【藍到橘漸變】，背景【深色】，輸出【HTML 背景】。',keys:'節點數、連線距離、速度'},
+ {id:'aurora',zh:'極光波帶',en:'Aurora',cat:'背景氛圍',desc:'幾道半透明光帶像極光一樣在夜空中飄動、交疊發光。',use:['冥想、睡眠','音樂、Podcast 封面','節慶活動'],
+  prompt:'做一個【極光】背景：【3】道光帶在夜空中【緩慢飄動、交疊發光】，顏色【綠、藍紫、珊瑚橘】，上方有【零星星點】，非常柔和，循環【8 秒】，輸出【HTML】。',keys:'光帶顏色、數量、飄動速度'},
+ {id:'ripple',zh:'水波漣漪',en:'Ripples',cat:'背景氛圍',desc:'水滴隨機落下，一圈圈漣漪在有透視感的水面上擴散。',use:['SPA、保養','飲品、水資源','靜態轉動態'],
+  prompt:'做一個【水波漣漪】背景：水滴在【隨機位置】落下，每滴產生【3 圈】漣漪，水面有【透視感（橢圓）】，顏色【藍到橘】，背景【深色】，輸出【HTML】。',keys:'水滴頻率、漣漪圈數、配色'},
+
+ {id:'scramble',zh:'亂碼解碼',en:'Text Scramble',cat:'文字標題',desc:'每個字先快速閃過亂碼，再依序「解碼」成正確文字，很有駭客感。',use:['資安、科技','揭曉名稱','活動倒數'],
+  prompt:'做一個【亂碼解碼】文字：「【MOTION 2026】」每個字先閃【英數亂碼】，再【由左到右】依序定格，間隔【0.12 秒】，未解碼字用【珊瑚橘】，字型【等寬】，輸出【HTML】。',keys:'文字內容、解碼速度、亂碼字元'},
+ {id:'ptext',zh:'粒子聚字',en:'Particle Text',cat:'文字標題',desc:'散落的粒子飛過來拼成文字，停留後又散開。',use:['品牌名揭曉','新品發表','片尾 Logo'],
+  prompt:'做一個【粒子聚字】：數千顆粒子從【四周散落處】飛來拼成「【HELLO】」，停留【2 秒】後【散開】，粒子顏色【藍到橘】，背景【深色】，循環【5 秒】，輸出【HTML】。',keys:'文字或 Logo、粒子密度、聚散方式'},
+ {id:'rotator',zh:'文字輪播',en:'Word Rotator',cat:'文字標題',desc:'句子前半固定，後半的關鍵字像拉霸機一樣上下輪替。',use:['網站 Hero','服務介紹','Reels 開頭'],
+  prompt:'做一個【文字輪播】：固定字「【我們做】」，後面的關鍵字【影片／網站／品牌／動畫】每【1.4 秒】由下往上輪替，關鍵字用【珊瑚橘】加底線，輸出【HTML / CSS】。',keys:'固定字、輪替詞、間隔'},
+
+ {id:'donut',zh:'環圈圖',en:'Donut Chart',cat:'數據圖表',desc:'環狀圖一段段畫出來，中間數字同步跳動，旁邊圖例依序出現。',use:['市占、比例','問卷結果','財報簡報'],
+  prompt:'做一個【環圈圖】動畫：數據【直播 42%、短影音 26%、文章 19%、Podcast 13%】依序【順時針畫出】，中間顯示【最大項百分比】，右側圖例依序淡入，輸出【HTML，16:9】。',keys:'各項名稱與比例、顏色、中間數字'},
+ {id:'linechart',zh:'折線描繪',en:'Line Draw',cat:'數據圖表',desc:'折線由左往右畫出，下方漸層面積跟著長，線頭有發光點。',use:['成長趨勢','股價、流量','年度回顧'],
+  prompt:'做一個【折線描繪】動畫：數據【30, 42, 36, 55, 50, 66, 62, 80, 92】由左往右【2.4 秒】畫出，線下有【漸層面積】，線頭有【脈動光點】，線條【珊瑚橘】，輸出【HTML】。',keys:'實際數據、時長、是否要面積'},
+ {id:'arcs',zh:'地圖連線',en:'Network Arcs',cat:'數據圖表',desc:'點陣地圖上的據點之間不斷射出弧線，抵達時泛起光圈。',use:['全球據點','物流、交易','跨國合作'],
+  prompt:'做一個【地圖連線】動畫：【點陣地圖】上有【9 個據點】，每【0.5 秒】從一點射出【弧線】到另一點，抵達時泛起【光圈】，弧線【藍到橘】，輸出【HTML / Canvas】。',keys:'據點位置（城市）、連線頻率、地圖範圍'},
+
+ {id:'morph',zh:'形狀變形',en:'Shape Morph',cat:'Logo 圖形',desc:'圓形、方形、三角形、六角形之間流暢變形，邊緣帶一點彈性。',use:['Logo 演繹','品牌符號','App 引導'],
+  prompt:'做一個【形狀變形】：圖形依序在【圓形→方形→三角形→六角形】之間變形，每段【1.6 秒】、帶【輕微回彈】，填色【橘到藍漸層】，同時【緩慢旋轉】，輸出【SVG / HTML】。',keys:'形狀順序、每段時長、配色'},
+ {id:'orbit',zh:'軌道環繞',en:'Orbit',cat:'Logo 圖形',desc:'幾顆小球沿傾斜的橢圓軌道繞著中心 Logo 轉，有前後遮擋的立體感。',use:['生態系、整合服務','科技品牌','關於我們'],
+  prompt:'做一個【軌道環繞】：中心放【我的 Logo】，【3】條傾斜軌道上各有一顆小球以【不同速度】環繞，經過後方時【被 Logo 擋住】，顏色【珊瑚橘、藍紫、金黃】，輸出【HTML】。',keys:'中心圖、軌道數、速度'},
+
+ {id:'wipe',zh:'圓形擴散轉場',en:'Circle Wipe',cat:'轉場 UI',desc:'一個圓從畫面某處擴散，把下一個畫面揭開，乾淨俐落。',use:['段落轉場','前後對比','產品切換'],
+  prompt:'做一個【圓形擴散轉場】：畫面 A「【SCENE 1】」→ 從【左下角】擴散圓形揭開畫面 B「【SCENE 2】」，轉場【0.8 秒】、先慢後快再慢，B 底色【珊瑚橘】，輸出【HTML / MP4】。',keys:'擴散起點、時長、兩個畫面內容'},
+ {id:'slices',zh:'百葉窗轉場',en:'Slice Transition',cat:'轉場 UI',desc:'畫面切成多條，一條接一條滑入換成下一個畫面。',use:['新聞、資訊節目','節奏感剪輯','簡報換頁'],
+  prompt:'做一個【百葉窗轉場】：把畫面切成【8】條橫條，每條間隔【0.06 秒】從【左邊】滑入下一個畫面，前緣有【珊瑚橘細線】，輸出【HTML / AE 腳本】。',keys:'條數、方向、間隔'},
+ {id:'confetti',zh:'彩帶慶祝',en:'Confetti',cat:'轉場 UI',desc:'兩側噴出彩紙，翻轉飄落，中間跳出慶祝文字。',use:['達標、得獎','抽獎結果','App 完成頁'],
+  prompt:'做一個【彩帶慶祝】：從【畫面兩下角】噴出【140】片彩紙，會【翻轉、飄落】，中間彈出「【恭喜達標！】」，顏色【珊瑚橘、藍紫、金黃、綠】，輸出【HTML / 透明背景 GIF】。',keys:'噴發位置、數量、慶祝文字'},
+ {id:'like',zh:'按讚愛心',en:'Like Burst',cat:'轉場 UI',desc:'愛心彈出時周圍炸開光圈和小點，右側還有直播式的愛心往上飄。',use:['社群互動提示','直播畫面','按讚引導'],
+  prompt:'做一個【按讚愛心】動畫：中間愛心【彈出放大】，同時炸開【光圈＋10 顆小點】，右側有【6 顆小愛心】像直播一樣往上飄，主色【珊瑚橘】，輸出【HTML / Lottie】。',keys:'圖示（愛心／讚）、是否要飄浮、配色'},
+
+ {id:'perspgrid',zh:'透視網格穿梭',en:'Retro Grid',cat:'背景氛圍',desc:'發光的透視地板網格不斷朝鏡頭推進，地平線泛著光，有復古未來感。',use:['科技開場','電子音樂','遊戲'],
+  prompt:'做一個【透視網格穿梭】背景：地平線在【畫面上方 4 成】，網格線【朝鏡頭推進】，地平線有【珊瑚橘光暈】，網格【藍紫】，速度【中等】，無縫循環。',keys:'網格顏色、速度、地平線高度'},
+ {id:'maskrise',zh:'遮罩滑升文字',en:'Mask Reveal',cat:'文字標題',desc:'文字從看不見的基線下方滑升出現，指數緩動，像雜誌排版，質感精緻。',use:['企業形象','精品品牌','標題卡'],
+  prompt:'做一個【遮罩滑升文字】：3 行字「【CRAFTED】」「【於細節之中】」「【2026】」依序從基線下方【滑升出現】，間隔【0.25 秒】、指數緩動，第二行粗體，年份用【柔金色】，下方一條細線長出。',keys:'文字內容、行數、字重對比'},
+ {id:'charfall',zh:'逐字落下回彈',en:'Char Drop',cat:'文字標題',desc:'每個字從上方旋轉落下、回彈定位，熱鬧有活力。',use:['Reels 開頭','活動標題','綜藝感字卡'],
+  prompt:'做一個【逐字落下】標題：「【逐字落下回彈】」每個字從上方【旋轉落下並回彈】，間隔【0.1 秒】，中間兩個字用【珊瑚橘】。',keys:'文字內容、間隔、旋轉幅度'},
+ {id:'beatslam',zh:'逐拍重擊字',en:'Beat Slam',cat:'文字標題',desc:'一拍換一個詞，每次放大重擊進場加輕微震動，適合列舉平台、品牌、關鍵字。',use:['列舉平台','卡點剪輯','品牌清單'],
+  prompt:'做一個【逐拍重擊字】：依【128 BPM】每拍換一個詞【FACEBOOK／YOUTUBE／LINE／INSTAGRAM】，每次【放大重擊進場＋輕震】，每 3 拍一次用【珊瑚橘】。',keys:'詞彙清單、BPM、強調規則'},
+ {id:'strokeflow',zh:'描邊大字流動',en:'Outline Marquee',cat:'文字標題',desc:'超大的空心描邊字左右緩慢流動，當背景層次或段落分隔，比跑馬燈更精緻。',use:['段落分隔','品牌背景字','時尚'],
+  prompt:'做一個【描邊大字流動】：兩行空心描邊大字「【CONTENT · NEWS · DATA】」【反方向緩慢流動】，一行白、一行【珊瑚橘】，線寬【1.5px】，無縫循環。',keys:'文字、方向、速度、線寬'},
+ {id:'karaoke',zh:'字幕逐字高亮',en:'Karaoke Captions',cat:'文字標題',desc:'口播字幕跟著語音逐字變色並微微跳動，是短影音最常見的字幕形式。',use:['口播字幕','教學影片','訪談'],
+  prompt:'做【字幕逐字高亮】：字幕「【三秒抓住注意力的字幕】」跟著語音【逐字變黃並微跳】，字有【深色描邊】，位置【畫面下方 3 成】，【接我的逐字時間碼／先用平均速度】。',keys:'字幕文字、時間碼、高亮色'},
+ {id:'highlighter',zh:'螢光筆劃重點',en:'Highlighter',cat:'文字標題',desc:'螢光筆從左往右劃過重點句，再用手繪圈圈出關鍵字。',use:['知識型短影音','重點整理','教學'],
+  prompt:'做一個【螢光筆劃重點】：兩行字「【重點不是做更多，】」「【而是做對的事】」，第二行被【黃色螢光筆】從左劃過，接著用【珊瑚橘手繪圈】圈住「【重點】」。',keys:'句子、要劃的句子、要圈的字'},
+ {id:'radar',zh:'雷達圖',en:'Radar Chart',cat:'數據圖表',desc:'多軸雷達圖從中心長出，背後有掃描光束旋轉，適合比較能力或資料範圍。',use:['能力比較','產品規格','資料範圍'],
+  prompt:'做一個【雷達圖】：【6】個軸【資料量、即時性、深度、廣度、準確、易用】，數值【90,70,85,60,95,75】從中心【長出】，背後有【掃描光束】旋轉。',keys:'軸名稱、數值、是否要掃描光束'},
+ {id:'candle',zh:'K 線行情',en:'Candlestick Ticker',cat:'數據圖表',desc:'K 線一根根更新，下方行情跑馬燈滾動，財經感十足。',use:['財經','股市','投資知識'],
+  prompt:'做一個【K 線行情】：【22】根 K 線持續更新，漲用【珊瑚橘】、跌用【藍紫】，下方【行情跑馬燈】滾動「【INDEX 23,415 ▲0.82%】」。',keys:'行情文字、漲跌色、更新速度'},
+ {id:'bubble',zh:'泡泡圖',en:'Bubble Chart',cat:'數據圖表',desc:'大小不同的圓依序彈出、微微漂浮，圓的大小代表數量。',use:['平台比較','市占','粉絲數'],
+  prompt:'做一個【泡泡圖】：【6】個圓代表【YouTube、IG、TikTok、FB、X、LINE】，大小依【數值】，依序【彈出並漂浮】，交替用【珊瑚橘／藍紫】。',keys:'項目與數值、配色'},
+ {id:'waffle',zh:'人形點陣',en:'Waffle People',cat:'數據圖表',desc:'一格格小人圖示依序點亮，直覺呈現「多少比例的人」。',use:['使用者比例','問卷','人口數據'],
+  prompt:'做一個【人形點陣】：【30×10】個小人圖示依序點亮【72%】，點亮用【珊瑚橘】，左上角百分比同步跳動。',keys:'比例、格數、單位意義'},
+ {id:'gauge',zh:'儀表指數',en:'Gauge',cat:'數據圖表',desc:'半圓儀表從 0 衝到目標值，外環主值、內環副值，像即時儀表板。',use:['KPI','效能','即時數據'],
+  prompt:'做一個【儀表指數】：半圓儀表從 0 衝到【78】，外環【珊瑚橘】、內環副值【55%】用【藍紫】，有刻度，中間顯示數字。',keys:'主值、副值、單位'},
+ {id:'clockdial',zh:'24 小時錶盤',en:'24h Dial',cat:'數據圖表',desc:'24 格錶盤隨時間逐格點亮，指針轉動，表達全天候、時程。',use:['全天候服務','一日行程','營運時間'],
+  prompt:'做一個【24 小時錶盤】：24 格刻度隨時間【逐格點亮】、顏色【藍到橘】，指針轉動，下方顯示【時間】。',keys:'時段標記、速度'},
+ {id:'wireglobe',zh:'經緯線地球',en:'Wire Globe',cat:'數據圖表',desc:'經緯線組成的立體地球自轉，表面有閃爍據點，比點陣球更有「地球」感。',use:['國際業務','全球用戶','旅遊'],
+  prompt:'做一個【經緯線地球】：經緯線組成的地球【傾斜自轉】，線條【藍紫】，表面【8 個據點】閃爍【珊瑚橘】。',keys:'據點、轉速、線條顏色'},
+ {id:'ptimeline',zh:'透視時間公路',en:'Perspective Timeline',cat:'數據圖表',desc:'年份里程碑沿著透視公路從遠方迎面而來，適合講歷史沿革。',use:['公司沿革','品牌故事','年度大事'],
+  prompt:'做一個【透視時間公路】：年份【1989、1995、2005、2015、2026】沿著透視公路【從遠方迎面而來】，每個里程碑有【珊瑚橘圓點】。',keys:'年份與事件、速度'},
+ {id:'neural',zh:'神經網路訊號',en:'Neural Network',cat:'數據圖表',desc:'多層節點間的訊號一層層往右傳遞，節點跟著亮起，AI 主題必備。',use:['AI 主題','機器學習','自動化'],
+  prompt:'做一個【神經網路訊號】：【3-5-5-2】層節點，訊號粒子【由左往右逐層傳遞】，節點依序亮起，配色【藍到橘】。',keys:'層數、訊號速度、配色'},
+ {id:'packets',zh:'資料封包流動',en:'Data Packets',cat:'數據圖表',desc:'資料封包沿著曲線從來源流到中心再分發出去，表達資料流、授權、串接。',use:['資料串接','授權流程','系統架構'],
+  prompt:'做一個【資料封包流動】：左邊【2 個來源】→ 中心【平台】→ 右邊【3 個去處】，封包沿曲線【持續流動】，進線【藍紫】、出線【珊瑚橘】。',keys:'節點名稱、流向、速度'},
+ {id:'flipclock',zh:'翻牌數字',en:'Flip Clock',cat:'數據圖表',desc:'機場看板式翻牌數字，一張張翻頁，適合倒數、計時、年份。',use:['倒數計時','年份','計時器'],
+  prompt:'做一個【翻牌數字】：兩位數翻牌從【00】開始每秒【翻頁】，卡片【深灰】、字白色、中間有分隔線。',keys:'起始數字、翻頁速度、位數'},
+ {id:'countdown',zh:'倒數圓環',en:'Countdown Ring',cat:'數據圖表',desc:'3、2、1 大字重擊配合縮短的圓環，短影音開場或揭曉前的經典。',use:['開場倒數','揭曉前','直播開始'],
+  prompt:'做一個【倒數圓環】：大字【3→2→1】每秒【放大重擊】，外圈【珊瑚橘圓環】跟著縮短。',keys:'倒數秒數、揭曉內容'},
+ {id:'lightsweep',zh:'光帶掃描',en:'Light Sweep',cat:'Logo 圖形',desc:'一道柔金光帶掃過 Logo 或標題，精品廣告常用的收尾光澤。',use:['Logo 收尾','精品廣告','標題強調'],
+  prompt:'做一個【光帶掃描】：【我的 Logo／BRAND】上有一道【柔金色光帶】從左上【掃到右下】，每【3 秒】一次。',keys:'Logo 或文字、光帶顏色、頻率'},
+ {id:'stamp',zh:'報紙蓋章',en:'Newsprint Stamp',cat:'Logo 圖形',desc:'報紙直行欄位緩慢捲動，紅色印章重重蓋下，強調「第一」「首創」。',use:['歷史第一','認證','新聞媒體'],
+  prompt:'做一個【報紙蓋章】：背景是【報紙直行欄位】緩慢捲動，紅色印章「【首創】」【從大到小重重蓋下】、微傾斜。',keys:'印章文字、背景樣式'},
+ {id:'gears',zh:'藍圖齒輪',en:'Blueprint Gears',cat:'Logo 圖形',desc:'藍圖格線上兩個齒輪咬合轉動，表達系統、引擎、轉型。',use:['數位轉型','系統架構','製造業'],
+  prompt:'做一個【藍圖齒輪】：藍圖格線背景上【2 個齒輪咬合轉動】，大齒輪白線、小齒輪【珊瑚橘】。',keys:'齒輪數量、轉速'},
+ {id:'prism',zh:'3D 稜柱翻轉',en:'Prism Flip',cat:'版面介面',desc:'三面稜柱一拍翻一面，每面一個關鍵字，適合三大主軸、三個重點。',use:['三大主軸','三個重點','品牌價值'],
+  prompt:'做一個【3D 稜柱翻轉】：三面分別是「【新聞】」「【資料】」「【服務】」，每【1.6 秒】往上翻一面，每面不同底色。',keys:'三個關鍵字、配色、翻轉速度'},
+ {id:'honeycomb',zh:'蜂巢格',en:'Honeycomb',cat:'版面介面',desc:'六角格從中心一圈圈長出，適合產品線、服務矩陣。',use:['產品線','服務矩陣','生態系'],
+  prompt:'做一個【蜂巢格】：六角格從【中心】往外【一圈圈彈出】，重點格【珊瑚橘】，其餘【半透明藍紫】，可在格內放【產品名】。',keys:'格數、格內文字、重點格'},
+ {id:'search',zh:'搜尋介面',en:'Search UI',cat:'版面介面',desc:'搜尋框逐字輸入關鍵字，結果卡片一張張浮上來，示範產品功能很好用。',use:['產品示範','資料庫','知識服務'],
+  prompt:'做一個【搜尋介面】：搜尋框【逐字輸入】「【我的關鍵字】」，接著【4 張結果卡】依序浮上，第一張用【珊瑚橘】標示。',keys:'關鍵字、結果數、樣式'},
+ {id:'polaroid',zh:'拍立得堆疊',en:'Polaroid Stack',cat:'版面介面',desc:'一張張拍立得從下方彈上來、隨機傾斜疊在一起，適合回憶、作品集。',use:['回顧','作品集','影像庫'],
+  prompt:'做一個【拍立得堆疊】：【5】張拍立得【從下方彈上來】、隨機傾斜疊放，照片放【我的圖片】，帶陰影。',keys:'照片、張數、傾斜程度'},
+ {id:'crt',zh:'CRT 開機',en:'CRT Boot',cat:'版面介面',desc:'老電視「啪」一聲開機，接著綠字一行行跑出，有掃描線和暗角，懷舊感強。',use:['懷舊','網路歷史','年代回顧'],
+  prompt:'做一個【CRT 開機】：畫面先像老電視【一條白線打開】，接著綠色等寬字一行行出現「【BIOS v1.995 ...OK】」，加【掃描線＋暗角】。',keys:'開機文字、年代感'},
+ {id:'carousel',zh:'環形旋轉木馬',en:'3D Carousel',cat:'版面介面',desc:'卡片排成一圈繞中心旋轉，前大後小、前亮後暗，適合展示多個單位或產品。',use:['多個部門','產品系列','節目列表'],
+  prompt:'做一個【環形旋轉木馬】：【6】張卡片繞成一圈【緩慢旋轉】，前大後小，卡片放【單位名稱／圖片】，交替【珊瑚橘／藍紫】。',keys:'卡片數量、內容、轉速'},
+ {id:'coverflow',zh:'封面流',en:'Cover Flow',cat:'版面介面',desc:'像翻唱片一樣，封面一張張滑到正中央，兩側傾斜並帶倒影。',use:['節目介紹','作品集','商品系列'],
+  prompt:'做一個【封面流】：封面每【1.4 秒】往左【滑到中央】，兩側封面【傾斜縮小】，地面有【淡倒影】，封面放【我的圖片】。',keys:'封面圖片、切換速度'},
+ {id:'phone',zh:'手機介面',en:'Phone Mockup',cat:'版面介面',desc:'兩支手機並排，螢幕內容自動捲動，示範 App 或社群內容最直接。',use:['App 介紹','社群內容','產品示範'],
+  prompt:'做一個【手機介面】：【2】支手機並排、輕微漂浮，螢幕內【卡片自動往上捲】，可放【我的截圖】。',keys:'手機數量、螢幕內容'},
+ {id:'bento',zh:'Bento 拼貼',en:'Bento Grid',cat:'版面介面',desc:'大小不一的方塊隨節拍一格格填滿畫面，適合數字總整理。',use:['數字回顧','重點總整理','年度回顧'],
+  prompt:'做一個【Bento 拼貼】：【7】格大小不一的圓角方塊【隨 128 BPM 一拍一格彈入】，第一格【珊瑚橘】，格內放【數字與標籤】。',keys:'格數、每格內容、節拍'},
+ {id:'splitscreen',zh:'前後對比滑桿',en:'Before/After',cat:'版面介面',desc:'中間分隔線左右滑動，左邊 BEFORE、右邊 AFTER，對比效果一目了然。',use:['改造前後','修圖對比','產品升級'],
+  prompt:'做一個【前後對比滑桿】：左邊【BEFORE】、右邊【AFTER】，中間分隔線【左右來回滑動】，把手是白色圓點。',keys:'兩邊畫面、滑動速度'},
+ {id:'callout',zh:'標註線',en:'Callout Lines',cat:'版面介面',desc:'從產品上的點拉出標註線，再寫上規格說明，開箱和產品介紹常用。',use:['開箱','產品規格','功能說明'],
+  prompt:'做一個【標註線】：在【產品畫面】上，從【2 個點】依序拉出標註線，寫上「【輕 30%】」「【續航 2 倍】」，點會脈動。',keys:'標註點位置、說明文字'},
+ {id:'dissolve',zh:'像素溶解',en:'Pixel Dissolve',cat:'轉場 UI',desc:'畫面碎成方格，隨機一格格換成下一個畫面，有數位感。',use:['科技轉場','資料主題','遊戲'],
+  prompt:'做一個【像素溶解轉場】：畫面切成【24×15】格，【隨機逐格】換成下一個畫面，轉場【1.4 秒】。',keys:'格子大小、時長'},
+ {id:'hexmask',zh:'六角形遮罩',en:'Hex Mask',cat:'轉場 UI',desc:'六角形從中心一圈圈長大，拼出下一個畫面。',use:['科技轉場','產品切換','蜂巢主題'],
+  prompt:'做一個【六角形遮罩轉場】：六角形從【中心】往外【逐圈長大】揭開下一個畫面，轉場【1.4 秒】。',keys:'形狀大小、擴散起點'},
+ {id:'clockwipe',zh:'時鐘掃描',en:'Clock Wipe',cat:'轉場 UI',desc:'像時鐘指針一樣掃一圈，把下一個畫面揭開。',use:['時間主題','流程切換','倒數'],
+  prompt:'做一個【時鐘掃描轉場】：從【12 點方向】順時針掃一圈揭開下一個畫面，轉場【1.4 秒】。',keys:'起始角度、方向、時長'},
+ {id:'doors',zh:'對開門',en:'Door Split',cat:'轉場 UI',desc:'畫面從中間往兩側打開，露出下一個畫面，有揭幕感。',use:['揭幕','新品發表','章節開始'],
+  prompt:'做一個【對開門轉場】：畫面從【中間往左右打開】露出下一個畫面，轉場【1.4 秒】。',keys:'開門方向、時長'},
+ {id:'shatter',zh:'碎裂',en:'Shatter',cat:'轉場 UI',desc:'畫面碎成三角形碎片往下掉落，露出下一個畫面，衝擊力強。',use:['衝擊轉場','打破框架','運動'],
+  prompt:'做一個【碎裂轉場】：畫面碎成【6×4 格三角形碎片】，【旋轉往下掉落】，露出下一個畫面。',keys:'碎片數量、掉落方向'},
+ {id:'iris',zh:'多環光圈',en:'Iris Rings',cat:'轉場 UI',desc:'圓形光圈擴散揭開下一個畫面，外圈帶著幾道彩色光環。',use:['段落轉場','能量感','活動'],
+  prompt:'做一個【多環光圈轉場】：圓形從中心擴散揭開下一個畫面，外圍有【3 道光環】（金、藍紫）一起擴散。',keys:'光環數量、顏色、起點'},
+ {id:'push',zh:'推移',en:'Push',cat:'轉場 UI',desc:'下一個畫面把目前畫面直接推出去，最乾淨的轉場。',use:['簡報換頁','清單切換','通用'],
+  prompt:'做一個【推移轉場】：下一個畫面從【右邊】把目前畫面【推出去】，轉場【1.4 秒】、先慢後快再慢。',keys:'方向、時長'},
+ {id:'flash',zh:'星芒閃白',en:'Flash Star',cat:'轉場 UI',desc:'一瞬間白光閃爍加星芒，切到下一個畫面，常用在卡點重拍。',use:['卡點重拍','揭曉','高潮'],
+  prompt:'做一個【星芒閃白轉場】：切點時【白光閃一下＋8 道星芒】旋轉，閃完是下一個畫面。',keys:'閃光強度、星芒數'},
+ {id:'softdiag',zh:'柔邊斜向遮罩',en:'Soft Diagonal',cat:'轉場 UI',desc:'柔和漸層邊從左上斜掃到右下，換成下一個畫面，精品感轉場。',use:['精品形象','企業簡介','溫和切換'],
+  prompt:'做一個【柔邊斜向遮罩轉場】：柔和漸層邊從【左上斜掃到右下】換成下一個畫面，轉場【1.4 秒】。',keys:'角度、柔邊寬度'},
+ {id:'blurzoom',zh:'模糊縮放交疊',en:'Blur Zoom',cat:'轉場 UI',desc:'目前畫面放大模糊淡出，下一個畫面從模糊縮小變清楚，電影感。',use:['電影感','情緒轉場','企業形象'],
+  prompt:'做一個【模糊縮放交疊轉場】：目前畫面【放大＋模糊＋淡出】，下一個畫面【從模糊縮放到清楚】，轉場【1.4 秒】。',keys:'模糊程度、縮放幅度'},
+ {id:'panel',zh:'面板滑入',en:'Panel Slide',cat:'轉場 UI',desc:'下一個畫面像一張紙從右邊滑入、帶陰影蓋上，目前畫面變暗。',use:['章節切換','雜誌風','企業簡介'],
+  prompt:'做一個【面板滑入轉場】：下一個畫面像一張紙從【右邊】滑入、帶【陰影】，目前畫面同時變暗。',keys:'方向、陰影強度'},
+ {id:'liquid',zh:'液態遮罩',en:'Liquid Mask',cat:'轉場 UI',desc:'下一個畫面像水位一樣從下往上漲起來，邊緣是波浪。',use:['飲品','清新','活潑轉場'],
+  prompt:'做一個【液態遮罩轉場】：下一個畫面像【水位上漲】從下往上蓋滿，邊緣是【波浪】，轉場【1.4 秒】。',keys:'波浪大小、方向'},
+ {id:'filmfx',zh:'底片顆粒暗角',en:'Film Grain',cat:'後製質感',desc:'整片加上底片顆粒、暗角和緩慢推近，讓程式畫面有電影質感。',use:['電影感','品牌片','整片後製'],
+  prompt:'整片加【底片顆粒＋暗角＋每段緩慢推近 4%】，顆粒強度【輕】，暗角【中等】。',keys:'顆粒強度、暗角、推近幅度'},
+ {id:'camshake',zh:'切點震動色散',en:'Beat Shake',cat:'後製質感',desc:'每個切點畫面輕震並出現紅藍色散，卡點剪輯的衝擊感來源。',use:['卡點剪輯','運動','電子音樂'],
+  prompt:'整片在每個【128 BPM 切點】加【輕微震動＋放大 8%＋紅藍色散】，0.2 秒內回穩。',keys:'BPM、震動強度、是否要色散'},
+ {id:'hud',zh:'觀景窗 HUD',en:'Viewfinder HUD',cat:'後製質感',desc:'四角框線、REC 閃爍、時間碼、章節與進度條，讓整片像攝影機畫面。',use:['Vlog','紀錄感','章節導覽'],
+  prompt:'整片疊一層【觀景窗 HUD】：四角框線、【REC 閃爍】、右上【時間碼】、左下【章節名稱】、底部【進度條】。',keys:'章節名稱、要顯示的元素'},
+ {id:'glasswall',zh:'毛玻璃卡牆',en:'Glass Card Wall',cat:'版面介面',desc:'半透明毛玻璃卡片排成兩排 3D 透視牆，後排模糊、前排清楚，鏡頭緩慢推移，背景有柔光球。',use:['社群平台介紹','產品矩陣','科技品牌'],ref:'',
+  prompt:'做一個【毛玻璃卡牆】：【8】張半透明卡片排成【前後兩排】透視牆，後排【模糊】，每張卡放【平台圖示＋名稱】，鏡頭【緩慢右移推近】，背景【深藍＋柔光球】。',keys:'卡片內容、排數、鏡頭移動方向'},
+ {id:'heroorbit',zh:'主視覺環繞軌道',en:'Hero Orbit',cat:'版面介面',desc:'中央一支手機主視覺、內容自動捲動，周圍圖示沿傾斜橢圓軌道繞行，繞到後方時被手機擋住並變模糊。',use:['App／平台介紹','社群經營','產品主視覺'],ref:'',
+  prompt:'做一個【主視覺環繞軌道】：中央放【手機畫面（自動捲動內容）】，【6】個【平台圖示】沿傾斜橢圓軌道繞行，後方的圖示【被擋住、變模糊】。',keys:'中央主視覺、圖示清單、轉速'},
+ {id:'kenburns',zh:'實拍緩推平移',en:'Ken Burns',cat:'版面介面',desc:'靜態照片或實拍片段緩慢放大並平移，讓靜止畫面有鏡頭感，前後淡入淡出。',use:['照片回顧','實拍穿插','紀錄片感'],ref:'',
+  prompt:'把【我的照片／實拍片段】做【肯伯恩斯】效果：【6 秒】內從 1.04 倍緩慢放大到 1.16 倍，同時【往右平移 4%】，頭尾各【淡入淡出 0.5 秒】。',keys:'素材、放大幅度、平移方向'},
+ {id:'sepiacolor',zh:'舊照泛黃轉彩色',en:'Sepia to Color',cat:'後製質感',desc:'畫面先是泛黃、帶顆粒的老照片，再漸漸恢復成彩色，用來從過去切回現在。',use:['公司沿革','今昔對比','品牌故事'],ref:'',
+  prompt:'把【這段畫面】做成【舊照泛黃轉彩色】：前【1.8 秒】是【黑白泛黃＋顆粒】，接著在【1.4 秒】內漸漸恢復彩色，同時年份從「【1989】」換成「【2026】」。',keys:'起訖年份、褪色時長'},
+ {id:'wordcollapse',zh:'關鍵詞收束',en:'Word Collapse',cat:'文字標題',desc:'三個關鍵詞依序彈入、下方細線長出，最後一起縮回中心，交給品牌名或 Logo 接手。',use:['經營理念','片尾收束','品牌價值'],ref:'',
+  prompt:'做一個【關鍵詞收束】：「【創新】」「【品質】」「【服務】」依序彈入，間隔【0.6 秒】，下方細線長出，最後三個詞【一起縮回中心】，接著出現【品牌名】。',keys:'三個關鍵詞、收束後出現的內容'},
+ {id:'gooey',zh:'黏液融合球',en:'Gooey Metaball',cat:'Logo 圖形',desc:'幾顆圓靠近時像液體一樣黏在一起、分開時拉出細絲，有機又可愛。',use:['Logo 開場','App 選單示意','液體感品牌'],ref:'https://tympanus.net/codrops/2015/03/10/creative-gooey-effects/',
+  prompt:'做一個【黏液融合球】：【5】顆圓繞著中心漂移，靠近時【像液體一樣黏合】，填色【橘到藍漸層】，背景【黑】。',keys:'球數、黏度、配色'},
+ {id:'circletext',zh:'環形旋轉文字',en:'Circular Text',cat:'文字標題',desc:'文字沿著圓形排列並持續旋轉，中間放主圖示，像貼紙或徽章。',use:['追蹤／訂閱 CTA','Logo 外環','片尾徽章'],ref:'https://tympanus.net/codrops/?p=53487',
+  prompt:'做一個【環形旋轉文字】：「【SCROLL · FOLLOW · SAVE · SHARE】」沿圓形排列【慢慢旋轉】，中間是【珊瑚橘圓＋「追蹤」】，透明背景。',keys:'環形文字、中心內容、轉速'},
+ {id:'ascii',zh:'ASCII 字元成像',en:'ASCII Render',cat:'後製質感',desc:'畫面依亮度換成不同密度的字元，像終端機裡的影像，有駭客、開發者感。',use:['科技片頭','AI／程式主題','開發者內容'],ref:'https://tympanus.net/codrops/2026/01/04/efecto-building-real-time-ascii-and-dithering-effects-with-webgl-shaders',
+  prompt:'把【這個畫面／一顆受光球體】做成【ASCII 字元成像】：依亮度用「【 .:-=+*#%@】」字元排出，顏色【藍到橘】，光源【緩慢旋轉】。',keys:'畫面來源、字元集、格子大小'},
+ {id:'dither',zh:'抖動網點揭露',en:'Dither Reveal',cat:'後製質感',desc:'用 Bayer 抖動網點把圖像從一片空白逐漸「點」出來，像復古印刷。',use:['產品揭曉','復古海報','雜誌封面'],ref:'https://tympanus.net/codrops/2026/01/04/efecto-building-real-time-ascii-and-dithering-effects-with-webgl-shaders',
+  prompt:'做一個【抖動網點揭露】：用【4×4 Bayer 網點】把【我的圖／球體】從無到有【2.5 秒】逐漸顯現，網點【珊瑚橘】，背景【深色】。',keys:'圖像、網點大小、顯現時長'},
+ {id:'spotlight',zh:'聚光燈探照',en:'Spotlight Reveal',cat:'轉場 UI',desc:'全黑畫面上一個光圈四處移動，照到哪裡就露出底下的內容，最後光圈放大全亮。',use:['懸念開場','找重點','產品細節'],ref:'https://tympanus.net/codrops/?p=54377',
+  prompt:'做一個【聚光燈探照】：黑幕上有一個【柔邊光圈】四處移動，照出底下的「【找到重點】」，最後【光圈放大到全畫面】。',keys:'底下內容、光圈大小、移動路線'},
+ {id:'odometer',zh:'里程表滾輪數字',en:'Odometer Roll',cat:'數據圖表',desc:'每一位數字像機械滾輪各自往上捲，低位數轉完一圈才帶動高位數進位。',use:['營收里程碑','粉絲數','價格揭曉'],ref:'https://www.framer.com/marketplace/components/odometer-counter-fx/',
+  prompt:'做一個【里程表滾輪數字】：數字從【0】捲到【48,216】，每一位像【機械滾輪】各自捲動、低位進位帶動高位，前兩位用【珊瑚橘】，【3 秒】先快後慢。',keys:'目標數字、位數、時長'},
+ {id:'barrace',zh:'長條圖競賽',en:'Bar Chart Race',cat:'數據圖表',desc:'長條隨年份長短變化並互相超車換名次，右下角年份跟著跳。',use:['歷年排行','市占變化','平台消長'],ref:'https://flourish.studio/blog/animated-charts/',
+  prompt:'做一個【長條圖競賽】：【5】個項目【YouTube、IG、TikTok、FB、LINE】從【2022】到【2026】，長條隨數值變化並【互相超車換名次】，右下角大字顯示年份。',keys:'項目、每年數值、年份範圍'},
+ {id:'linerace',zh:'折線競賽',en:'Line Chart Race',cat:'數據圖表',desc:'多條折線一起往右延伸，線頭帶著名稱與即時數值，看誰最後領先。',use:['品牌對比','成長比較','年報'],ref:'https://flourish.studio/blog/animated-charts/',
+  prompt:'做一個【折線競賽】：【3】條折線【A 品牌、B 品牌、C 品牌】一起往右延伸【3.6 秒】，線頭顯示【名稱＋數值】，配色【珊瑚橘、藍紫、金】。',keys:'線條與數據、時長'},
+ {id:'weightwave',zh:'字重波浪',en:'Weight Wave',cat:'文字標題',desc:'每個字的粗細和寬度像波浪一樣起伏流動，顏色跟著變，很有節奏感。',use:['品牌標語','音樂節奏字卡','時尚'],ref:'https://creativebloq.com/design/fonts-typography/from-variable-fonts-to-kinetic-type-these-typography-trends-could-be-big-in-2025',
+  prompt:'做一個【字重波浪】：「【字重波浪WAVE】」每個字的【粗細與寬度】像波浪一樣由左往右起伏，顏色隨粗細在【藍到橘】之間變化。',keys:'文字、波速、粗細範圍'},
+ {id:'blurin',zh:'模糊逐字浮現',en:'Blur Stagger In',cat:'文字標題',desc:'每個字從模糊、透明、稍微下沉的狀態依序變清楚定位，是 Apple 發表會常見的字卡。',use:['產品發表','金句','企業簡報'],ref:'',
+  prompt:'做一個【模糊逐字浮現】：「【每個字都清楚登場】」每個字從【模糊＋透明＋下沉】依序清楚定位，間隔【0.09 秒】，後三字用【珊瑚橘】，最後一起模糊淡出。',keys:'文字、間隔、重點字'},
+ {id:'zoomtext',zh:'穿字放大轉場',en:'Zoom Through Text',cat:'轉場 UI',desc:'大字當成窗口，鏡頭往字裡衝，穿過字母後整個畫面變成下一個場景。',use:['片頭進主畫面','章節轉場','品牌名揭曉'],ref:'',
+  prompt:'做一個【穿字放大轉場】：大字「【BIG】」裡面透出下一個畫面，鏡頭從字母「【I】」【衝進去放大 60 倍】，穿過後整個畫面就是下一個場景，【2 秒】。',keys:'字、穿過哪個字母、時長'},
+ {id:'mosaic',zh:'動態照片牆',en:'Photo Mosaic',cat:'版面介面',desc:'一格格照片依斜向波浪翻面出現，再一起翻成一張完整大圖，最後疊上標題。',use:['活動回顧','客戶見證','作品集'],ref:'',
+  prompt:'做一個【動態照片牆】：【4×3】格【我的照片】依斜向波浪【逐格翻面】出現，接著全部翻成【一張完整主圖】，最後疊上「【RECAP】」。',keys:'照片、格數、主圖'},
+ {id:'cardswipe',zh:'疊卡滑走',en:'Card Swipe',cat:'版面介面',desc:'一疊卡片每次甩走最上面一張，露出下一張，適合一則一則講重點。',use:['Top N 清單','產品特色','重點整理'],ref:'',
+  prompt:'做一個【疊卡滑走】：【4】張卡疊在一起，每【1.2 秒】把最上面一張【往右甩出並旋轉】，後面的卡往前補位，卡上放【#1、#2…重點】。',keys:'卡片內容、間隔、甩出方向'},
+ {id:'chat',zh:'對話泡泡',en:'Chat Bubbles',cat:'版面介面',desc:'先出現打字中的三個點，再彈出對話泡泡，左右交替，模擬聊天。',use:['情境短劇','客服示意','AI 對話展示'],ref:'',
+  prompt:'做一個【對話泡泡】：【4】則對話左右交替出現，每則先顯示【打字中三個點 0.6 秒】再彈出泡泡，我的訊息用【珊瑚橘】，對方用【深灰】，內容「【今天剪好了嗎？】…」。',keys:'對話內容、誰說的、節奏'},
+ {id:'notify',zh:'通知堆疊',en:'Notification Stack',cat:'版面介面',desc:'手機鎖屏通知一則接一則從上方彈入，舊的往下壓疊縮小，營造爆單、爆紅感。',use:['電商爆單','社群證明','App 推廣'],ref:'',
+  prompt:'做一個【通知堆疊】：手機鎖屏上，通知「【新訂單 #1024】」「【有人按讚了你的影片】」…每【1.1 秒】從上方【彈入】，舊的往下【壓疊縮小】。',keys:'通知文字、頻率、App 圖示'},
+ {id:'checklist',zh:'步驟清單打勾',en:'Step Checklist',cat:'版面介面',desc:'進度線往下延伸，經過的步驟圓點亮起並畫出勾勾，適合講流程。',use:['教學流程','導入步驟','SOP'],ref:'',
+  prompt:'做一個【步驟清單打勾】：【4】個步驟「【上傳素材】【自動配效果】【逐字字幕】【輸出 9:16】」，進度線往下延伸【3.2 秒】，經過的圓點【亮起並畫出勾勾】。',keys:'步驟文字、時長'},
+ {id:'glowcard',zh:'發光卡片倒影',en:'Glow Card Reflection',cat:'版面介面',desc:'漸層細條橫向展開、再撐開成圓角卡片，卡片發光並在下方留下淡出的倒影。',use:['產品功能介紹','方案、價目卡','App 功能亮點'],ref:'',
+  prompt:'做一個【發光卡片倒影】：先出現一條【珊瑚橘到琥珀的漸層細條】，【0.7 秒】內橫向展開再撐開成圓角卡片，卡片上有【星形圖示＋標題「功能詳情」＋副標「重點一眼看懂」】，卡片外圍【發光呼吸】，下方有【淡出倒影】，停留【3 秒】後收回，循環【6 秒】。輸出【HTML】。',keys:'卡片標題與副標、漸層顏色、圖示、停留時間'},
+ {id:'pillchain',zh:'膠囊串連',en:'Pill Chain',cat:'版面介面',desc:'米白底上，黑色膠囊節點依序彈出，由一條微微擺動的垂掛細線串起，最後一顆用強調色。',use:['三步驟流程','工作流程說明','從想法到上線'],ref:'',
+  prompt:'做一個【膠囊串連】：米白底，【3】顆黑色膠囊「【先想】【再做】【上線】」每隔【1.5 秒】彈出，之間用【垂掛細線】依序畫出，線頭帶一顆【珊瑚橘小點】，最後一顆膠囊改用【珊瑚橘】強調，循環【7.5 秒】。輸出【HTML】。',keys:'膠囊文字（建議 2～4 顆）、底色、強調色、間隔秒數'},
+ {id:'sparkring',zh:'火花漣漪',en:'Spark Ripple',cat:'背景氛圍',desc:'一點火花脹成發光球體，下方水面出現橢圓漣漪一圈圈擴散，火星緩緩上飄。',use:['影片開場','新品揭曉前','靈感、起點主題'],ref:'',
+  prompt:'做一個【火花漣漪】開場：畫面中央【一點火花】在【0.9 秒】內脹成發光球，球體下方水面每【0.55 秒】擴散一圈【橢圓漣漪】共【6 圈】，顏色【珊瑚橘】，背景【深色】，下方浮現一行字「【先有一點火花】」，循環【6 秒】。輸出【HTML】。',keys:'火花位置、漣漪圈數、配色、標語文字'},
+ {id:'routemap',zh:'地圖路線描繪',en:'Route Draw',cat:'數據圖表',desc:'點陣地圖上，虛線路線一段段畫出，移動的點拖著尾跡，經過的據點依序亮起。',use:['旅遊 Vlog','物流配送','展店擴張'],ref:'',
+  prompt:'做一個【地圖路線描繪】：點陣地圖上，路線經過【5 個據點】，【虛線】逐段畫出，移動點【拖著珊瑚橘尾跡】，經過的據點亮起，【4.5 秒】。',keys:'據點與順序、地圖範圍、時長'},
+ {id:'lightleak',zh:'漏光疊加',en:'Light Leak',cat:'後製質感',desc:'暖色光斑以濾色模式在畫面上緩慢飄過，讓畫面有底片、生活感。',use:['生活風 Reels','婚禮','回憶片段'],ref:'',
+  prompt:'在【整段畫面】上疊【漏光】：【3】團暖色光斑（橘、粉紅、金）以【濾色模式】緩慢飄過，強度【中】。',keys:'光斑顏色、強度、速度'},
+ {id:'lissajous',zh:'李薩如曲線',en:'Lissajous',cat:'背景氛圍',desc:'三條頻率比不同的李薩如曲線交織旋轉，線條優雅、有科學感。',use:['科學知識','音樂視覺','簡報背景'],ref:'',
+  prompt:'做一個【李薩如曲線】背景：【3:2、5:4、4:3】三條曲線緩慢相位旋轉，線寬【1.6px】，顏色【藍到橘】，背景【深色】。',keys:'頻率比、線條數、配色'},
+ {id:'voronoi',zh:'沃羅諾伊細胞',en:'Voronoi Cells',cat:'背景氛圍',desc:'畫面被切成會緩慢漂移的細胞區塊，邊界發亮，像有機組織或城市分區。',use:['生技醫療','都市規劃','抽象背景'],ref:'',
+  prompt:'做一個【沃羅諾伊細胞】背景：【14】個種子點緩慢漂移，切出細胞區塊，邊界【白色發亮】，區塊【藍到橘半透明】。',keys:'細胞數、邊界顏色、漂移速度'},
+ {id:'magnetic',zh:'磁吸點陣',en:'Magnetic Dots',cat:'背景氛圍',desc:'整片點陣被一個看不見的磁鐵吸引，經過的地方點會變大、變亮、往中心靠。',use:['互動感背景','科技產品','UI 介紹'],ref:'',
+  prompt:'做一個【磁吸點陣】：整片點陣中有一個看不見的磁點【緩慢移動】，附近的點【放大、變亮、往磁點靠攏】，顏色【藍到橘】。',keys:'點距、影響半徑、移動路線'},
+ {id:'galaxy',zh:'螺旋星系',en:'Spiral Galaxy',cat:'背景氛圍',desc:'數百顆星點組成三條旋臂的星系，中心暖光，緩慢旋轉。',use:['宇宙主題','品牌願景','冥想'],ref:'',
+  prompt:'做一個【螺旋星系】：【700】顆星點組成【3 條旋臂】緩慢旋轉，中心【暖色光暈】，外圈偏藍。',keys:'星點數、旋臂數、轉速'},
+ {id:'matrixrain',zh:'數位雨',en:'Digital Rain',cat:'背景氛圍',desc:'一行行字元像雨一樣往下流，最前端的字最亮，駭客電影經典。',use:['資安','駭客主題','科技揭曉'],ref:'',
+  prompt:'做一個【數位雨】：直行字元【01＋片假名】往下流，每行速度不同，最前端【白色】、尾巴漸暗成【藍紫】。',keys:'字元集、密度、速度'},
+ {id:'bokeh',zh:'散景光斑',en:'Bokeh',cat:'背景氛圍',desc:'大小不一的柔焦光圈慢慢漂浮閃爍，像夜景失焦的燈光，溫柔浪漫。',use:['婚禮','節慶','夜景氛圍'],ref:'',
+  prompt:'做一個【散景光斑】背景：【34】個柔焦光圈慢慢漂浮、明暗呼吸，顏色【橘、藍紫、金】，背景【深藍漸層】。',keys:'光斑數量、大小、配色'},
+ {id:'snow',zh:'雪花飄落',en:'Snowfall',cat:'背景氛圍',desc:'遠近不同的雪花左右搖擺飄落，近的大而清楚、遠的小而淡。',use:['冬季活動','聖誕節','溫馨祝福'],ref:'',
+  prompt:'做一個【雪花飄落】：【160】片雪花依遠近【大小、速度、透明度不同】，左右輕擺飄落，背景【夜空藍】。',keys:'雪量、風向、背景'},
+ {id:'halftone',zh:'半色調波點',en:'Halftone',cat:'背景氛圍',desc:'普普藝術風的網點隨光源移動而大小起伏，復古漫畫感。',use:['普普風海報','漫畫風','復古品牌'],ref:'',
+  prompt:'做一個【半色調波點】：米白底上【珊瑚橘網點】，網點大小隨【移動光源】距離變化並帶波紋，風格【普普藝術】。',keys:'網點大小、顏色、光源路線'},
+ {id:'kaleido',zh:'萬花筒',en:'Kaleidoscope',cat:'背景氛圍',desc:'一片扇形圖案鏡射 12 次組成萬花筒，圖形在扇內移動形成不斷變化的對稱花樣。',use:['音樂 MV','迷幻開場','節慶'],ref:'',
+  prompt:'做一個【萬花筒】：扇形內的【5 個圓點】緩慢移動，鏡射成【12 等分】對稱花樣，顏色【藍到橘】。',keys:'鏡射數、圖形、速度'},
+ {id:'splitflap',zh:'機場翻牌字',en:'Split-Flap Board',cat:'文字標題',desc:'像機場看板一樣，每格字元快速亂翻後依序定格成正確文字。',use:['出發／啟程','活動公告','旅遊'],ref:'',
+  prompt:'做一個【機場翻牌字】：兩行「【NOW】」「【BOARDING】」每格先【快速亂翻字母】，再由左到右依序定格，第二行用【珊瑚橘】。',keys:'文字、定格順序、配色'},
+ {id:'flip3d',zh:'立體翻轉逐字',en:'3D Flip In',cat:'文字標題',desc:'每個字像門片一樣繞橫軸翻轉進場，帶回彈與明暗變化。',use:['標題字卡','發表會','Reels 開頭'],ref:'',
+  prompt:'做一個【立體翻轉逐字】：「【立體翻轉登場】」每個字【繞橫軸翻轉進場】並回彈，間隔【0.12 秒】，後兩字【珊瑚橘】。',keys:'文字、間隔、翻轉軸'},
+ {id:'echo',zh:'殘影拖尾字',en:'Echo Trail',cat:'文字標題',desc:'文字沿曲線移動，身後留下一串漸淡的彩色殘影，速度感與迷幻感兼具。',use:['音樂節奏','運動','潮流品牌'],ref:'',
+  prompt:'做一個【殘影拖尾字】：「【ECHO】」沿【8 字曲線】移動，身後拖著【8 層】漸淡的彩色殘影（藍到橘）。',keys:'文字、殘影層數、移動路線'},
+ {id:'outlinefill',zh:'描邊注滿字',en:'Outline Fill',cat:'文字標題',desc:'空心描邊大字像杯子一樣被液體從下往上注滿，水面有波浪。',use:['飲品','目標達成','進度揭示'],ref:'',
+  prompt:'做一個【描邊注滿字】：空心大字「【FILL UP】」被【珊瑚橘液體】從下往上注滿，液面帶【波浪】，【2.2 秒】注滿。',keys:'文字、液體顏色、注滿時長'},
+ {id:'textpath',zh:'曲線流動文字',en:'Text on Path',cat:'文字標題',desc:'文字沿著起伏的波浪曲線持續流動，每個字跟著曲線轉角度。',use:['標語背景','音樂','品牌緞帶'],ref:'',
+  prompt:'做一個【曲線流動文字】：「【沿著曲線流動的文字】」沿著【波浪曲線】持續往左流動，每個字隨曲線旋轉，顏色【藍到橘】漸變。',keys:'文字、曲線形狀、速度'},
+ {id:'treemap',zh:'矩形樹狀圖',en:'Treemap',cat:'數據圖表',desc:'大小不同的矩形依比例拼滿畫面、依序彈出，看占比最直覺。',use:['營收結構','預算分配','流量來源'],ref:'',
+  prompt:'做一個【矩形樹狀圖】：【影音 42%、新聞 26%、社群 19%、Podcast 8%、其他 5%】依比例拼成矩形，依序【彈出】，每塊不同顏色並標示名稱與比例。',keys:'項目與比例、配色'},
+ {id:'heatmap',zh:'熱力格',en:'Heatmap Grid',cat:'數據圖表',desc:'像 GitHub 貢獻圖一樣的格子一欄欄填色，顏色越深代表越活躍。',use:['更新頻率','活躍度','打卡紀錄'],ref:'',
+  prompt:'做一個【熱力格】：【26 週 × 7 天】格子由左往右一欄欄填色，深淺代表【活躍度】，主色【珊瑚橘】，上方標題「【半年更新紀錄】」。',keys:'時間範圍、數據、配色'},
+ {id:'funnel',zh:'漏斗圖',en:'Funnel',cat:'數據圖表',desc:'一層層由寬變窄的漏斗依序出現，數字同步跳動，適合講轉換率。',use:['行銷漏斗','轉換率','電商成效'],ref:'',
+  prompt:'做一個【漏斗圖】：【曝光 10,000 → 點擊 3,200 → 加入購物車 900 → 下單 240】四層由寬到窄依序出現，數字跳動，顏色由【橘漸變到藍】。',keys:'各層名稱與數字'},
+ {id:'ecg',zh:'心電圖',en:'ECG Line',cat:'數據圖表',desc:'發光的心電圖線在格線上由左往右畫出，右上角顯示心率，醫療健康主題必備。',use:['醫療健康','運動數據','緊張氛圍'],ref:'',
+  prompt:'做一個【心電圖】：格線背景上【發光心電圖線】由左往右畫出，主色【珊瑚橘】，右上顯示「【72 BPM】」。',keys:'心率、顏色、速度'},
+ {id:'oscillo',zh:'聲波曲線',en:'Voice Wave',cat:'數據圖表',desc:'三條交疊的柔和聲波隨聲音起伏，像語音助理在說話。',use:['語音助理','AI 對話','Podcast'],ref:'',
+  prompt:'做一個【聲波曲線】：【3】條半透明聲波（橘、藍紫、金）交疊，振幅【隨聲音起伏】，兩端收窄，【接我的音檔／先用假資料】。',keys:'條數、是否接音檔、配色'},
+ {id:'speedlines',zh:'漫畫速度線',en:'Speed Lines',cat:'轉場 UI',desc:'米白底上黑色放射速度線閃動，中間大字重擊放大，漫畫張力十足。',use:['爆點強調','搞笑','動漫風'],ref:'',
+  prompt:'做一個【漫畫速度線】：米白底上【70 條黑色放射線】快速閃動，中央大字「【爆！】」【重擊放大】並微傾斜，字【珊瑚橘黑邊】。',keys:'中央文字、線條密度'},
+ {id:'fireworks',zh:'煙火',en:'Fireworks',cat:'轉場 UI',desc:'煙火升空後炸開成圓形火花，受重力下墜並淡出，此起彼落。',use:['節慶','跨年','慶祝成果'],ref:'',
+  prompt:'做一個【煙火】：夜空中【4 發】煙火此起彼落，升空後炸開成【40 顆火花】，受重力下墜淡出，顏色【橘、藍紫、金、綠】。',keys:'發數、顏色、頻率'},
+ {id:'sticker',zh:'貼紙彈出',en:'Sticker Pop',cat:'Logo 圖形',desc:'鋸齒圓形貼紙「啵」一聲彈出、晃動回正，周圍閃著小星星。',use:['新品標記','限時優惠','重點提醒'],ref:'',
+  prompt:'做一個【貼紙彈出】：鋸齒圓形貼紙「【NEW!】」【彈性彈出並晃動回正】，底色【珊瑚橘】白邊，周圍【6 顆金色小星】閃爍，透明背景。',keys:'貼紙文字、形狀、顏色'},
+ {id:'arrow',zh:'手繪箭頭指引',en:'Hand-drawn Arrow',cat:'版面介面',desc:'一條手繪感弧形箭頭畫向目標按鈕，箭頭到位後目標外圈脈動。',use:['教學指引','點擊提示','重點標示'],ref:'',
+  prompt:'做一個【手繪箭頭指引】：從【左下】畫出一條【弧形手繪箭頭】指向「【點這裡】」按鈕，到位後按鈕外圈【脈動一圈】，線條【珊瑚橘 4px 圓頭】。',keys:'起點、目標、文字'},
+ {id:'cursor',zh:'滑鼠點擊示範',en:'Cursor Click',cat:'版面介面',desc:'滑鼠游標移到按鈕、點下去出現漣漪，按鈕變成「已訂閱」，示範操作最清楚。',use:['App 操作教學','訂閱引導','產品示範'],ref:'',
+  prompt:'做一個【滑鼠點擊示範】：游標從【左上】移到「【訂閱】」按鈕，點擊時出現【漣漪】，按鈕變成「【已訂閱 ✓】」並變灰。',keys:'按鈕文字、點擊後狀態'},
+ {id:'pricetag',zh:'降價標籤',en:'Price Drop',cat:'版面介面',desc:'原價被一條線劃掉，新價格彈出，旁邊吊牌「SALE」晃動，促銷必備。',use:['促銷檔期','電商','限時特價'],ref:'',
+  prompt:'做一個【降價標籤】：原價「【$2,980】」被【珊瑚橘線】劃掉，接著新價「【$1,780】」彈出，右上吊牌「【SALE -40%】」晃動後停下。',keys:'原價、新價、折扣'},
+ {id:'quote',zh:'引言卡',en:'Quote Card',cat:'文字標題',desc:'超大引號先彈出，引言一行行從遮罩中升起，最後出現作者署名。',use:['名人語錄','客戶見證','觀點分享'],ref:'',
+  prompt:'做一個【引言卡】：左上【珊瑚橘大引號】彈出，引言「【好的設計是】」「【讓人看不見設計】」逐行升起，最後出現「【— 作者名】」。',keys:'引言、作者、配色'},
+ {id:'letterbox',zh:'電影黑邊',en:'Letterbox',cat:'後製質感',desc:'上下黑邊滑入變成寬銀幕比例，畫面緩慢推近，片名淡入下方黑邊。',use:['電影感開場','品牌形象片','預告片'],ref:'',
+  prompt:'整段畫面加【電影黑邊】：上下黑邊在【0.8 秒】內滑入成【寬銀幕】，畫面緩慢推近，下方黑邊淡入「【A FILM BY YOU】」。',keys:'黑邊比例、片名'},
+ {id:'laserwipe',zh:'雷射掃描轉場',en:'Laser Scan',cat:'轉場 UI',desc:'一道發光雷射線由上往下掃過，掃過的地方換成下一個畫面。',use:['科技轉場','產品掃描','資料揭示'],ref:'',
+  prompt:'做一個【雷射掃描轉場】：一道【藍白發光雷射線】由上往下掃過，掃過處換成下一個畫面，轉場【1.4 秒】。',keys:'掃描方向、顏色、時長'},
+ {id:'pageturn',zh:'翻頁轉場',en:'Page Turn',cat:'轉場 UI',desc:'畫面像書頁一樣從右往左翻過去，翻起的部分有紙背與陰影。',use:['故事書','雜誌風','章節切換'],ref:'',
+  prompt:'做一個【翻頁轉場】：目前畫面像【書頁從右往左翻】，翻起處露出【淺灰紙背＋陰影】，露出下一個畫面，【1.4 秒】。',keys:'翻頁方向、紙背顏色'},
+ {id:'cmb_launch',zh:'組合｜發表會開場',en:'Combo: Launch',cat:'組合疊加',desc:'星空穿梭＋透視網格＋亂碼解碼：星空帶速度、網格給地面空間感、亂碼揭曉主標，比單用其中一種更有「啟動」感。',use:['新品發表','年度大會','科技開場'],ref:'',
+  prompt:'做【發表會開場組合】：底層【星空穿梭】，中層【透視網格 55% 透明】，上層【亂碼解碼「【MOTION 2026】」】，再加輕微【顆粒＋暗角】。',keys:'主標文字、網格透明度'},
+ {id:'cmb_platform',zh:'組合｜平台三層',en:'Combo: Platform',cat:'組合疊加',desc:'透視網格＋環形旋轉木馬＋逐拍重擊字：背景給空間、中景展示平台、前景卡拍點名，時報資訊 V01 平台段落的做法。',use:['平台介紹','多品牌展示','卡點剪輯'],ref:'',
+  prompt:'做【平台三層組合】：背景【透視網格 50%】，中景【環形旋轉木馬（平台卡片）】，前景【逐拍重擊字（平台名）】，加顆粒暗角。',keys:'平台清單、BPM'},
+ {id:'cmb_globe',zh:'組合｜全球佈局',en:'Combo: Global',cat:'組合疊加',desc:'極光＋點陣球體＋經緯線地球：極光給氛圍、點陣增加密度、經緯線與據點講全球，比單顆地球更有層次。',use:['國際業務','海外市場','全球用戶'],ref:'',
+  prompt:'做【全球佈局組合】：底層【極光 55%】，中層【點陣球體 45%】，上層【經緯線地球＋閃爍據點】，加暗角。',keys:'據點、配色'},
+ {id:'cmb_ai',zh:'組合｜AI 生成中',en:'Combo: AI',cat:'組合疊加',desc:'神經網路＋ASCII 成像＋打字機：訊號在背後流動、字元成像給「算圖」感、打字機呈現 AI 正在輸出。',use:['AI 產品','自動化流程','科技教學'],ref:'',
+  prompt:'做【AI 生成中組合】：底層【神經網路訊號 55%】，中層【ASCII 字元成像 35%】，上層【打字機逐行輸出「【我提供的文字】」】。',keys:'輸出文字、背景強度'},
+ {id:'cmb_milestone',zh:'組合｜里程碑揭曉',en:'Combo: Milestone',cat:'組合疊加',desc:'網格波動＋星芒放射＋里程表滾輪：背景低調律動、星芒聚焦視線、滾輪數字揭曉成果。',use:['粉絲里程碑','營收突破','年度成果'],ref:'',
+  prompt:'做【里程碑揭曉組合】：底層【網格波動 30%】，中層【星芒放射 55%】置中，上層【里程表滾輪數字 0→【48,216】】。',keys:'目標數字、配色'},
+ {id:'cmb_podcast',zh:'組合｜Podcast 字幕',en:'Combo: Podcast',cat:'組合疊加',desc:'極光＋音波頻譜＋字幕逐字高亮：柔和背景、聲音可視化、逐字字幕三件套，口播與 Podcast 剪輯直接可用。',use:['Podcast 精華','訪談短片','語音貼文'],ref:'',
+  prompt:'做【Podcast 字幕組合】：底層【極光 50%】，中層【音波頻譜 60%（接音檔）】，上層【字幕逐字高亮（接逐字時間碼）】。',keys:'音檔、逐字稿'},
+ {id:'cmb_luxury',zh:'組合｜精品質感',en:'Combo: Luxury',cat:'組合疊加',desc:'液態變形＋遮罩滑升文字＋散景光斑＋顆粒：低調形體、雜誌排版、柔焦光點與底片質感，對應 V04 精品方向。',use:['精品形象','企業簡介','美妝'],ref:'',
+  prompt:'做【精品質感組合】：底層【液態變形 35%】，中層【遮罩滑升文字】，上層【散景光斑 45% 濾色】，全片【顆粒＋暗角】。',keys:'標題文字、光斑強度'},
+ {id:'cmb_social',zh:'組合｜社群爆量',en:'Combo: Social Proof',cat:'組合疊加',desc:'粒子連線＋主視覺環繞軌道＋通知堆疊：網路感背景、平台圍繞主視覺、通知不斷跳出，營造「大家都在用」。',use:['社群經營','App 推廣','電商爆單'],ref:'',
+  prompt:'做【社群爆量組合】：底層【粒子連線 40%】，中層【主視覺環繞軌道（手機＋平台圖示）】，上層【通知堆疊 55%】。',keys:'平台圖示、通知文字'},
+ {id:'cmb_retro',zh:'組合｜復古電玩',en:'Combo: Retro',cat:'組合疊加',desc:'透視網格＋故障字＋掃描線顆粒：80 年代合成波地板配故障標題，加上 CRT 掃描線，一秒進入復古電玩感。',use:['電競','復古活動','電子音樂'],ref:'',
+  prompt:'做【復古電玩組合】：底層【透視網格】，上層【故障 Glitch 大字「【GLITCH】」】，全片加【掃描線＋顆粒＋暗角】。',keys:'標題文字、故障頻率'},
+ {id:'cmb_finance',zh:'組合｜財經快訊',en:'Combo: Finance',cat:'組合疊加',desc:'粒子連線＋K 線行情＋觀景窗 HUD：網路背景、K 線與跑馬燈、HUD 框線與時間碼，像即時財經直播。',use:['財經新聞','投資知識','盤勢快報'],ref:'',
+  prompt:'做【財經快訊組合】：底層【粒子連線 30%】，中層【K 線行情＋跑馬燈】，上層【觀景窗 HUD 60%（REC、時間碼）】。',keys:'行情文字、HUD 元素'},
+ {id:'cmb_journey',zh:'組合｜旅程路線',en:'Combo: Journey',cat:'組合疊加',desc:'水波漣漪＋地圖路線描繪＋散景光斑：據點像水滴落下泛起漣漪、路線串起旅程、柔焦光點增加回憶感。',use:['旅遊 Vlog','品牌展店','物流故事'],ref:'',
+  prompt:'做【旅程路線組合】：底層【水波漣漪 35%】，中層【地圖路線描繪（5 個據點）】，上層【散景光斑 30% 濾色】。',keys:'據點與順序、光斑顏色'},
+ {id:'cmb_recap',zh:'組合｜年度回顧',en:'Combo: Recap',cat:'組合疊加',desc:'動態照片牆＋彩帶慶祝＋顆粒：照片翻成主圖後彩帶噴發，回顧片收尾最有記憶點。',use:['年度回顧','活動花絮','週年慶'],ref:'',
+  prompt:'做【年度回顧組合】：底層【動態照片牆（我的照片）】，上層【彩帶慶祝 90%】於主圖出現時噴發，全片加輕微顆粒。',keys:'照片、慶祝文字'},
+ {id:'cmb_hook',zh:'組合｜爆點開場',en:'Combo: Hook',cat:'組合疊加',desc:'無限隧道＋漫畫速度線＋切點震動色散：三層都在卡拍點，前 3 秒視覺衝擊最大化，適合短影音鉤子。',use:['短影音開頭','卡點剪輯','運動'],ref:'',
+  prompt:'做【爆點開場組合】：底層【無限隧道 70%】，中層【漫畫速度線 18% 濾色】，上層【切點震動色散（CUT／BEAT／HIT）】，依【128 BPM】。',keys:'BPM、字詞'},
+ {id:'cmb_cozy',zh:'組合｜溫馨回憶',en:'Combo: Cozy',cat:'組合疊加',desc:'實拍緩推＋雪花＋散景光斑＋顆粒：照片緩推配飄雪與柔焦光點，節慶祝福或家庭故事一套到位。',use:['節慶祝福','家庭故事','品牌溫度'],ref:'',
+  prompt:'做【溫馨回憶組合】：底層【實拍緩推平移（我的照片）】，中層【雪花 50% 濾色】，上層【散景光斑 30%】，全片【顆粒＋暗角】。',keys:'照片、季節元素'},
+ {id:'kpitrend',zh:'成長指標卡',en:'KPI Trend Card',cat:'介面微動態',new:1,desc:'白色指標卡裡長條逐根長高、折線趨勢跟著畫出，左上「+200%」綠色標籤同步跳數字。',use:['成果報告','業績簡報','社群成長'],ref:'https://www.instagram.com/p/DeZYQm2iPvw/',
+  prompt:'做一個【成長指標卡】：白色圓角卡片，標題「【Weekly sign-ups】」，【7】根長條【逐根長高】，上面疊【綠色趨勢折線】，左上標籤「【+200%】」從 0 跳到目標值。',keys:'標題、數據、成長百分比'},
+ {id:'pricetoggle',zh:'月繳年繳切換',en:'Price Toggle',cat:'介面微動態',new:1,desc:'切換開關從 Monthly 滑到 Yearly，價格數字同步翻成年繳價，並跳出「省兩個月」標籤。',use:['訂閱方案','價目表','SaaS 介紹'],ref:'https://www.instagram.com/p/DeZYQm2iPvw/',
+  prompt:'做一個【月繳年繳切換】：卡片上方切換開關由【Monthly】滑到【Yearly】，價格由【$29】滾動變成【$290】，同時跳出綠色標籤「【2 months free】」。',keys:'方案名稱、兩種價格、標籤文字'},
+ {id:'island',zh:'動態島展開',en:'Dynamic Island',cat:'介面微動態',new:1,desc:'手機頂端的黑色小膠囊展開成「LIVE」提示橫幅，紅點閃爍，再縮回原狀。',use:['直播開始','活動提醒','App 功能介紹'],ref:'https://www.instagram.com/p/DeZYQm2iPvw/',
+  prompt:'做一個【動態島展開】：手機頂端的黑色小膠囊先【彈性展開】成橫幅，顯示【紅點閃爍＋LIVE】與「【Webinar starts now】」，停留後縮回。',keys:'提示文字、手機桌布'},
+ {id:'particlefunnel',zh:'粒子漏斗',en:'Particle Funnel',cat:'介面微動態',new:1,desc:'藍色粒子從漏斗口落下、收窄通過，底下的銷售數字同步增加。',use:['轉換漏斗','成交數字','行銷成效'],ref:'https://www.instagram.com/p/DeZYQm2iPvw/',
+  prompt:'做一個【粒子漏斗】：【110】顆藍色粒子從漏斗上方落下、收窄通過漏斗頸，底部卡片的數字從 0 跳到【600 sales】。',keys:'終點數字與單位、粒子顏色'},
+ {id:'buttondone',zh:'按鈕完成變形',en:'Button to Done',cat:'介面微動態',new:1,desc:'藍色按鈕被點下後縮成圓形、變綠並畫出勾勾，外圈泛起一圈光環。',use:['發布成功','操作完成','表單送出'],ref:'https://www.instagram.com/p/DeZYQm2iPvw/',
+  prompt:'做一個【按鈕完成變形】：按鈕「【Publish】」被游標點下，【縮成圓形並變綠】，畫出【白色勾勾】，外圈泛起【綠色光環】。',keys:'按鈕文字、完成後顏色'},
+ {id:'paybutton',zh:'支付按鈕狀態',en:'Pay Button',cat:'介面微動態',new:1,desc:'「Pay $48.00」按鈕被點下後縮成轉圈圈，接著展開變成綠色「Paid」並畫出勾勾。',use:['電商結帳','支付示範','App 流程'],ref:'https://www.instagram.com/p/DeZYQm2iPvw/',
+  prompt:'做一個【支付按鈕狀態】：按鈕「【Pay $48.00】」被點下，縮成【轉圈載入】，再展開成綠色【Paid ✓】。',keys:'金額、按鈕顏色'},
+ {id:'sketchapp',zh:'草圖變 App',en:'Sketch to App',cat:'介面微動態',new:1,desc:'虛線手繪線框的手機介面，逐步填上顏色變成完整的 App 畫面，圓環跳到 86%。',use:['設計提案','產品雛形','從構想到成品'],ref:'https://www.instagram.com/p/DeZYQm2iPvw/',
+  prompt:'做一個【草圖變 App】：先是【灰色虛線線框】的手機畫面，【1.6 秒】內逐步填色成完整介面，中間圓環跳到【86%】，下方兩張數據卡。',keys:'App 畫面內容、數字'},
+ {id:'calendardrag',zh:'日曆拖曳預約',en:'Calendar Drag',cat:'介面微動態',new:1,desc:'游標抓起日曆上的活動方塊，拖到另一天的時段放下，方塊變綠並顯示「Booked」。',use:['預約系統','行程管理','產品功能示範'],ref:'https://www.instagram.com/p/DeZYQm2iPvw/',
+  prompt:'做一個【日曆拖曳預約】：游標抓起【紫色活動方塊「Call with Sam」】，從【16 日 10:00】拖到【17 日 11:00】，放下後變綠、顯示【Booked ✓】。',keys:'活動名稱、日期時段'},
+ {id:'ringclose',zh:'圓環閉合達標',en:'Ring Close',cat:'介面微動態',new:1,desc:'綠色進度圓環畫滿一圈後填成實心，彈出「Goal hit」，周圍迸出小點。',use:['目標達成','健身紀錄','進度完成'],ref:'https://www.instagram.com/p/DeZYQm2iPvw/',
+  prompt:'做一個【圓環閉合達標】：綠色進度環從 0 畫到【100%】，圓環【填成實心圓】並彈出「【Goal hit】」，外圍迸出【10 顆綠點】。',keys:'目標文字、顏色'},
+ {id:'dockmagnify',zh:'Dock 放大展開',en:'Dock Magnify',cat:'介面微動態',new:1,desc:'底部 Dock 的圖示隨游標靠近而放大，其中一個彈跳後展開成報表視窗。',use:['軟體功能介紹','App 導覽','桌面工具'],ref:'https://www.instagram.com/p/DeZYQm2iPvw/',
+  prompt:'做一個【Dock 放大展開】：底部【7】個圖示隨游標靠近【放大】，其中第 4 個【彈跳】後，上方展開視窗「【Campaign report +37%】」。',keys:'圖示數量、展開的視窗內容'},
+ {id:'product360',zh:'產品 360 旋轉',en:'Product 360',cat:'介面微動態',new:1,desc:'產品（耳機）繞軸 360 度旋轉，右側逐項浮出功能清單與勾勾，底部顯示價格。',use:['新品展示','產品規格','開箱預告'],ref:'https://www.instagram.com/p/DeZYQm2iPvw/',
+  prompt:'做一個【產品 360 旋轉】：【耳機】繞軸緩慢旋轉，右側依序浮出「【主動降噪】【40 小時續航】【空間音訊】」並打勾，底部價格【$129】。',keys:'產品、特色清單、價格'},
+ {id:'buttonplayer',zh:'按鈕展開播放器',en:'Button to Player',cat:'介面微動態',new:1,desc:'「Preview」小按鈕展開成深色播放器，波形跟著跳動、進度條往前走，播完收回。',use:['音訊預覽','影片預告','Podcast 介紹'],ref:'https://www.instagram.com/p/DdzGLp5gG_n/',
+  prompt:'做一個【按鈕展開播放器】：小按鈕「【▶ Preview】」【彈性展開】成播放器，顯示曲名「【Summer reel】」、跳動波形與進度條，結束後收回。',keys:'標題、波形顏色'},
+ {id:'cardexpand',zh:'卡片展開工作區',en:'Card to Workspace',cat:'介面微動態',new:1,desc:'一張小卡片放大展開成完整工作區：左側選單、標題、內容行與按鈕逐步浮現。',use:['功能入口','專案管理','從摘要到細節'],ref:'https://www.instagram.com/p/DdzGLp5gG_n/',
+  prompt:'做一個【卡片展開工作區】：小卡「【Q3 brief】」【放大展開】成完整視窗，內容依序浮現【側邊選單、標題、內容行、Open 按鈕】。',keys:'卡片標題、展開後的內容'},
+ {id:'tabspanels',zh:'分頁切換面板',en:'Tabs and Panels',cat:'介面微動態',new:1,desc:'上方分頁的黑色膠囊滑動換頁，下方列表同步淡出淡入換成另一組內容。',use:['內容分類','App 介面','多平台內容'],ref:'https://www.instagram.com/p/DdzGLp5gG_n/',
+  prompt:'做一個【分頁切換面板】：分頁【Reels／Posts／Email】的黑色膠囊每【1.8 秒】滑到下一頁，下方列表【滑動淡出淡入】換內容。',keys:'分頁名稱、各頁內容'},
+ {id:'chartmorph',zh:'圖表形態變換',en:'Chart Morph',cat:'介面微動態',new:1,desc:'長條圖的長條縮成圓點、連成折線並填上漸層面積，再變回長條。',use:['數據簡報','趨勢說明','報表動畫'],ref:'https://www.instagram.com/p/DdzGLp5gG_n/',
+  prompt:'做一個【圖表形態變換】：【7】根長條【縮成圓點並連成折線】，折線下方淡入漸層面積，最後再變回長條，每段【1.1 秒】。',keys:'數據、每段時長'},
+ {id:'dashzoom',zh:'儀表板聚焦推近',en:'Dashboard Zoom',cat:'介面微動態',new:1,desc:'鏡頭從整個儀表板推近到其中一張指標卡，其他卡片變淡，指標卡亮起外框。',use:['重點數據','功能聚焦','報告簡報'],ref:'https://www.instagram.com/p/DdzGLp5gG_n/',
+  prompt:'做一個【儀表板聚焦推近】：鏡頭由全景【推近 2.35 倍】到「【Click rate 6.2%】」，其餘卡片【變淡】，該卡片亮起【藍色外框】，之後拉回。',keys:'聚焦哪張卡、放大倍率'},
+ {id:'springstack',zh:'彈簧疊牌',en:'Spring Stack',cat:'介面微動態',new:1,desc:'三張卡片從疊在一起，帶彈簧回彈地扇形展開，最上面一張顯示商品與價格。',use:['商品展示','方案比較','相簿翻閱'],ref:'https://www.instagram.com/p/DdzGLp5gG_n/',
+  prompt:'做一個【彈簧疊牌】：【3】張卡片從疊在一起【彈簧展開】成扇形（-12°／+10°／0°），最上面卡片顯示「【Summer kit $24 ✓】」，之後收回。',keys:'卡片數量、最上面卡片內容'},
+ {id:'elastictype',zh:'彈性字距拉伸',en:'Elastic Type',cat:'介面微動態',new:1,desc:'大字的寬度與粗細隨下方滑桿拉伸變化，字母像橡皮筋一樣被拉寬再縮回。',use:['標題字卡','品牌動態字體','字體展示'],ref:'https://www.instagram.com/p/DdzGLp5gG_n/',
+  prompt:'做一個【彈性字距拉伸】：大字「【STRETCH】」的【寬度與粗細】隨滑桿來回變化（wdth 70→160、wght 300→900），第三個字用【珊瑚橘】。',keys:'文字、拉伸範圍'},
+ {id:'textlayout',zh:'文字拆成版面',en:'Text to Layout',cat:'介面微動態',new:1,desc:'一行標題拆成四個詞，分別飛進三張卡片與頂部橫幅，組成完整版面。',use:['設計作品展示','品牌理念','版面動畫'],ref:'https://www.instagram.com/p/DdzGLp5gG_n/',
+  prompt:'做一個【文字拆成版面】：標題「【Design that moves people】」的四個詞【飛向版面】，「Design」進頂部橫幅，其餘三詞各進一張卡片。',keys:'標題、版面配置'},
+ {id:'curtainreveal',zh:'直條簾幕揭露',en:'Curtain Reveal',cat:'介面微動態',new:1,desc:'畫面分成 12 條直條，由左至右依序往下展開露出圖片，結尾再依序收起。',use:['圖片開場','作品揭曉','寫真集'],ref:'https://www.instagram.com/p/DdzGLp5gG_n/',
+  prompt:'做一個【直條簾幕揭露】：畫面切成【12】條直條，【由左到右依序往下展開】露出【我的圖片】，停留後再依序收起，每條間隔【0.07 秒】。',keys:'圖片、條數、間隔'},
+ {id:'perspshift',zh:'透視層疊位移',en:'Perspective Shift',cat:'介面微動態',new:1,desc:'三張等角透視的卡片從疊在一起拉開成三層，再收回，看起來有立體空間感。',use:['系統架構','服務分層','三步驟說明'],ref:'https://www.instagram.com/p/DdzGLp5gG_n/',
+  prompt:'做一個【透視層疊位移】：【3】張卡片以【等角透視】疊在一起，【拉開成三層】再收回，每張卡片左上角用不同顏色。',keys:'層數、每層內容'},
+ {id:'glassfocus',zh:'毛玻璃列聚焦',en:'Glass Focus',cat:'介面微動態',new:1,desc:'報表卡的四行數據，一片半透明玻璃條逐行移動，被框住的那行數字放大、其餘變淡。',use:['報表重點','數據逐項講解','KPI 說明'],ref:'https://www.instagram.com/p/DdzGLp5gG_n/',
+  prompt:'做一個【毛玻璃列聚焦】：報表「【Campaign report】」的【4】行數據，一條【半透明玻璃條】逐行移動，被框住的那行【數字放大】，其餘變淡。',keys:'每行名稱與數值'},
+ {id:'gradientwave',zh:'流動色帶波',en:'Gradient Wave',cat:'介面微動態',new:1,desc:'橘、粉、紫、藍四層漸層色帶像海浪一樣上下起伏、互相穿插，柔和不搶文字。',use:['品牌背景','簡報封面','Landing 頁'],ref:'https://www.instagram.com/p/Dez_3s4CES-/',
+  prompt:'做一個【流動色帶波】：【4】層漸層色帶（橘→粉→紫→藍）像海浪一樣【緩慢起伏】，每層速度不同，淺色底，左上放標題「【Flow】」。',keys:'層數、配色、速度'},
+ {id:'glasstilt',zh:'玻璃卡傾斜',en:'Glass Tilt',cat:'介面微動態',new:1,desc:'半透明玻璃信用卡左右傾斜，卡面有光澤掃過，背後是彩色柔光。',use:['支付／金融','會員卡','高級產品'],ref:'https://www.instagram.com/p/Dez_3s4CES-/',
+  prompt:'做一個【玻璃卡傾斜】：半透明玻璃卡片【緩慢左右傾斜】，表面有【白色光澤掃過】，卡面「【4242 4242 4242 4242】」，背景【深藍紫＋彩色柔光】。',keys:'卡面文字、傾斜幅度'},
+ {id:'dotmesh',zh:'點陣波浪網',en:'Dot Mesh Wave',cat:'介面微動態',new:1,desc:'近大遠小的點陣在透視網格上起伏成波浪，點的大小與顏色隨高度變化。',use:['科技背景','數據視覺','片頭'],ref:'https://www.instagram.com/p/Dez_3s4CES-/',
+  prompt:'做一個【點陣波浪網】：【48×22】個點排成透視網格，隨【正弦波】起伏，點隨高度【變大變亮】，顏色【橘到藍】，淺色底。',keys:'點數、波浪方向、配色'},
+ {id:'cardshuffle',zh:'卡片洗牌',en:'Card Shuffle',cat:'介面微動態',new:1,desc:'四張漸層卡片疊成一疊，最上面一張側滑出去後繞到最後面，其餘依序補位，不斷輪替。',use:['方案輪播','功能亮點','相簿切換'],ref:'https://www.instagram.com/p/Dez_3s4CES-/',
+  prompt:'做一個【卡片洗牌】：【4】張漸層卡片疊在一起，每【1.3 秒】最上面一張【往右滑出並移到最後面】，其餘往前補位。',keys:'卡片顏色、內容、間隔'},
+ {id:'ribbontwist',zh:'緞帶扭轉',en:'Ribbon Twist',cat:'介面微動態',new:1,desc:'一條漸層緞帶沿著波浪路徑前進並沿長度方向扭轉，邊緣收窄再展開。',use:['品牌片頭','音樂視覺','Logo 背景'],ref:'https://www.instagram.com/p/Dez_3s4CES-/',
+  prompt:'做一個【緞帶扭轉】：一條【橘到藍漸層緞帶】沿【波浪路徑】前進，同時沿長度方向【扭轉】，兩端收窄，黑色背景。',keys:'緞帶顏色、扭轉圈數'},
+ {id:'metaball3d',zh:'立體液滴融合',en:'3D Liquid Merge',cat:'介面微動態',new:1,desc:'三顆有高光的紫色液滴互相靠近時黏合、分開，底下有淡淡的影子。',use:['Logo 開場','液態風格','App 啟動畫面'],ref:'https://www.instagram.com/p/Dez_3s4CES-/',
+  prompt:'做一個【立體液滴融合】：【3】顆有高光的【紫色液滴】互相靠近時【黏合成一團】、分開時拉出細橋，底下有淡影，淺色底。',keys:'液滴數量、顏色'},
+ {id:'phoneexplode',zh:'手機爆炸圖',en:'Phone Explode',cat:'介面微動態',new:1,desc:'手機的外殼、主機板、螢幕、玻璃四層依序往上拉開成爆炸圖，旁邊標示各層名稱。',use:['產品結構說明','拆解展示','科技發表'],ref:'https://www.instagram.com/p/Dez_3s4CES-/',
+  prompt:'做一個【手機爆炸圖】：【4】層【Case／Board／Display／Glass】以【等角透視】往上拉開，旁邊標示名稱，停留後再收合。',keys:'各層名稱與內容、拉開高度'},
+];
+const SFX={"grid":"riser：開場 riser 約 0.8 秒帶入，之後靜音。","flow":"不加音效（靜音是設計）。","blob":"不加音效（靜音是設計）。","gradient":"不加音效（靜音是設計）。","parallax":"背景層不加音效。","kinetic":"pop＋hit：每行彈入一個 pop，重點字落下時加 hit。","typewriter":"key＋ding：每字一個 key（每秒最多 12 次），整句完成給 ding。","glitch":"glitch：每次故障發生時一個 glitch，其餘時間靜音。","marquee":"swish：進場一個低音量 swish，滾動中靜音。","counter":"tick＋ding：數字跳動期間稀疏 tick，停在目標值給 ding。","chart":"pop＋ding：每根長條彈出一個 pop（音高可逐根升高），最後一根給 ding。","sphere":"不加音效（靜音是設計）。","audio":"接音檔時靠聲音本身，不另加音效。","line":"swish＋ding：描邊畫出時 swish，完成填色給 ding。","burst":"shimmer：星芒展開時 shimmer。","bounce":"pop＋thud：彈起 pop，落地 thud。","tunnel":"riser＋whoosh：先 riser 鋪陳，穿出隧道時 whoosh。","loader":"不加音效（靜音是設計）。","starfield":"riser＋whoosh：起頭 riser，穿梭加速的瞬間一個 whoosh。","plexus":"不加音效（靜音是設計）。","aurora":"不加音效（靜音是設計）。","ripple":"背景層不加音效。","sparkring":"riser＋shimmer：開場 0–1 秒 riser 鋪陳，點亮瞬間 shimmer 收住，漣漪不再加音效。","scramble":"key＋ding：解碼過程稀疏 key，定格完成給 ding。","ptext":"shimmer：粒子聚合成字的瞬間 shimmer。","rotator":"swish：每次換字一個 swish（低音量）。","donut":"swish＋ding：圓環畫出時 swish，到達數值給 ding。","linechart":"swish＋ding：折線畫出時 swish，終點給 ding。","arcs":"swish：每條連線畫出時一個 swish。","morph":"swish：變形過程一個 swish。","orbit":"不加音效（靜音是設計）。","wipe":"whoosh：擴散開始時一個 whoosh。","slices":"swish：百葉窗每次翻動 swish，上限三次。","confetti":"pop＋shimmer：彩帶噴發一個 pop，之後 shimmer。","like":"pop＋chime：愛心彈出 pop，落定 chime。","perspgrid":"riser：開場 riser 帶入，之後靜音。","maskrise":"swish：字升起時一個 swish。","charfall":"tick＋thud：每字落下一個 tick，最後一字落定加 thud。","beatslam":"hit：每個重擊字對準拍點給 hit。","strokeflow":"不加音效（靜音是設計）。","karaoke":"字幕逐字高亮不加音效，避免蓋過口播。","highlighter":"swish：螢光筆劃過時一個 swish。","radar":"swish＋ding：雷達面積展開時 swish，定格給 ding。","candle":"tick：每根 K 線出現一個 tick。","bubble":"pop：每顆泡泡出現一個 pop。","waffle":"tick：點陣填滿時稀疏 tick。","gauge":"swish＋ding：指針擺動 swish，停在數值給 ding。","clockdial":"tick：指針每走一格一個 tick。","wireglobe":"不加音效（靜音是設計）。","ptimeline":"whoosh：透視前進時一個 whoosh。","neural":"tick：訊號傳到節點時稀疏 tick。","packets":"tick：封包抵達時稀疏 tick。","flipclock":"click：每次翻牌一個 click。","countdown":"tick＋hit：每秒一個 tick，歸零瞬間 hit。","lightsweep":"shimmer：光帶掃過時 shimmer。","stamp":"hit：蓋章落下瞬間 hit。","gears":"tick：齒輪咬合時稀疏 tick。","prism":"whoosh：翻轉時一個 whoosh。","honeycomb":"pop：格子出現時稀疏 pop。","search":"key＋click：輸入關鍵字 key，按下搜尋 click。","polaroid":"thud：每張照片疊上一個 thud。","crt":"zap＋drone：開機瞬間 zap，之後可接極輕 drone。","carousel":"swish：旋轉換位時 swish。","coverflow":"swish：切換封面 swish。","phone":"pop：手機與畫面元素出現 pop。","bento":"pop：各格錯開彈出，每格一個 pop。","splitscreen":"swish：滑桿移動時 swish。","callout":"tick：標註線落定一個 tick。","dissolve":"swish：溶解過程一個輕 swish。","hexmask":"swish：遮罩展開時 swish。","clockwipe":"tick＋swish：掃描指針 tick，轉換瞬間 swish。","doors":"thud＋swish：門開啟 swish，到位 thud。","shatter":"hit＋glitch：碎裂瞬間 hit，碎片散開 glitch。","iris":"whoosh：光圈展開 whoosh。","push":"swish：推移時 swish。","flash":"hit＋shimmer：閃白瞬間 hit，之後 shimmer。","softdiag":"swish：遮罩掃過 swish。","blurzoom":"whoosh：縮放交疊時一個低音量 whoosh。","panel":"swish：面板滑入 swish。","liquid":"swish：液態遮罩展開 swish。","filmfx":"不加音效（靜音是設計）。","camshake":"hit：只在卡點震動時給 hit。","hud":"tick：REC 閃爍或時間碼跳動給低音量 tick。","glasswall":"不加音效（靜音是設計）。","heroorbit":"不加音效（靜音是設計）。","kenburns":"不加音效（靜音是設計）。","sepiacolor":"shimmer：轉為彩色瞬間 shimmer。","wordcollapse":"whoosh＋hit：收束過程 whoosh，關鍵詞定格 hit。","gooey":"pop：球體融合時一個 pop。","circletext":"不加音效（靜音是設計）。","ascii":"key：字元成像時稀疏 key。","dither":"glitch：網點揭露時一個 glitch。","spotlight":"swish：光圈移動 swish，停住時靜音。","odometer":"tick＋ding：滾輪每格一個 tick（上限每秒 15 次），停住給 ding。","barrace":"swish：排名變動時一個輕 swish。","linerace":"swish：折線推進時一個輕 swish。","weightwave":"不加音效（靜音是設計）。","blurin":"不加音效（靜音是設計）。","zoomtext":"whoosh＋hit：穿字放大 whoosh，穿過瞬間 hit。","mosaic":"tick：照片出現時稀疏 tick。","cardswipe":"swish＋thud：卡片滑走 swish，下一張落定 thud。","chat":"pop：每則訊息彈出一個 pop。","notify":"pop＋ding：每則通知 pop，重點通知加 ding。","checklist":"click＋ding：每次打勾 click，全部完成 ding。","glowcard":"swish＋pop＋ding：細條展開 swish，撐開成卡片 pop，文字出現 ding。","pillchain":"pop＋swish＋ding：每顆膠囊 pop，連線畫出 swish，最後一顆強調色 ding。","routemap":"swish＋ding：路線畫出時 swish，抵達據點給低音量 ding。","lightleak":"不加音效（靜音是設計）。","lissajous":"不加音效（靜音是設計）。","voronoi":"不加音效（靜音是設計）。","magnetic":"不加音效（靜音是設計）。","galaxy":"drone：極低音量 drone 墊底（-30 dB 以下）。","matrixrain":"drone＋key：drone 墊底，偶爾稀疏的 key（每秒不超過 3 次）。","bokeh":"不加音效（靜音是設計）。","snow":"不加音效（靜音是設計）。","halftone":"背景層不加音效。","kaleido":"swish：作轉場時變形瞬間一個 swish，作背景時靜音。","splitflap":"key＋click：翻牌過程連續 key（上限每秒 20 次），每個定格 click。","flip3d":"tick：每字翻轉進場一個 tick。","echo":"swish：字移動時一個 swish。","outlinefill":"swish＋ding：注滿期間 swish，注滿瞬間 ding。","textpath":"不加音效（靜音是設計）。","treemap":"pop：每個方塊彈出一個 pop。","heatmap":"tick：填色過程稀疏 tick。","funnel":"thud：每一層落定一個 thud。","ecg":"tick：每次心跳一個低音量 tick。","oscillo":"不加音效（靜音是設計）。","speedlines":"hit：速度線爆開瞬間 hit。","fireworks":"hit＋shimmer：發射 hit，炸開 shimmer（兩發以上錯開，勿同時）。","sticker":"pop：貼紙彈出一個 pop。","arrow":"swish：箭頭畫出 swish。","cursor":"click：點擊瞬間 click。","pricetag":"hit＋ding：劃掉原價 hit，新價彈出 ding。","quote":"chime：引言落定、署名出現時一個 chime。","letterbox":"whoosh：黑邊滑入一個低音量 whoosh。","laserwipe":"zap：雷射掃過時一個 zap。","pageturn":"swish：翻頁時 swish。","cmb_launch":"riser＋hit：開場 riser，標題定格 hit。","cmb_platform":"hit：平台名對拍重擊 hit。","cmb_globe":"drone＋shimmer：極輕 drone 墊底，據點亮起 shimmer。","cmb_ai":"key＋zap：打字 key，完成 zap。","cmb_milestone":"tick＋ding：數字滾動 tick，揭曉 ding。","cmb_podcast":"以口播與聲音為主，不加音效。","cmb_luxury":"shimmer：標題出現 shimmer，其餘靜音。","cmb_social":"pop＋ding：通知 pop，重點通知 ding。","cmb_retro":"glitch＋hit：故障 glitch，落點 hit。","cmb_finance":"tick：行情跳動稀疏 tick。","cmb_journey":"swish：路線畫出 swish。","cmb_recap":"hit＋shimmer：彩帶噴發 hit，之後 shimmer。","cmb_hook":"hit：每個切點 hit（對準節拍）。","cmb_cozy":"chime：收尾一個 chime，其餘靜音。","kpitrend":"pop＋ding：指標卡彈出 pop，達標 ding。","pricetoggle":"click：切換瞬間 click。","island":"pop：展開 pop。","particlefunnel":"swish＋ding：粒子匯聚 swish，成果 ding。","buttondone":"click＋ding：按下 click，變成完成 ding。","paybutton":"click＋chime：按下 click，付款成功 chime。","sketchapp":"swish：草圖變介面時 swish。","calendardrag":"tick＋click：拖曳經過日期 tick，放下 click。","ringclose":"swish＋ding：圓環閉合 swish，達標 ding。","dockmagnify":"tick：游標經過圖示稀疏 tick。","product360":"swish：旋轉 swish。","buttonplayer":"click＋pop：按下 click，播放器展開 pop。","cardexpand":"pop：卡片展開 pop。","tabspanels":"click：切換分頁 click。","chartmorph":"swish：圖表變形 swish。","dashzoom":"whoosh：聚焦推近 whoosh。","springstack":"thud：每張牌落定 thud。","elastictype":"pop：字距彈開 pop。","textlayout":"swish：文字重排 swish。","curtainreveal":"whoosh：簾幕揭開 whoosh。","perspshift":"swish：層疊位移 swish。","glassfocus":"不加音效（靜音是設計）。","gradientwave":"不加音效（靜音是設計）。","glasstilt":"不加音效（靜音是設計）。","dotmesh":"不加音效（靜音是設計）。","cardshuffle":"swish＋thud：洗牌 swish，落定 thud。","ribbontwist":"swish：緞帶扭轉 swish。","metaball3d":"pop：液滴融合 pop。","phoneexplode":"hit＋swish：爆開 hit，零件散開 swish。"};/*SFX_END*/
+const CATS=['全部','背景氛圍','文字標題','數據圖表','Logo 圖形','版面介面','轉場 UI','後製質感','介面微動態','組合疊加','新增'];
+
+/* ---------- build DOM ---------- */
+const grid=document.getElementById('grid'),bar=document.getElementById('bar');
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const hl=s=>esc(s).replace(/【([^】]*)】/g,'<mark>$1</mark>');
+EFFECTS.forEach(e=>{
+  const a=document.createElement('article');a.className='card';a.dataset.cat=e.cat;
+  a.innerHTML=`<div class="stage"><canvas aria-label="${e.zh} 動畫範例" role="img"></canvas><span class="cat">${e.cat}</span>${e.new?'<span class="new">NEW</span>':''}</div>
+  <div class="body">
+    <div class="name"><h3>${e.zh}</h3><small>${e.en}</small></div>
+    <p class="desc">${esc(e.desc)}</p>
+    <div><div class="lbl">適合場合</div><div class="uses">${e.use.map(u=>`<span>${u}</span>`).join('')}</div></div>
+    <div class="prompt"><div class="row"><span class="lbl">說明範本</span><button class="copy" type="button" id="copy-${e.id}">複製</button></div><p>${hl(e.prompt)}</p></div>
+    <div class="keys"><b>一定要講：</b>${e.keys}</div>
+    ${SFX[e.id]?`<div class="keys"><b>音效建議：</b>${esc(SFX[e.id])}</div>`:''}
+    ${e.ref?`<div class="keys"><b>參考來源：</b><a href="${e.ref}" target="_blank" rel="noopener">${esc(e.ref.replace(/^https?:\/\//,'').slice(0,48))}</a></div>`:''}
+  </div>`;
+  grid.appendChild(a);
+  const btn=a.querySelector('.copy');
+  btn.addEventListener('click',()=>{
+    const done=()=>{btn.textContent='已複製';setTimeout(()=>btn.textContent='複製',1500)};
+    const fallback=()=>{const r=document.createRange();r.selectNodeContents(a.querySelector('.prompt p'));const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='已選取，按 Ctrl+C';setTimeout(()=>btn.textContent='複製',2500)};
+    try{navigator.clipboard.writeText(e.prompt).then(done,fallback)}catch(_){fallback()}
+  });
+  e.card=a;e.canvas=a.querySelector('canvas');
+});
+const countEl=document.createElement('span');countEl.className='count';
+CATS.forEach((c,i)=>{const b=document.createElement('button');b.type='button';b.textContent=c;b.setAttribute('aria-pressed',i===0);
+  b.addEventListener('click',()=>{bar.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    let n=0;EFFECTS.forEach(e=>{const show=c==='全部'||e.cat===c||(c==='新增'&&e.new);e.card.hidden=!show;if(show)n++});countEl.textContent=n+' 種';});
+  bar.appendChild(b)});
+countEl.textContent=EFFECTS.length+' 種';document.getElementById('eyebrow').textContent='Motion Catalog · '+EFFECTS.length+' 種效果';bar.appendChild(countEl);
+
+/* ---------- drawing ---------- */
+const BG='#12151D',FG='#EDEFF5',A=[255,106,77],B=[111,139,255],Y='#FFC857',M='#2A3040';
+const rgb=(c,al=1)=>`rgba(${c[0]|0},${c[1]|0},${c[2]|0},${al})`;
+const mix=(k,al=1)=>rgb([B[0]+(A[0]-B[0])*k,B[1]+(A[1]-B[1])*k,B[2]+(A[2]-B[2])*k],al);
+const cl=v=>Math.max(0,Math.min(1,v));
+const eOC=p=>1-Math.pow(1-p,3);
+const eOB=p=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(p-1,3)+c1*Math.pow(p-1,2)};
+const rnd=n=>{const x=Math.sin(n*12.9898)*43758.5453;return x-Math.floor(x)};
+const clear=(x,w,h)=>{x.fillStyle=BG;x.fillRect(0,0,w,h)};
+const rr=(x,X,Y,w,h,r)=>{x.beginPath();x.roundRect?x.roundRect(X,Y,w,h,r):x.rect(X,Y,w,h);x.fill()};
+const eIO=p=>p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+const scene=(x,w,h,bg,fg,txt)=>{x.fillStyle=bg;x.fillRect(0,0,w,h);x.fillStyle=fg;x.font=`700 ${h*.13}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText(txt,w/2,h/2)};
+const heart=(x,cx,cy,s)=>{x.beginPath();x.moveTo(cx,cy+s*.7);x.bezierCurveTo(cx-s*1.2,cy-s*.1,cx-s*.6,cy-s,cx,cy-s*.45);x.bezierCurveTo(cx+s*.6,cy-s,cx+s*1.2,cy-s*.1,cx,cy+s*.7);x.fill()};
+
+
+const off=(st,w,h,d)=>{if(!st.o||st.o.width!==Math.round(w*d)){st.o=document.createElement('canvas');st.o.width=Math.round(w*d);st.o.height=Math.round(h*d)}const o=st.o.getContext('2d');o.setTransform(d,0,0,d,0,0);o.clearRect(0,0,w,h);return o};
+const TR=(x,w,h,t,path)=>{const p=eIO(cl(((t%2.6)-.5)/1.4));scene(x,w,h,BG,FG,'SCENE 1');if(p<=0)return;x.save();x.beginPath();path(p);x.clip();scene(x,w,h,rgb(A),BG,'SCENE 2');x.restore()};
+
+const LY=(x,w,h,t,st,k,id,d,al=1,mode='lighten')=>{const S=st[k]||(st[k]={st:{}});if(!S.c||S.c.width!==Math.round(w*d)){S.c=document.createElement('canvas');S.c.width=Math.round(w*d);S.c.height=Math.round(h*d);S.st={}}const o=S.c.getContext('2d');o.setTransform(d,0,0,d,0,0);o.globalAlpha=1;o.globalCompositeOperation='source-over';o.filter='none';DRAW[id](o,w,h,t,S.st,S.c,d);x.save();x.globalCompositeOperation=mode;x.globalAlpha=al;x.drawImage(S.c,0,0,w,h);x.restore()};
+const GRV=(x,w,h,t,g,v)=>{const f=Math.floor(t*24);x.save();for(let i=0;i<500;i++){x.fillStyle=`rgba(255,255,255,${rnd(f*1000+i)*g*2})`;x.fillRect(rnd(f*7+i*3.1)*w,rnd(f*13+i*1.7)*h,1.4,1.4)}const vg=x.createRadialGradient(w/2,h/2,h*.3,w/2,h/2,w*.7);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,`rgba(0,0,0,${v})`);x.fillStyle=vg;x.fillRect(0,0,w,h);x.restore()};
+const UI_LT='#EEF0F6',UI_INK='#161922',UI_B='#3B6BFF',UI_G='#2DBE60';
+const uiBg=(x,w,h)=>{x.fillStyle=UI_LT;x.fillRect(0,0,w,h);x.fillStyle='rgba(120,130,160,.10)';for(let i=16;i<w;i+=16)x.fillRect(i,0,.6,h);for(let j=16;j<h;j+=16)x.fillRect(0,j,w,.6)};
+const uiCard=(x,X,Y,W,H,r=14)=>{x.save();x.shadowColor='rgba(40,50,90,.20)';x.shadowBlur=22;x.shadowOffsetY=9;x.fillStyle='#fff';rr(x,X,Y,W,H,r);x.restore()};
+const uiText=(x,s,X,Y,fs,col,wt=600,al='center')=>{x.font=`${wt} ${fs}px "Noto Sans TC",Unbounded,sans-serif`;x.textAlign=al;x.textBaseline='middle';x.fillStyle=col;x.fillText(s,X,Y)};
+const uiCursor=(x,X,Y,s=1)=>{x.save();x.translate(X,Y);x.scale(s,s);x.fillStyle='#161922';x.strokeStyle='#fff';x.lineWidth=1.5;x.beginPath();x.moveTo(0,0);x.lineTo(0,18);x.lineTo(5,14);x.lineTo(9,22);x.lineTo(12,20.5);x.lineTo(8,13);x.lineTo(14,13);x.closePath();x.fill();x.stroke();x.restore()};
+const DRAW={
+grid(x,w,h,t){clear(x,w,h);const cols=20,rows=12,cw=w/cols,ch=h/rows,s=Math.min(cw,ch);
+  for(let i=0;i<cols;i++)for(let j=0;j<rows;j++){const dx=i-cols/2+.5,dy=(j-rows/2+.5)*1.25,d=Math.hypot(dx,dy);
+    const k=(Math.sin(d*.65-t*3)+1)/2,sz=s*(.22+.55*k),ang=Math.atan2(dy,dx);
+    const X=(i+.5)*cw+Math.cos(ang)*k*3-sz/2,Yp=(j+.5)*ch+Math.sin(ang)*k*3-sz/2;
+    x.fillStyle=mix(k,.3+.7*k);rr(x,X,Yp,sz,sz,sz*.25)}},
+flow(x,w,h,t,st){if(!st.p){clear(x,w,h);st.p=Array.from({length:260},()=>({x:Math.random()*w,y:Math.random()*h}))}
+  x.fillStyle='rgba(18,21,29,0.09)';x.fillRect(0,0,w,h);x.lineWidth=1.3;
+  st.p.forEach((p,i)=>{const an=(Math.sin(p.x*.012+t*.4)+Math.cos(p.y*.015-t*.3))*Math.PI;
+    const nx=p.x+Math.cos(an)*1.5,ny=p.y+Math.sin(an)*1.5;x.strokeStyle=i%3?rgb(B,.8):rgb(A,.9);
+    x.beginPath();x.moveTo(p.x,p.y);x.lineTo(nx,ny);x.stroke();p.x=nx;p.y=ny;
+    if(p.x<0||p.x>w||p.y<0||p.y>h||Math.random()<.004){p.x=Math.random()*w;p.y=Math.random()*h}})},
+blob(x,w,h,t){clear(x,w,h);const draw=(cx,cy,r,ph,fill)=>{x.beginPath();for(let i=0;i<=90;i++){const th=i/90*Math.PI*2;
+    const rad=r*(1+.12*Math.sin(3*th+t*1.3+ph)+.08*Math.sin(5*th-t*1.7)+.05*Math.sin(7*th+t*2.1+ph));
+    const X=cx+Math.cos(th)*rad,Yp=cy+Math.sin(th)*rad;i?x.lineTo(X,Yp):x.moveTo(X,Yp)}x.closePath();x.fillStyle=fill;x.fill()};
+  const r=Math.min(w,h)*.3;draw(w/2+Math.cos(t*.6)*r*.9,h/2+Math.sin(t*.8)*r*.4,r*.45,2,rgb(B,.35));
+  const g=x.createLinearGradient(w/2-r,h/2-r,w/2+r,h/2+r);g.addColorStop(0,rgb(A));g.addColorStop(1,rgb(B));draw(w/2,h/2,r,0,g)},
+gradient(x,w,h,t){clear(x,w,h);x.globalCompositeOperation='lighter';
+  [[A,.5+.32*Math.sin(t*.5),.5+.3*Math.cos(t*.7)],[B,.5+.3*Math.cos(t*.4+1),.5+.32*Math.sin(t*.6+2)],[[255,200,87],.5+.34*Math.sin(t*.35+3),.5+.28*Math.cos(t*.5+1)]]
+  .forEach(([c,px,py])=>{const X=px*w,Yp=py*h,r=Math.max(w,h)*.42;const g=x.createRadialGradient(X,Yp,0,X,Yp,r);
+    g.addColorStop(0,rgb(c,.75));g.addColorStop(1,rgb(c,0));x.fillStyle=g;x.fillRect(0,0,w,h)});
+  x.globalCompositeOperation='source-over';x.fillStyle=FG;x.font=`900 ${h*.11}px "Noto Sans TC"`;x.textAlign='center';x.textBaseline='middle';x.fillText('你的標題放這裡',w/2,h/2)},
+parallax(x,w,h,t){const g=x.createLinearGradient(0,0,0,h);g.addColorStop(0,'#141833');g.addColorStop(1,'#2B2550');x.fillStyle=g;x.fillRect(0,0,w,h);
+  const sx=w*.7,sy=h*.38,sr=h*.12;const sg=x.createRadialGradient(sx,sy,sr*.5,sx,sy,sr*3);sg.addColorStop(0,'rgba(255,200,87,.45)');sg.addColorStop(1,'rgba(255,200,87,0)');
+  x.fillStyle=sg;x.fillRect(0,0,w,h);x.fillStyle=Y;x.beginPath();x.arc(sx,sy,sr,0,7);x.fill();
+  [[.55,.09,.006,14,'#2E3462'],[.68,.08,.011,32,'#4A55B8'],[.82,.07,.02,70,'#E0583F']].forEach(([b,amp,f,sp,col],li)=>{
+    x.fillStyle=col;x.beginPath();x.moveTo(0,h);for(let X=0;X<=w+4;X+=4){const u=X+t*sp;x.lineTo(X,h*b-Math.sin(u*f+li)*h*amp-Math.sin(u*f*2.3+li*2)*h*amp*.4)}x.lineTo(w,h);x.fill()})},
+kinetic(x,w,h,t){clear(x,w,h);const T=4,tt=t%T,q=cl((tt-3.2)/.5),fs=h*.17;
+  x.font=`900 ${fs}px "Noto Sans TC"`;x.textBaseline='alphabetic';x.textAlign='left';
+  ['動態','讓內容','開口說話'].forEach((wd,i)=>{const p=cl((tt-i*.32)/.5),e=eOB(p);x.globalAlpha=p*(1-q);
+    x.fillStyle=i===1?rgb(A):FG;x.fillText(wd,w*.09,h*.32+i*fs*1.2+(1-e)*40-q*30)});
+  x.globalAlpha=1-q;x.fillStyle=rgb(A);x.fillRect(w*.09,h*.32+2*fs*1.2+fs*.25,w*.5*eOC(cl((tt-1.2)/.6)),5);x.globalAlpha=1},
+typewriter(x,w,h,t){clear(x,w,h);const L=[['> ','產生網格動畫…'],['> ','grid.wave(20, 12)'],['> ','export("reel.mp4")'],['✓ ','完成，共 120 幀']];
+  const tot=L.reduce((s,l)=>s+l[1].length,0),T=6.5,tt=t%T;let n=Math.floor(cl(tt/4.2)*tot);
+  const fs=Math.max(11,h*.075);x.font=`400 ${fs}px "JetBrains Mono","Noto Sans TC",monospace`;x.textBaseline='top';x.textAlign='left';
+  let cx=0,cy=0;for(let i=0;i<L.length;i++){const l=L[i];if(i>0&&n<=0)break;const s=l[1].slice(0,Math.max(0,n));n-=l[1].length;const Yp=h*.2+i*fs*1.7;
+    x.fillStyle=i===3?'#7BD88F':rgb(A);x.fillText(l[0],w*.08,Yp);
+    const pw=x.measureText(l[0]).width;x.fillStyle=FG;x.fillText(s,w*.08+pw,Yp);cx=w*.08+pw+x.measureText(s).width;cy=Yp}
+  if(Math.floor(t*2)%2===0){x.fillStyle=FG;x.fillRect(cx+2,cy,fs*.55,fs*1.1)}},
+glitch(x,w,h,t,st,c,dpr){clear(x,w,h);const fs=h*.24;x.font=`700 ${fs}px Unbounded,"Noto Sans TC",sans-serif`;x.textAlign='center';x.textBaseline='middle';
+  const sd=Math.floor(t*9),on=rnd(sd)<.42;const dx=on?(rnd(sd+1)-.5)*16:0;
+  if(on){x.globalCompositeOperation='lighter';x.fillStyle=rgb(A,.9);x.fillText('GLITCH',w/2-dx,h/2);x.fillStyle=rgb(B,.9);x.fillText('GLITCH',w/2+dx,h/2);x.globalCompositeOperation='source-over'}
+  else{x.fillStyle=FG;x.fillText('GLITCH',w/2,h/2)}
+  if(on){x.save();x.setTransform(1,0,0,1,0,0);const W=c.width,H=c.height;for(let k=0;k<4;k++){const sy=rnd(sd*3+k)*H,sh=(4+rnd(sd*7+k)*18)*dpr,off=(rnd(sd*5+k)-.5)*50*dpr;x.drawImage(c,0,sy,W,sh,off,sy,W,sh)}x.restore()}
+  x.fillStyle='rgba(0,0,0,.18)';for(let Yp=0;Yp<h;Yp+=3)x.fillRect(0,Yp,w,1)},
+marquee(x,w,h,t){clear(x,w,h);const rows=[['限時優惠 · 全館 5 折 · ',1,FG,null],['NEW ARRIVAL · 新品上市 · ',-1,BG,rgb(A)],['FREE SHIPPING · 免運 · ',1,rgb(B),null]];
+  const fs=h*.15;rows.forEach(([s,dir,col,band],i)=>{x.save();const cy=h*(.22+i*.28);x.translate(w/2,cy);if(band)x.rotate(-.05);x.translate(-w/2,0);
+    if(band){x.fillStyle=band;x.fillRect(-20,-fs*.75,w+40,fs*1.5)}
+    x.font=`900 ${fs}px "Noto Sans TC"`;x.textBaseline='middle';x.textAlign='left';x.fillStyle=col;
+    const tw=x.measureText(s).width,off=((t*55*dir)%tw+tw)%tw;for(let X=off-tw;X<w;X+=tw)x.fillText(s,X,0);x.restore()})},
+counter(x,w,h,t){clear(x,w,h);const T=4.2,tt=t%T,p=eOC(cl(tt/2.2));const v=Math.round(12480*p).toLocaleString('en-US');
+  x.textAlign='left';x.textBaseline='alphabetic';x.fillStyle='#9AA1B3';x.font=`500 ${h*.065}px "Noto Sans TC"`;x.fillText('本月新增使用者',w*.1,h*.3);
+  x.fillStyle=FG;x.font=`700 ${h*.24}px Unbounded,sans-serif`;x.fillText(v,w*.1,h*.6);
+  x.fillStyle=M;x.fillRect(w*.1,h*.72,w*.8,6);x.fillStyle=rgb(A);x.fillRect(w*.1,h*.72,w*.8*p,6);
+  const q=eOB(cl((tt-2.2)/.4));if(q>0){x.save();x.translate(w*.78,h*.18);x.scale(q,q);x.fillStyle='#7BD88F';rr(x,-w*.09,-h*.055,w*.18,h*.11,h*.055);
+    x.fillStyle=BG;x.font=`700 ${h*.065}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText('+38%',0,2);x.restore()}},
+chart(x,w,h,t){clear(x,w,h);const T=4,tt=t%T,d=[.35,.5,.42,.68,.6,.82,.95],n=d.length,base=h*.86,gw=w*.8,bw=gw/n*.62,fade=1-cl((tt-3.5)/.4);
+  x.globalAlpha=fade;x.strokeStyle=M;x.lineWidth=1;for(let k=1;k<=3;k++){const Yp=base-k*h*.22;x.beginPath();x.moveTo(w*.1,Yp);x.lineTo(w*.9,Yp);x.stroke()}
+  d.forEach((v,i)=>{const p=eOB(cl((tt-i*.12)/.7)),bh=v*h*.68*p;x.fillStyle=i===n-1?rgb(A):rgb(B,.55);rr(x,w*.1+i*gw/n+(gw/n-bw)/2,base-bh,bw,bh,4)});
+  x.fillStyle=FG;x.fillRect(w*.1,base,w*.8,2);x.globalAlpha=1},
+sphere(x,w,h,t,st){clear(x,w,h);if(!st.pts){st.pts=[];const N=380,g=Math.PI*(3-Math.sqrt(5));for(let i=0;i<N;i++){const y=1-i/(N-1)*2,r=Math.sqrt(1-y*y),th=g*i;st.pts.push([Math.cos(th)*r,y,Math.sin(th)*r])}}
+  const R=Math.min(w,h)*.38,ry=t*.5,tl=.4,cy=Math.cos(ry),sy=Math.sin(ry),ct=Math.cos(tl),stl=Math.sin(tl);
+  st.pts.forEach(([px,py,pz])=>{const x1=px*cy-pz*sy,z1=px*sy+pz*cy,y2=py*ct-z1*stl,z2=py*stl+z1*ct,k=(z2+1)/2;
+    x.fillStyle=mix(k,.15+.85*k);x.beginPath();x.arc(w/2+x1*R,h/2+y2*R,.6+k*2.2,0,7);x.fill()})},
+audio(x,w,h,t){clear(x,w,h);const n=48,bw=w*.84/n;for(let i=0;i<n;i++){let v=.5+.5*Math.sin(i*.35+t*4)*Math.cos(i*.13-t*2.3);v=v*(.35+.65*Math.sin(Math.PI*(i+.5)/n));
+  const bh=v*h*.36+3;x.fillStyle=mix(i/(n-1));rr(x,w*.08+i*bw+bw*.18,h/2-bh,bw*.64,bh*2,bw*.32)}},
+line(x,w,h,t){clear(x,w,h);const T=3.6,tt=t%T,p=eOC(cl(tt/2)),fade=1-cl((tt-3.1)/.4),cx=w/2,cy=h/2,r=Math.min(w,h)*.32;
+  x.globalAlpha=fade;x.lineCap='round';x.lineJoin='round';const Lc=2*Math.PI*r;x.lineWidth=4;x.strokeStyle=rgb(A);x.setLineDash([Lc,Lc]);x.lineDashOffset=Lc*(1-p);
+  x.beginPath();x.arc(cx,cy,r,-Math.PI/2,Math.PI*1.5);x.stroke();
+  const P=[[-.45,.4],[-.45,-.35],[0,.15],[.45,-.35],[.45,.4]].map(([a,b])=>[cx+a*r,cy+b*r]);let Lp=0;for(let i=1;i<P.length;i++)Lp+=Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]);
+  const p2=eOC(cl((tt-.4)/1.6));x.strokeStyle=FG;x.setLineDash([Lp,Lp]);x.lineDashOffset=Lp*(1-p2);x.beginPath();P.forEach(([a,b],i)=>i?x.lineTo(a,b):x.moveTo(a,b));x.stroke();x.setLineDash([]);
+  const f=eOB(cl((tt-2)/.5));if(f>0){x.fillStyle=rgb(A,.25);x.beginPath();x.arc(cx,cy,r*f*.98,0,7);x.fill()}x.globalAlpha=1},
+burst(x,w,h,t){clear(x,w,h);const ray=(cx,cy,r,n,col,lw,sp,ph)=>{x.save();x.translate(cx,cy);x.rotate(t*sp);x.strokeStyle=col;x.lineWidth=lw;x.lineCap='round';
+    for(let i=0;i<n;i++){const a=i/n*Math.PI*2,l=r*(.6+.3*Math.sin(t*2.6+i*1.3+ph));x.beginPath();x.moveTo(Math.cos(a)*r*.22,Math.sin(a)*r*.22);x.lineTo(Math.cos(a)*l,Math.sin(a)*l);x.stroke()}x.restore()};
+  const r=Math.min(w,h)*.4;ray(w*.42,h*.52,r,16,rgb(A),Math.max(4,r*.07),.35,0);ray(w*.83,h*.24,r*.35,12,rgb(B),3,-.6,1)},
+bounce(x,w,h,t){clear(x,w,h);const g=h*.8,r=h*.09;x.fillStyle=M;x.fillRect(w*.08,g,w*.84,2);
+  [rgb(A),rgb(B),Y].forEach((col,i)=>{const ph=t*2.6+i*.7,ys=Math.abs(Math.sin(ph)),cx=w*(.28+i*.22);let sx=1,sy=1;
+    if(ys<.18){sx=1+(.18-ys)*2.2;sy=1/sx}const cy=g-r*sy-ys*h*.5;
+    x.fillStyle='rgba(0,0,0,.45)';x.beginPath();x.ellipse(cx,g+3,r*(1.1-ys*.6),r*.22*(1-ys*.5),0,0,7);x.fill();
+    x.fillStyle=col;x.beginPath();x.ellipse(cx,cy,r*sx,r*sy,0,0,7);x.fill()})},
+tunnel(x,w,h,t){clear(x,w,h);const n=14,S=Math.max(w,h)*1.5;x.save();x.translate(w/2,h/2);
+  for(let k=0;k<n;k++){const z=((k/n+t*.16)%1),s=Math.pow(z,2.3)*S;x.save();x.rotate(z*1.4+t*.15);x.strokeStyle=mix(z,z);x.lineWidth=.5+z*4;x.strokeRect(-s/2,-s/2,s,s);x.restore()}x.restore()},
+loader(x,w,h,t){clear(x,w,h);const r=Math.min(w,h)*.27,cx=w/2,cy=h/2;x.lineCap='round';x.lineWidth=8;x.strokeStyle=M;x.beginPath();x.arc(cx,cy,r,0,7);x.stroke();
+  const st=t*4.2,len=Math.PI*(.25+1.2*(Math.sin(t*2.2)+1)/2);x.strokeStyle=rgb(A);x.beginPath();x.arc(cx,cy,r,st,st+len);x.stroke();
+  x.fillStyle=FG;x.font=`700 ${r*.42}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText(Math.floor((t*22)%101)+'%',cx,cy+2)},
+starfield(x,w,h,t){clear(x,w,h);const f=Math.min(w,h)*.25;x.lineCap='round';
+  for(let i=0;i<320;i++){const sx=rnd(i+1)*2-1,sy=rnd(i+999)*2-1,z=1-((rnd(i+77)+t*.22)%1),z0=Math.min(1,z+.04);if(z<.03)continue;
+    const k=1-z;x.strokeStyle=i%6?`rgba(237,239,245,${k})`:rgb(A,k);x.lineWidth=.4+k*2.4;
+    x.beginPath();x.moveTo(w/2+sx/z0*f,h/2+sy/z0*f);x.lineTo(w/2+sx/z*f,h/2+sy/z*f);x.stroke()}},
+plexus(x,w,h,t){clear(x,w,h);const N=56,P=[];for(let i=0;i<N;i++)P.push([w*(.5+.47*Math.sin(t*(.1+rnd(i+1)*.2)+rnd(i+3)*6.28)),h*(.5+.45*Math.cos(t*(.08+rnd(i+5)*.2)+rnd(i+9)*6.28))]);
+  const D=Math.min(w,h)*.3;x.lineWidth=1;
+  for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){const d=Math.hypot(P[i][0]-P[j][0],P[i][1]-P[j][1]);if(d<D){x.strokeStyle=mix(P[i][0]/w,(1-d/D)*.7);x.beginPath();x.moveTo(P[i][0],P[i][1]);x.lineTo(P[j][0],P[j][1]);x.stroke()}}
+  P.forEach(([a,b],i)=>{x.fillStyle=i%4?FG:rgb(A);x.beginPath();x.arc(a,b,i%4?1.8:3,0,7);x.fill()})},
+aurora(x,w,h,t){const g0=x.createLinearGradient(0,0,0,h);g0.addColorStop(0,'#070A14');g0.addColorStop(1,'#151A36');x.fillStyle=g0;x.fillRect(0,0,w,h);
+  for(let i=0;i<40;i++){x.fillStyle=`rgba(237,239,245,${.25+.5*rnd(i+50)*(.6+.4*Math.sin(t*2+i))})`;x.fillRect(rnd(i+11)*w,rnd(i+23)*h*.6,1.5,1.5)}
+  x.globalCompositeOperation='lighter';
+  [[[123,216,143],0],[B,1.7],[A,3.3]].forEach(([c,ph],k)=>{const base=h*(.26+k*.12),f=X=>base+Math.sin(X*.006+t*.5+ph)*h*.1+Math.sin(X*.017-t*.8+ph)*h*.035;
+    const g=x.createLinearGradient(0,base-h*.15,0,base+h*.45);g.addColorStop(0,rgb(c,0));g.addColorStop(.3,rgb(c,.5));g.addColorStop(1,rgb(c,0));x.fillStyle=g;
+    x.beginPath();x.moveTo(0,f(0));for(let X=6;X<=w+6;X+=6)x.lineTo(X,f(X));for(let X=w+6;X>=0;X-=6)x.lineTo(X,f(X)+h*(.25+.12*Math.sin(X*.01+t+ph)));x.closePath();x.fill()});
+  x.globalCompositeOperation='source-over'},
+ripple(x,w,h,t){clear(x,w,h);const R=Math.max(w,h)*.45;x.lineWidth=2;
+  for(let i=0;i<5;i++){const u=t*.3+i/5,p=u%1,cy=Math.floor(u),cx=w*(.15+.7*rnd(cy*13+i+1)),cyy=h*(.2+.6*rnd(cy*17+i+.5));
+    for(let j=0;j<3;j++){const r=p*R-j*14;if(r<=0)continue;x.strokeStyle=mix(rnd(cy+i+2),(1-p)*(1-j*.3));x.beginPath();x.ellipse(cx,cyy,r,r*.5,0,0,7);x.stroke()}
+    if(p<.08){x.fillStyle=`rgba(237,239,245,${1-p/.08})`;x.beginPath();x.arc(cx,cyy,3,0,7);x.fill()}}},
+scramble(x,w,h,t){clear(x,w,h);const T=5,tt=t%T,S='MOTION 2026',G='ABCDEFGHJKLMNPQRSTUVWXYZ0123456789#%&*@$',fs=Math.min(h*.2,w/S.length*1.45);
+  x.font=`600 ${fs}px "JetBrains Mono",monospace`;x.textBaseline='middle';x.textAlign='left';const cw=x.measureText('M').width,X0=(w-cw*S.length)/2,out=cl((tt-4.3)/.5);
+  x.globalAlpha=1-out;for(let i=0;i<S.length;i++){if(S[i]===' '||tt<i*.04)continue;const done=tt>.4+i*.12;
+    x.fillStyle=done?FG:rgb(A,.85);x.fillText(done?S[i]:G[Math.floor(rnd(i*31+Math.floor(t*18))*G.length)],X0+i*cw,h/2)}
+  x.fillStyle='#9AA1B3';x.font=`400 ${h*.06}px "JetBrains Mono",monospace`;x.fillText(tt>1.8?'decrypted ✓':'decrypting…',X0,h/2+fs*.95);x.globalAlpha=1},
+ptext(x,w,h,t,st){clear(x,w,h);if(!st.pts){const o=document.createElement('canvas');o.width=Math.max(1,w|0);o.height=Math.max(1,h|0);const ox=o.getContext('2d');
+    ox.fillStyle='#fff';ox.font=`700 ${h*.32}px Unbounded,"Noto Sans TC",sans-serif`;ox.textAlign='center';ox.textBaseline='middle';ox.fillText('HELLO',w/2,h/2);
+    const d=ox.getImageData(0,0,o.width,o.height).data,step=Math.max(3,Math.round(w/110));st.pts=[];
+    for(let Y=0;Y<o.height;Y+=step)for(let X=0;X<o.width;X+=step)if(d[(Y*o.width+X)*4+3]>128)st.pts.push([X,Y,Math.random()*w,Math.random()*h,Math.random()])}
+  const T=5,tt=t%T,p=eOC(cl((tt-.2)/1.6))*(1-eIO(cl((tt-3.8)/1))),r=Math.max(1.5,w/200);
+  st.pts.forEach(([tx,ty,sx,sy,k],i)=>{const X=sx+(tx-sx)*p+Math.sin(t*2+i)*(1-p)*6,Yp=sy+(ty-sy)*p+Math.cos(t*2+i)*(1-p)*6;x.fillStyle=mix(k,.35+.65*p);x.fillRect(X-r/2,Yp-r/2,r,r)})},
+rotator(x,w,h,t){clear(x,w,h);const W=['影片','網站','品牌','動畫'],P=1.4,u=t/P,i=Math.floor(u)%W.length,m=eOB(cl(((u%1)-.7)/.3));
+  const fs=h*.16;x.font=`900 ${fs}px "Noto Sans TC"`;x.textBaseline='middle';x.textAlign='left';const pre='我們做',pw=x.measureText(pre).width,bw=fs*2.2,X0=w/2-(pw+fs*.15+bw)/2,bx=X0+pw+fs*.15;
+  x.fillStyle=FG;x.fillText(pre,X0,h/2);x.save();x.beginPath();x.rect(bx,h/2-fs*.7,bw,fs*1.4);x.clip();x.fillStyle=rgb(A);
+  x.fillText(W[i],bx+fs*.05,h/2-m*fs*1.4);x.fillText(W[(i+1)%W.length],bx+fs*.05,h/2+(1-m)*fs*1.4);x.restore();x.fillStyle=rgb(A);x.fillRect(bx,h/2+fs*.72,bw-fs*.1,4)},
+donut(x,w,h,t){clear(x,w,h);const T=4.5,tt=t%T,D=[.42,.26,.19,.13],C=[rgb(A),rgb(B),Y,'#7BD88F'],cx=w*.33,cy=h/2,r=Math.min(w,h)*.28,fade=1-cl((tt-4)/.4),p=eOC(cl(tt/1.8));
+  x.globalAlpha=fade;x.lineWidth=r*.32;x.strokeStyle=M;x.beginPath();x.arc(cx,cy,r,0,7);x.stroke();
+  let a0=-Math.PI/2,acc=0;D.forEach((v,i)=>{const len=v*cl((p-acc)/v)*Math.PI*2-.03;if(len>.01){x.strokeStyle=C[i];x.beginPath();x.arc(cx,cy,r,a0,a0+len);x.stroke()}a0+=v*Math.PI*2;acc+=v});
+  x.fillStyle=FG;x.textAlign='center';x.textBaseline='middle';x.font=`700 ${r*.42}px Unbounded,sans-serif`;x.fillText(Math.round(42*cl(p/.42))+'%',cx,cy);
+  ['直播 42%','短影音 26%','文章 19%','Podcast 13%'].forEach((l,i)=>{const q=eOC(cl((tt-.3-i*.15)/.5));x.globalAlpha=fade*q;const Yp=h*(.3+i*.13);
+    x.fillStyle=C[i];rr(x,w*.64,Yp-6,12,12,3);x.fillStyle=FG;x.textAlign='left';x.font=`500 ${h*.06}px "Noto Sans TC"`;x.fillText(l,w*.64+20,Yp)});x.globalAlpha=1},
+linechart(x,w,h,t){clear(x,w,h);const T=4.5,tt=t%T,d=[.3,.42,.36,.55,.5,.66,.62,.8,.92],n=d.length,L=w*.1,R=w*.9,base=h*.85,fade=1-cl((tt-4)/.4),p=eOC(cl(tt/2.4));
+  const P=d.map((v,i)=>[L+(R-L)*i/(n-1),base-v*h*.65]);x.globalAlpha=fade;x.strokeStyle=M;x.lineWidth=1;
+  for(let k=1;k<=3;k++){const Yp=base-k*h*.2;x.beginPath();x.moveTo(L,Yp);x.lineTo(R,Yp);x.stroke()}
+  x.save();x.beginPath();x.rect(0,0,L+(R-L)*p,h);x.clip();const g=x.createLinearGradient(0,h*.15,0,base);g.addColorStop(0,rgb(A,.35));g.addColorStop(1,rgb(A,0));
+  x.fillStyle=g;x.beginPath();x.moveTo(L,base);P.forEach(q=>x.lineTo(q[0],q[1]));x.lineTo(R,base);x.closePath();x.fill();
+  x.strokeStyle=rgb(A);x.lineWidth=3;x.lineJoin='round';x.beginPath();P.forEach((q,i)=>i?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1]));x.stroke();x.restore();
+  const sg=Math.min(n-2,Math.floor(p*(n-1))),f=p*(n-1)-sg,hx=P[sg][0]+(P[sg+1][0]-P[sg][0])*f,hy=P[sg][1]+(P[sg+1][1]-P[sg][1])*f;
+  x.fillStyle=rgb(A,.3);x.beginPath();x.arc(hx,hy,8+4*Math.sin(t*6),0,7);x.fill();x.fillStyle=FG;x.beginPath();x.arc(hx,hy,4,0,7);x.fill();x.fillRect(L,base,R-L,2);x.globalAlpha=1},
+arcs(x,w,h,t){clear(x,w,h);const gs=Math.max(9,w/42);x.fillStyle=M;
+  for(let X=gs/2;X<w;X+=gs)for(let Yp=gs/2;Yp<h;Yp+=gs){if(Math.sin(X*.013)*Math.cos(Yp*.02)+Math.sin(X*.004+Yp*.006)>.15)x.fillRect(X-1,Yp-1,2.2,2.2)}
+  const N=[...Array(9)].map((_,i)=>[w*(.1+.8*rnd(i*3+1)),h*(.2+.6*rnd(i*3+2))]),E=.55,cur=Math.floor(t/E);x.lineWidth=2;
+  for(let k=cur-5;k<=cur;k++){const a=N[Math.floor(rnd(k*1.7+.3)*9)],b=N[Math.floor(rnd(k*2.9+4)*9)];if(a===b)continue;const age=(t-k*E)/2.2;if(age<0||age>1)continue;
+    const mx=(a[0]+b[0])/2,my=Math.min(a[1],b[1])-Math.hypot(b[0]-a[0],b[1]-a[1])*.4,p=eOC(cl(age/.6)),fd=1-cl((age-.6)/.4);
+    x.strokeStyle=mix(rnd(k+.7),.9*fd);x.beginPath();for(let s=0;s<=24;s++){const u=s/24*p;x[s?'lineTo':'moveTo']((1-u)*(1-u)*a[0]+2*(1-u)*u*mx+u*u*b[0],(1-u)*(1-u)*a[1]+2*(1-u)*u*my+u*u*b[1])}x.stroke();
+    if(p>=.99){x.strokeStyle=rgb(A,fd);x.beginPath();x.arc(b[0],b[1],4+(1-fd)*14,0,7);x.stroke()}}
+  N.forEach(([a,b])=>{x.fillStyle=FG;x.beginPath();x.arc(a,b,3,0,7);x.fill()})},
+morph(x,w,h,t){clear(x,w,h);const poly=n=>th=>{if(!n)return 1;const s=2*Math.PI/n,a=((th%s)+s)%s-s/2;return Math.cos(Math.PI/n)/Math.cos(a)};
+  const S=[poly(0),poly(4),poly(3),poly(6)],u=t/1.6,i=Math.floor(u)%4,j=(i+1)%4,f=eOB(cl(((u%1)-.45)/.55)),R=Math.min(w,h)*.34,cx=w/2,cy=h/2,rot=t*.4;
+  x.beginPath();for(let k=0;k<=120;k++){const th=k/120*Math.PI*2,r=R*(S[i](th)+(S[j](th)-S[i](th))*f);x[k?'lineTo':'moveTo'](cx+Math.cos(th+rot)*r,cy+Math.sin(th+rot)*r)}x.closePath();
+  const g=x.createLinearGradient(cx-R,cy-R,cx+R,cy+R);g.addColorStop(0,rgb(A));g.addColorStop(1,rgb(B));x.fillStyle=g;x.fill();x.strokeStyle=FG;x.lineWidth=2;x.stroke()},
+orbit(x,w,h,t){clear(x,w,h);const cx=w/2,cy=h/2,R=Math.min(w,h)*.42,O=[[1,.32,.3,rgb(A),1.1],[.72,.38,-.5,rgb(B),-1.6],[.5,.5,.9,Y,2.4]];
+  const pl=O.map(([s,e,tl,c,sp])=>{const a=t*sp,px=Math.cos(a)*R*s,py=Math.sin(a)*R*s*e;return{x:cx+px*Math.cos(tl)-py*Math.sin(tl),y:cy+px*Math.sin(tl)+py*Math.cos(tl),front:Math.sin(a)>0,c}});
+  x.strokeStyle='rgba(237,239,245,.18)';x.lineWidth=1.2;O.forEach(([s,e,tl])=>{x.beginPath();x.ellipse(cx,cy,R*s,R*s*e,tl,0,7);x.stroke()});
+  const dot=p=>{x.fillStyle=p.c;x.beginPath();x.arc(p.x,p.y,R*.06,0,7);x.fill()};pl.filter(p=>!p.front).forEach(dot);
+  const g=x.createRadialGradient(cx-R*.06,cy-R*.06,0,cx,cy,R*.2);g.addColorStop(0,'#FFFFFF');g.addColorStop(1,'#B9C2DA');x.fillStyle=g;x.beginPath();x.arc(cx,cy,R*.2,0,7);x.fill();
+  x.fillStyle=BG;x.font=`700 ${R*.085}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText('LOGO',cx,cy+1);pl.filter(p=>p.front).forEach(dot)},
+wipe(x,w,h,t){const tt=t%4,R=Math.hypot(w,h),first=tt<2,s1=()=>scene(x,w,h,BG,FG,'SCENE 1'),s2=()=>scene(x,w,h,rgb(A),BG,'SCENE 2'),p=eIO(cl(((first?tt:tt-2)-1.1)/.8));
+  (first?s1:s2)();if(p>0){x.save();x.beginPath();x.arc(first?w*.15:w*.85,first?h*.85:h*.15,R*p,0,7);x.clip();(first?s2:s1)();x.restore()}},
+slices(x,w,h,t){const tt=t%4,first=tt<2,lt=first?tt:tt-2,n=8,s1=()=>scene(x,w,h,BG,FG,'SCENE 1'),s2=()=>scene(x,w,h,rgb(B),BG,'SCENE 2');
+  (first?s1:s2)();for(let k=0;k<n;k++){const p=eOC(cl((lt-.8-k*.06)/.5));if(p<=0)continue;const y0=k*h/n,X=first?0:w*(1-p),ww=w*p;
+    x.save();x.beginPath();x.rect(X,y0,ww,h/n+1);x.clip();(first?s2:s1)();x.restore();if(p<1){x.fillStyle=rgb(A);x.fillRect(first?ww-3:X,y0,3,h/n+1)}}},
+confetti(x,w,h,t){clear(x,w,h);const T=3.6,tt=t%T,cyc=Math.floor(t/T),C=[rgb(A),rgb(B),Y,'#7BD88F',FG],tau=(1-Math.exp(-2.2*tt))/2.2,fd=1-cl((tt-3)/.5);
+  const q=eOB(cl((tt-.25)/.5));if(q>0){x.save();x.globalAlpha=fd;x.translate(w/2,h*.45);x.scale(q,q);x.fillStyle=FG;x.font=`900 ${h*.13}px "Noto Sans TC"`;x.textAlign='center';x.textBaseline='middle';x.fillText('恭喜達標！',0,0);x.restore()}
+  for(let i=0;i<140;i++){const s=cyc*1000+i,side=i%2,vx=(side?1:-1)*(.25+rnd(s+1)*.6)*w*1.6,vy=-(.8+rnd(s+2)*.7)*h*2.4;
+    const X=(side?w*.04:w*.96)+vx*tau+Math.sin(tt*5+i)*10*tt,Yp=h*1.02+vy*tau+.5*h*1.1*tt*tt;
+    x.save();x.globalAlpha=fd;x.translate(X,Yp);x.rotate(tt*(3+rnd(s+3)*5)+i);x.scale(1,Math.cos(tt*9+i));x.fillStyle=C[i%5];x.fillRect(-4,-6,8,12);x.restore()}x.globalAlpha=1},
+like(x,w,h,t){clear(x,w,h);const tt=t%2.6,cx=w*.4,cy=h*.56,S=Math.min(w,h)*.22,ring=cl(tt/.5);
+  if(ring<1){x.strokeStyle=rgb(A,1-ring);x.lineWidth=6*(1-ring)+1;x.beginPath();x.arc(cx,cy-S*.1,S*(.4+1.1*eOC(ring)),0,7);x.stroke()}
+  const q=eOC(cl((tt-.05)/.6));if(q<1)for(let i=0;i<10;i++){const a=i/10*Math.PI*2,d=S*(.6+.9*q);x.globalAlpha=1-q;x.fillStyle=i%2?rgb(B):Y;x.beginPath();x.arc(cx+Math.cos(a)*d,cy-S*.1+Math.sin(a)*d,4*(1-q)+1,0,7);x.fill()}
+  x.globalAlpha=1;x.fillStyle=rgb(A);heart(x,cx,cy,S*eOB(cl((tt-.1)/.45))*(1-cl((tt-2.3)/.3)));
+  for(let k=0;k<6;k++){const u=(t*.35+k/6)%1;x.globalAlpha=(1-u)*.9;x.fillStyle=[rgb(A),rgb(B),Y][k%3];heart(x,w*.8+Math.sin(u*9+k)*w*.04,h*(.95-u*.85),Math.min(w,h)*.045*(.6+u*.5))}x.globalAlpha=1},
+perspgrid(x,w,h,t){clear(x,w,h);const hz=h*.42;const g=x.createLinearGradient(0,hz-h*.3,0,hz);g.addColorStop(0,'rgba(255,106,77,0)');g.addColorStop(1,'rgba(255,106,77,.35)');x.fillStyle=g;x.fillRect(0,hz-h*.3,w,h*.3);x.lineWidth=1.2;
+  for(let i=-12;i<=12;i++){x.strokeStyle=rgb(B,.6);x.beginPath();x.moveTo(w/2+i*w*.02,hz);x.lineTo(w/2+i*w*.22,h);x.stroke()}
+  for(let i=0;i<12;i++){const z=((i+t*1.2)%12)/12,Yp=hz+(h-hz)*z*z;x.strokeStyle=rgb(A,.25+.75*z);x.beginPath();x.moveTo(0,Yp);x.lineTo(w,Yp);x.stroke()}},
+maskrise(x,w,h,t){clear(x,w,h);const T=4,tt=t%T,fs=h*.13,L=['CRAFTED','於細節之中','2026'],q=cl((tt-3.3)/.5);x.textAlign='left';x.textBaseline='alphabetic';
+  L.forEach((s,i)=>{const p=1-Math.pow(2,-10*cl((tt-i*.25)/.9)),by=h*.34+i*fs*1.35;x.save();x.beginPath();x.rect(0,by-fs*1.1,w,fs*1.35);x.clip();
+    x.font=`${i==1?900:400} ${fs}px "Noto Sans TC",sans-serif`;x.fillStyle=i==2?Y:FG;x.globalAlpha=1-q;x.fillText(s,w*.1,by+(1-p)*fs*1.2);x.restore()});
+  x.fillStyle=rgb(A);x.fillRect(w*.1,h*.34+3*fs*1.35-fs*.7,w*.25*eOC(cl((tt-.8)/1))*(1-q),2)},
+charfall(x,w,h,t){clear(x,w,h);const s='逐字落下回彈',T=3.5,tt=t%T,fs=h*.17,n=s.length,sw=fs*1.05,x0=w/2-sw*(n-1)/2;x.font=`900 ${fs}px "Noto Sans TC"`;x.textAlign='center';x.textBaseline='middle';
+  for(let i=0;i<n;i++){const p=cl((tt-i*.1)/.55),e=eOB(p);x.save();x.translate(x0+i*sw,h/2-(1-e)*h*.6);x.rotate((1-e)*(i%2?.6:-.6));x.globalAlpha=p*(1-cl((tt-3)/.4));x.fillStyle=i==2||i==3?rgb(A):FG;x.fillText(s[i],0,0);x.restore()}},
+beatslam(x,w,h,t){clear(x,w,h);const W=['FACEBOOK','YOUTUBE','LINE','INSTAGRAM','TIKTOK','THREADS'],b=60/128,k=Math.floor(t/b),p=(t%b)/b,s=1+.6*Math.pow(1-cl(p/.25),3);
+  x.save();x.translate(w/2+(p<.15?(rnd(k)-.5)*12:0),h/2);x.scale(s,s);x.font=`700 ${Math.min(h*.16,w*.09)}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillStyle=k%3==0?rgb(A):FG;x.fillText(W[k%W.length],0,0);x.restore();
+  x.fillStyle=rgb(A,.6*(1-p));x.fillRect(0,0,w,h*.02);x.fillRect(0,h*.98,w,h*.02)},
+strokeflow(x,w,h,t){clear(x,w,h);const fs=h*.3;x.font=`700 ${fs}px Unbounded,sans-serif`;x.textBaseline='middle';x.textAlign='left';x.lineWidth=1.5;const s='CONTENT · NEWS · DATA · ',tw=x.measureText(s).width;
+  [[.3,1,FG],[.72,-1,rgb(A)]].forEach(([yy,d,c])=>{x.strokeStyle=c;let o=((-t*40*d)%tw+tw)%tw-tw;for(;o<w;o+=tw)x.strokeText(s,o,h*yy)})},
+karaoke(x,w,h,t){clear(x,w,h);const s='三秒抓住注意力的字幕',T=3.5,tt=t%T,n=s.length,fs=Math.min(h*.13,w*.8/n),k=cl(tt/2.6)*n;x.font=`900 ${fs}px "Noto Sans TC"`;x.textAlign='left';x.textBaseline='middle';
+  let X=(w-x.measureText(s).width)/2;const Yp=h*.7;for(let i=0;i<n;i++){const cw=x.measureText(s[i]).width,on=i<k,sc=on?1+.2*Math.sin(Math.PI*cl(k-i)):1;
+    x.save();x.translate(X+cw/2,Yp);x.scale(sc,sc);x.lineWidth=fs*.16;x.lineJoin='round';x.strokeStyle=BG;x.strokeText(s[i],-cw/2,0);x.fillStyle=on?Y:FG;x.fillText(s[i],-cw/2,0);x.restore();X+=cw}},
+highlighter(x,w,h,t){clear(x,w,h);const T=3.5,tt=t%T,fs=h*.12;x.font=`900 ${fs}px "Noto Sans TC"`;x.textAlign='left';x.textBaseline='middle';
+  [['重點不是做更多，',0],['而是做對的事',1]].forEach(([s,hl],i)=>{const Yp=h*.38+i*fs*1.6,tw=x.measureText(s).width;if(hl){const p=eOC(cl((tt-.6)/.7));x.fillStyle='rgba(255,200,87,.85)';x.beginPath();x.moveTo(w*.08-6,Yp-fs*.05);x.lineTo(w*.08+tw*p,Yp-fs*.12);x.lineTo(w*.08+tw*p+4,Yp+fs*.48);x.lineTo(w*.08-4,Yp+fs*.52);x.fill()}x.fillStyle=FG;x.fillText(s,w*.08,Yp)});
+  const q=eOC(cl((tt-1.5)/.8));if(q>0){x.strokeStyle=rgb(A);x.lineWidth=3;x.beginPath();x.ellipse(w*.08+fs*1.0,h*.38,fs*1.3,fs*.75,-.05,-Math.PI*.9,-Math.PI*.9+q*Math.PI*2.1);x.stroke()}},
+radar(x,w,h,t){clear(x,w,h);const cx=w/2,cy=h*.52,R=h*.38,n=6,V=[.9,.7,.85,.6,.95,.75],p=eOC(cl((t%4)/1.2));x.strokeStyle=M;x.lineWidth=1;
+  for(let r=1;r<=4;r++){x.beginPath();for(let i=0;i<=n;i++){const a=i/n*Math.PI*2-Math.PI/2;x.lineTo(cx+Math.cos(a)*R*r/4,cy+Math.sin(a)*R*r/4)}x.stroke()}
+  if(x.createConicGradient){const g=x.createConicGradient(t*1.5,cx,cy);g.addColorStop(0,rgb(B,.4));g.addColorStop(.15,rgb(B,0));g.addColorStop(1,rgb(B,0));x.fillStyle=g;x.beginPath();x.arc(cx,cy,R,0,7);x.fill()}
+  x.beginPath();for(let i=0;i<=n;i++){const a=i/n*Math.PI*2-Math.PI/2,v=V[i%n]*p;x.lineTo(cx+Math.cos(a)*R*v,cy+Math.sin(a)*R*v)}x.fillStyle=rgb(A,.3);x.fill();x.strokeStyle=rgb(A);x.lineWidth=2;x.stroke()},
+candle(x,w,h,t){clear(x,w,h);const n=22,cw=w*.8/n,base=h*.42,sh=Math.floor(t*2),P=s=>18*Math.sin(s*.35)+(rnd(s)-.5)*10,sc=h*.009;x.lineWidth=1;
+  for(let i=0;i<n;i++){const s=i+sh,o=P(s-1),c=P(s),hi=Math.max(o,c)+rnd(s+.3)*5,lo=Math.min(o,c)-rnd(s+.6)*5,X=w*.1+i*cw,col=c>=o?rgb(A):rgb(B);
+    x.strokeStyle=col;x.beginPath();x.moveTo(X+cw/2,base-hi*sc);x.lineTo(X+cw/2,base-lo*sc);x.stroke();x.fillStyle=col;x.fillRect(X+cw*.15,base-Math.max(o,c)*sc,cw*.7,Math.max(2,Math.abs(c-o)*sc))}
+  x.fillStyle='#1A1F2B';x.fillRect(0,h*.82,w,h*.18);x.font=`500 ${h*.07}px "JetBrains Mono",monospace`;x.textBaseline='middle';x.textAlign='left';
+  const s='INDEX 23,415 ▲0.82%   USD 31.42 ▼0.12%   GOLD 2,684 ▲0.45%   ',tw=x.measureText(s).width;for(let o=-(t*60)%tw;o<w;o+=tw){x.fillStyle=FG;x.fillText(s,o,h*.91)}},
+bubble(x,w,h,t){clear(x,w,h);const D=[[.27,.55,.24,'YouTube'],[.56,.4,.17,'IG'],[.76,.64,.13,'TikTok'],[.47,.77,.09,'FB'],[.84,.28,.08,'X'],[.13,.24,.07,'LINE']],tt=t%4;
+  D.forEach(([px,py,r,l],i)=>{const p=eOB(cl((tt-i*.15)/.6)),R=Math.max(0,r*h*p*(1+.03*Math.sin(t*2+i))),Yp=py*h+Math.sin(t+i)*4;x.fillStyle=i%2?rgb(B,.55):rgb(A,.8);x.beginPath();x.arc(px*w,Yp,R,0,7);x.fill();
+    if(p>.8){x.fillStyle=FG;x.font=`700 ${Math.max(9,R*.32)}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText(l,px*w,Yp)}})},
+waffle(x,w,h,t){clear(x,w,h);const C=30,R=10,s=Math.min(w*.84/C,h*.7/R),x0=(w-C*s)/2,y0=h*.22,n=Math.floor(eOC(cl((t%4)/2.5))*C*R*.72);
+  for(let j=0;j<R;j++)for(let i=0;i<C;i++){const k=i*R+j;x.fillStyle=k<n?rgb(A):M;x.beginPath();x.arc(x0+i*s+s/2,y0+j*s+s*.28,s*.17,0,7);x.fill();x.fillRect(x0+i*s+s*.32,y0+j*s+s*.48,s*.36,s*.38)}
+  x.fillStyle=FG;x.font=`700 ${h*.1}px Unbounded,sans-serif`;x.textAlign='left';x.textBaseline='alphabetic';x.fillText(Math.round(n/(C*R)*100)+'%',x0,h*.17)},
+gauge(x,w,h,t){clear(x,w,h);const cx=w/2,cy=h*.6,R=h*.38,p=eOC(cl((t%4)/1.8)),v=.78*p+.015*Math.sin(t*6)*p;x.lineCap='round';x.lineWidth=h*.05;
+  x.strokeStyle=M;x.beginPath();x.arc(cx,cy,R,Math.PI*.8,Math.PI*2.2);x.stroke();x.strokeStyle=rgb(A);x.beginPath();x.arc(cx,cy,R,Math.PI*.8,Math.PI*(.8+1.4*v));x.stroke();
+  x.lineWidth=3;x.strokeStyle=rgb(B,.8);x.beginPath();x.arc(cx,cy,R*.78,Math.PI*.8,Math.PI*(.8+1.4*.55*p));x.stroke();x.lineCap='butt';x.lineWidth=1.5;x.strokeStyle=FG;
+  for(let i=0;i<=10;i++){const a=Math.PI*(.8+1.4*i/10);x.beginPath();x.moveTo(cx+Math.cos(a)*R*.62,cy+Math.sin(a)*R*.62);x.lineTo(cx+Math.cos(a)*R*.68,cy+Math.sin(a)*R*.68);x.stroke()}
+  x.fillStyle=FG;x.font=`700 ${h*.14}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText(Math.round(v*100),cx,cy)},
+clockdial(x,w,h,t){clear(x,w,h);const cx=w/2,cy=h/2,R=h*.4,hr=(t*3)%24;
+  for(let i=0;i<24;i++){const a=i/24*Math.PI*2-Math.PI/2,on=i<=hr;x.strokeStyle=on?mix(i/23):M;x.lineWidth=on?4:2;x.beginPath();x.moveTo(cx+Math.cos(a)*R*.82,cy+Math.sin(a)*R*.82);x.lineTo(cx+Math.cos(a)*R,cy+Math.sin(a)*R);x.stroke()}
+  const a=hr/24*Math.PI*2-Math.PI/2;x.strokeStyle=rgb(A);x.lineWidth=3;x.beginPath();x.moveTo(cx,cy);x.lineTo(cx+Math.cos(a)*R*.7,cy+Math.sin(a)*R*.7);x.stroke();
+  x.fillStyle=FG;x.font=`600 ${h*.09}px "JetBrains Mono",monospace`;x.textAlign='center';x.textBaseline='middle';x.fillText(String(Math.floor(hr)).padStart(2,'0')+':00',cx,cy+R*.38)},
+wireglobe(x,w,h,t){clear(x,w,h);const cx=w/2,cy=h/2,R=h*.4,rot=t*.4,tl=.35;x.lineWidth=1;
+  const P=(la,lo)=>{const c=Math.cos(la),X=c*Math.sin(lo+rot),Yv=Math.sin(la),Z=c*Math.cos(lo+rot);return[cx+X*R,cy-(Yv*Math.cos(tl)-Z*Math.sin(tl))*R,Yv*Math.sin(tl)+Z*Math.cos(tl)]};
+  x.strokeStyle=rgb(B,.45);for(let lo=0;lo<12;lo++){x.beginPath();for(let k=0;k<=40;k++){const p=P(-Math.PI/2+k/40*Math.PI,lo/12*Math.PI*2);k?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1])}x.stroke()}
+  x.strokeStyle=rgb(B,.3);for(let la=-2;la<=2;la++){x.beginPath();for(let k=0;k<=60;k++){const p=P(la*.5,k/60*Math.PI*2);k?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1])}x.stroke()}
+  for(let i=0;i<8;i++){const p=P((rnd(i)-.5)*2,rnd(i+9)*6.28);if(p[2]>0){x.fillStyle=rgb(A,.5+.5*Math.sin(t*4+i));x.beginPath();x.arc(p[0],p[1],4,0,7);x.fill()}}},
+ptimeline(x,w,h,t){clear(x,w,h);const hz=h*.28,Ys=['1989','1995','2005','2015','2026'];x.strokeStyle=rgb(B,.6);x.lineWidth=1.5;x.beginPath();x.moveTo(w/2-w*.02,hz);x.lineTo(w*.1,h);x.moveTo(w/2+w*.02,hz);x.lineTo(w*.9,h);x.stroke();
+  Ys.forEach((yr,i)=>{const z=(i/Ys.length+t*.2)%1,e=z*z,Yp=hz+(h-hz)*e,sc=.2+e*1.2;x.globalAlpha=cl(z*3)*cl((1-z)*6);x.fillStyle=rgb(A);x.beginPath();x.arc(w/2,Yp,4*sc+1,0,7);x.fill();
+    x.fillStyle=FG;x.font=`700 ${h*.09*sc}px Unbounded,sans-serif`;x.textAlign='left';x.textBaseline='middle';x.fillText(yr,w/2+18*sc,Yp)});x.globalAlpha=1},
+neural(x,w,h,t){clear(x,w,h);const L=[3,5,5,2],pos=L.map((n,l)=>Array.from({length:n},(_,i)=>[w*(.15+l*.7/(L.length-1)),h*(.5+(i-(n-1)/2)*.17)]));x.lineWidth=1;
+  for(let l=0;l<L.length-1;l++)pos[l].forEach((a,i)=>pos[l+1].forEach((b,j)=>{x.strokeStyle=rgb(B,.18);x.beginPath();x.moveTo(a[0],a[1]);x.lineTo(b[0],b[1]);x.stroke();
+    const ph=((t*.8-l*.33+rnd(i*7+j+l*31)*.3)%1+1)%1;if(ph<.33){const u=ph/.33;x.fillStyle=rgb(A);x.beginPath();x.arc(a[0]+(b[0]-a[0])*u,a[1]+(b[1]-a[1])*u,2.5,0,7);x.fill()}}));
+  pos.forEach((ly,l)=>ly.forEach(([X,Yp],i)=>{x.fillStyle=mix(.5+.5*Math.sin(t*4-l*1.5+i));x.beginPath();x.arc(X,Yp,7,0,7);x.fill()}))},
+packets(x,w,h,t){clear(x,w,h);const N=[[.12,.3],[.12,.7],[.5,.5],[.88,.25],[.88,.5],[.88,.75]],E=[[0,2],[1,2],[2,3],[2,4],[2,5]],bz=(u,a,m1,m2,b)=>(1-u)**3*a+3*(1-u)**2*u*m1+3*(1-u)*u*u*m2+u**3*b;x.lineWidth=2;
+  E.forEach(([a,b],k)=>{const P=N[a],Q=N[b],mx=(P[0]+Q[0])/2;x.strokeStyle=M;x.beginPath();x.moveTo(P[0]*w,P[1]*h);x.bezierCurveTo(mx*w,P[1]*h,mx*w,Q[1]*h,Q[0]*w,Q[1]*h);x.stroke();
+    for(let q=0;q<3;q++){const u=(t*.5+q/3+k*.17)%1;x.fillStyle=k<2?rgb(B):rgb(A);x.fillRect(bz(u,P[0],mx,mx,Q[0])*w-5,bz(u,P[1],P[1],Q[1],Q[1])*h-3,10,6)}});
+  N.forEach(([px,py],i)=>{x.fillStyle=i==2?rgb(A):'#2A3040';rr(x,px*w-h*.06,py*h-h*.06,h*.12,h*.12,6)})},
+flipclock(x,w,h,t){clear(x,w,h);const v=Math.floor(t),p=eIO(cl((t%1)/.4)),N=String(v%100).padStart(2,'0'),O=String((v+99)%100).padStart(2,'0'),cw=h*.4,ch=h*.56,gap=12,Yp=h/2-ch/2;
+  for(let i=0;i<2;i++){const X=w/2-cw-gap/2+i*(cw+gap),card=(d,y0,y1)=>{x.save();x.beginPath();x.rect(X,y0,cw,y1-y0);x.clip();x.fillStyle='#232937';rr(x,X,Yp,cw,ch,10);x.fillStyle=FG;x.font=`700 ${ch*.7}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText(d,X+cw/2,h/2+ch*.03);x.restore()};
+    card(N[i],Yp,h/2);if(p<1){card(O[i],h/2,Yp+ch);const half=p<.5,s=half?1-p*2:(p-.5)*2;x.save();x.translate(0,h/2);x.scale(1,Math.max(.001,s));x.translate(0,-h/2);half?card(O[i],Yp,h/2):card(N[i],h/2,Yp+ch);x.restore()}else card(N[i],h/2,Yp+ch);
+    x.fillStyle=BG;x.fillRect(X,h/2-1,cw,2)}},
+countdown(x,w,h,t){clear(x,w,h);const n=3-Math.floor(t%3),p=t%1,R=h*.32;x.strokeStyle=M;x.lineWidth=10;x.beginPath();x.arc(w/2,h/2,R,0,7);x.stroke();
+  x.strokeStyle=rgb(A);x.lineCap='round';x.beginPath();x.arc(w/2,h/2,R,-Math.PI/2,-Math.PI/2+(1-p)*Math.PI*2);x.stroke();x.lineCap='butt';
+  const s=1+.4*Math.pow(1-cl(p/.3),3);x.save();x.translate(w/2,h/2);x.scale(s,s);x.globalAlpha=1-cl((p-.8)/.2);x.fillStyle=FG;x.font=`700 ${h*.3}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText(n,0,0);x.restore();x.globalAlpha=1},
+lightsweep(x,w,h,t,st,c,d){clear(x,w,h);const o=off(st,w,h,d),fs=Math.min(h*.24,w*.17);o.font=`700 ${fs}px Unbounded,sans-serif`;o.textAlign='center';o.textBaseline='middle';o.fillStyle=FG;o.fillText('BRAND',w/2,h/2);
+  const p=((t%3)/3)*1.8-.4;o.globalCompositeOperation='source-atop';const g=o.createLinearGradient(w*(p-.15),0,w*(p+.15),h*.3);g.addColorStop(0,'rgba(255,200,87,0)');g.addColorStop(.5,'rgba(255,200,87,1)');g.addColorStop(1,'rgba(255,200,87,0)');
+  o.fillStyle=g;o.fillRect(0,0,w,h);o.globalCompositeOperation='source-over';x.drawImage(st.o,0,0,w,h)},
+stamp(x,w,h,t){x.fillStyle='#EDE6D6';x.fillRect(0,0,w,h);const tt=t%3.5;x.fillStyle='#8A8172';
+  for(let c=0;c<14;c++)for(let r=0;r<16;r++)if(rnd(c*31+r)>.15)x.fillRect(w*.08+c*w*.06,h*.06+((r*h*.055+tt*20)%(h*.88)),w*.035,h*.03);
+  if(tt>1){const p=cl((tt-1)/.25),s=2.4-1.4*eOC(p);x.save();x.translate(w*.6,h*.5);x.rotate(-.18);x.scale(s,s);x.globalAlpha=.9*p;x.strokeStyle='#C8321E';x.lineWidth=5;x.strokeRect(-w*.17,-h*.13,w*.34,h*.26);
+    x.fillStyle='#C8321E';x.font=`900 ${h*.14}px "Noto Sans TC"`;x.textAlign='center';x.textBaseline='middle';x.fillText('首創',0,0);x.restore()}},
+gears(x,w,h,t){x.fillStyle='#0F2A4A';x.fillRect(0,0,w,h);x.strokeStyle='rgba(255,255,255,.08)';x.lineWidth=1;x.beginPath();for(let X=0;X<w;X+=16){x.moveTo(X,0);x.lineTo(X,h)}for(let Yp=0;Yp<h;Yp+=16){x.moveTo(0,Yp);x.lineTo(w,Yp)}x.stroke();
+  const G=(cx,cy,r,n,a,col)=>{x.strokeStyle=col;x.lineWidth=2;x.beginPath();for(let i=0;i<n*4;i++){const q=i%4,rr_=q<2?r*1.18:r,aa=a+(i+(q==1||q==2?.0:0))/(n*4)*Math.PI*2;x.lineTo(cx+Math.cos(aa)*rr_,cy+Math.sin(aa)*rr_)}x.closePath();x.stroke();x.beginPath();x.arc(cx,cy,r*.3,0,7);x.stroke()};
+  const r1=h*.22,r2=h*.13;G(w*.4,h*.52,r1,14,t*.6,FG);G(w*.4+(r1+r2)*1.08,h*.52-r2*.35,r2,9,-t*.6*14/9,rgb(A))},
+prism(x,w,h,t){clear(x,w,h);const F=[['新聞',A],['資料',B],['服務',[255,200,87]]],T=1.6,k=Math.floor(t/T),p=eIO(cl((t%T-.9)/.7)),a=p*Math.PI/2,H=h*.36,cy=h/2,f1=F[k%3],f2=F[(k+1)%3],h1=H*Math.cos(a),h2=H*Math.sin(a),top=cy-(h1+h2)/2;
+  x.fillStyle=rgb(f1[1],1-.45*p);x.fillRect(w*.2,top+h2,w*.6,h1);x.fillStyle=rgb(f2[1],.55+.45*p);x.fillRect(w*.2,top,w*.6,h2);x.font=`900 ${h*.14}px "Noto Sans TC"`;x.textAlign='center';x.textBaseline='middle';x.fillStyle=BG;
+  if(h1>6){x.save();x.translate(w/2,top+h2+h1/2);x.scale(1,h1/H);x.fillText(f1[0],0,0);x.restore()}if(h2>6){x.save();x.translate(w/2,top+h2/2);x.scale(1,h2/H);x.fillText(f2[0],0,0);x.restore()}},
+honeycomb(x,w,h,t){clear(x,w,h);const r=h*.11,tt=t%4;for(let j=-2;j<=2;j++)for(let i=-5;i<=5;i++){const X=w/2+(i+(j&1)*.5)*r*1.8,Yp=h/2+j*r*1.56;if(X<-r||X>w+r)continue;
+  const p=eOB(cl((tt-Math.hypot(i,j)*.12)/.5))*(1-cl((tt-3.4)/.4));if(p<=0)continue;x.fillStyle=((i+j)%3+3)%3==0?rgb(A,.9):rgb(B,.25+.2*((i*j)&1));x.beginPath();
+  for(let s=0;s<6;s++){const a=s/6*Math.PI*2+Math.PI/6;x.lineTo(X+Math.cos(a)*r*.9*p,Yp+Math.sin(a)*r*.9*p)}x.fill()}},
+search(x,w,h,t){clear(x,w,h);const tt=t%5,q='動態效果 圖鑑 範例',n=Math.floor(cl((tt-.3)/1.4)*q.length),bx=w*.12,bw=w*.76,by=h*.14,bh=h*.14;x.fillStyle='#232937';rr(x,bx,by,bw,bh,bh/2);
+  x.strokeStyle=rgb(A);x.lineWidth=2;x.beginPath();x.arc(bx+bh*.5,by+bh/2,bh*.18,0,7);x.stroke();x.font=`500 ${bh*.42}px "Noto Sans TC"`;x.fillStyle=FG;x.textAlign='left';x.textBaseline='middle';x.fillText(q.slice(0,n)+(Math.floor(t*2)%2?'|':''),bx+bh,by+bh/2);
+  for(let i=0;i<4;i++){const p=eOC(cl((tt-2-i*.18)/.4)),Yp=by+bh*1.4+i*bh*.9+(1-p)*12;x.globalAlpha=p;x.fillStyle='#1A1F2B';rr(x,bx,Yp,bw,bh*.7,8);x.fillStyle=i==0?rgb(A):rgb(B,.8);x.fillRect(bx+14,Yp+bh*.16,bw*(.3+rnd(i)*.3),5);x.fillStyle=M;x.fillRect(bx+14,Yp+bh*.42,bw*.7,4)}x.globalAlpha=1},
+polaroid(x,w,h,t){clear(x,w,h);const tt=t%4,C=['#3A4B7A','#7A3E35','#2F5E55','#6B5A2E','#4C3A6E'];C.forEach((c,i)=>{const p=eOB(cl((tt-i*.35)/.6));if(p<=0)return;const fw=h*.5,fh=fw*1.18;
+  x.save();x.translate(w/2+(i-2)*w*.06,h/2+(1-p)*h);x.rotate((rnd(i)-.5)*.5);x.shadowColor='rgba(0,0,0,.4)';x.shadowBlur=12;x.fillStyle='#F2EFE8';x.fillRect(-fw/2,-fh/2,fw,fh);x.shadowColor='transparent';x.fillStyle=c;x.fillRect(-fw*.43,-fh/2+fw*.07,fw*.86,fw*.86);x.restore()})},
+crt(x,w,h,t){const tt=t%4,on=cl(tt/.35);clear(x,w,h);x.save();x.translate(w/2,h/2);x.scale(1,Math.max(.004,eOC(on)));x.fillStyle=on<1?FG:'#0F1A14';x.fillRect(-w/2,-h/2,w,h);x.restore();
+  if(on>=1){const L=['BIOS v1.995 ...OK','MEM 640K ...OK','MODEM 56K CONNECT','> WELCOME'],n=Math.floor((tt-.4)/.5);x.font=`400 ${h*.07}px "JetBrains Mono",monospace`;x.textAlign='left';x.textBaseline='top';x.fillStyle='#7BD88F';L.slice(0,Math.max(0,n+1)).forEach((s,i)=>x.fillText(s,w*.08,h*.15+i*h*.11))}
+  x.fillStyle='rgba(0,0,0,.25)';for(let Yp=0;Yp<h;Yp+=3)x.fillRect(0,Yp,w,1);const v=x.createRadialGradient(w/2,h/2,h*.3,w/2,h/2,w*.65);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.6)');x.fillStyle=v;x.fillRect(0,0,w,h)},
+carousel(x,w,h,t){clear(x,w,h);const n=6,R=w*.32,it=[];for(let i=0;i<n;i++){const a=i/n*Math.PI*2+t*.6;it.push([Math.sin(a)*R,Math.cos(a),i])}
+  it.sort((p,q)=>p[1]-q[1]).forEach(([X,z,i])=>{const s=.55+.45*(z+1)/2,cw=h*.34*s,ch=h*.46*s;x.globalAlpha=.35+.65*(z+1)/2;x.fillStyle=i%2?rgb(B):rgb(A);rr(x,w/2+X-cw/2,h/2-ch/2,cw,ch,8);
+    x.fillStyle=BG;x.font=`700 ${ch*.2}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText(String(i+1).padStart(2,'0'),w/2+X,h/2)});x.globalAlpha=1},
+coverflow(x,w,h,t){clear(x,w,h);const k=t/1.4,f=Math.floor(k),c=f+eIO(cl((k-f)*1.6)),cw=h*.46,L=[];for(let i=Math.floor(c)-4;i<=Math.floor(c)+4;i++)L.push(i);
+  L.sort((a,b)=>Math.abs(b-c)-Math.abs(a-c)).forEach(i=>{const d=i-c,ad=Math.min(Math.abs(d),1),X=w/2+Math.sign(d)*ad*cw*.7+d*cw*.28,s=1-ad*.25;
+    x.save();x.translate(X,h*.44);x.transform(1-.5*ad,Math.sign(d)*ad*.15,0,1,0,0);x.scale(s,s);x.fillStyle=mix((((i%5)+5)%5)/4);x.fillRect(-cw/2,-cw/2,cw,cw);x.globalAlpha=.22;x.scale(1,-1);x.fillRect(-cw/2,-cw*.9,cw,cw*.4);x.restore()})},
+phone(x,w,h,t){clear(x,w,h);const ph=h*.84,pw=ph*.5;[[w*.33,0],[w*.67,1]].forEach(([cx,k])=>{const y0=h*.08+Math.sin(t+k*2)*4;x.fillStyle='#2A3040';rr(x,cx-pw/2,y0,pw,ph,pw*.14);x.fillStyle='#0B0E14';rr(x,cx-pw/2+5,y0+5,pw-10,ph-10,pw*.11);
+  x.save();x.beginPath();x.rect(cx-pw/2+5,y0+pw*.2,pw-10,ph-pw*.3);x.clip();const sc=(t*30+k*50)%(ph*.42);for(let i=0;i<9;i++){const Yp=y0+pw*.22+i*ph*.14-sc;x.fillStyle=i%3==0?(k?rgb(B,.8):rgb(A,.8)):'#1E2433';rr(x,cx-pw/2+12,Yp,pw-24,ph*.11,6)}x.restore()})},
+bento(x,w,h,t){clear(x,w,h);const G=[[0,0,2,2],[2,0,2,1],[4,0,2,1],[2,1,1,1],[3,1,3,1],[0,2,3,1],[3,2,3,1]],u=w*.88/6,v=h*.84/3,b=60/128,n=Math.floor((t%(b*10))/b);
+  G.forEach(([i,j,gw,gh],k)=>{if(k>n)return;const s=k==n?eOB(cl(((t%b)/b)/.5)):1,X=w*.06+i*u+3,Yp=h*.08+j*v+3,W=gw*u-6,H=gh*v-6;x.save();x.translate(X+W/2,Yp+H/2);x.scale(s,s);x.fillStyle=k==0?rgb(A):k%2?'#232937':rgb(B,.4);rr(x,-W/2,-H/2,W,H,10);x.restore()})},
+splitscreen(x,w,h,t){const s=w*(.5+.38*Math.sin(t*1.2));scene(x,w,h,'#2A3040','rgba(237,239,245,.8)','BEFORE');x.save();x.beginPath();x.rect(s,0,w-s,h);x.clip();scene(x,w,h,rgb(A),BG,'AFTER');x.restore();
+  x.fillStyle=FG;x.fillRect(s-1.5,0,3,h);x.beginPath();x.arc(s,h/2,14,0,7);x.fill();x.fillStyle=BG;x.font='700 13px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('⇆',s,h/2)},
+callout(x,w,h,t){scene(x,w,h,'#1B2233','rgba(237,239,245,.1)','PRODUCT');const tt=t%4;[[.36,.45,.14,.2,'輕 30%'],[.62,.6,.86,.82,'續航 2 倍']].forEach(([ax,ay,bx,by,l],i)=>{const p=eOC(cl((tt-i*.6)/.6)),q=eOC(cl((tt-i*.6-.5)/.4)),dir=bx>ax?1:-1;
+  x.strokeStyle=rgb(A);x.fillStyle=rgb(A);x.lineWidth=2;x.beginPath();x.arc(ax*w,ay*h,5+2*Math.sin(t*5),0,7);x.fill();x.beginPath();x.moveTo(ax*w,ay*h);x.lineTo(ax*w+(bx-ax)*w*p,ay*h+(by-ay)*h*p);x.stroke();
+  if(q>0){x.beginPath();x.moveTo(bx*w,by*h);x.lineTo(bx*w+dir*w*.12*q,by*h);x.stroke();x.globalAlpha=q;x.fillStyle=FG;x.font=`700 ${h*.07}px "Noto Sans TC"`;x.textAlign=dir>0?'left':'right';x.textBaseline='bottom';x.fillText(l,bx*w,by*h-6);x.globalAlpha=1}})},
+dissolve(x,w,h,t){TR(x,w,h,t,p=>{const n=24,m=15,cw=w/n,ch=h/m;for(let i=0;i<n;i++)for(let j=0;j<m;j++)if(rnd(i*97+j)<p)x.rect(i*cw,j*ch,cw+.5,ch+.5)})},
+hexmask(x,w,h,t){TR(x,w,h,t,p=>{const r=h*.09,D=Math.hypot(w/2,h/2);for(let j=-1;j<9;j++)for(let i=-1;i<14;i++){const X=(i+(j&1)*.5)*r*1.75,Yp=j*r*1.5,s=cl(p*2.2-Math.hypot(X-w/2,Yp-h/2)/D)*r*1.05;
+  if(s<=0)continue;x.moveTo(X+s,Yp);for(let k=1;k<=6;k++){const a=k/6*Math.PI*2;x.lineTo(X+Math.cos(a)*s,Yp+Math.sin(a)*s)}}})},
+clockwipe(x,w,h,t){TR(x,w,h,t,p=>{x.moveTo(w/2,h/2);x.arc(w/2,h/2,w,-Math.PI/2,-Math.PI/2+p*Math.PI*2+.001);x.closePath()})},
+doors(x,w,h,t){TR(x,w,h,t,p=>x.rect(w/2*(1-p),0,w*p,h))},
+liquid(x,w,h,t){TR(x,w,h,t,p=>{const lv=h*(1.1-p*1.3);x.moveTo(0,h);for(let X=0;X<=w;X+=6)x.lineTo(X,lv+Math.sin(X*.02+t*5)*h*.06*Math.sin(p*Math.PI)+Math.sin(X*.045-t*3)*h*.03);x.lineTo(w,h);x.closePath()})},
+iris(x,w,h,t){const p=eIO(cl(((t%2.6)-.5)/1.4)),D=Math.hypot(w,h)/2;TR(x,w,h,t,q=>x.arc(w/2,h/2,q*D,0,7));
+  [0,.12,.24].forEach((d,i)=>{const q=cl(p*1.3-d);if(q>0&&q<1){x.strokeStyle=i%2?rgb(B,1-q):`rgba(255,200,87,${1-q})`;x.lineWidth=4;x.beginPath();x.arc(w/2,h/2,q*D*1.1,0,7);x.stroke()}})},
+shatter(x,w,h,t){const p=cl(((t%2.6)-.5)/1.4);scene(x,w,h,rgb(A),BG,'SCENE 2');const n=6,m=4,cw=w/n,ch=h/m;
+  for(let i=0;i<n;i++)for(let j=0;j<m;j++)for(let k=0;k<2;k++){const s=i*13+j*7+k,d=cl(p*1.6-rnd(s)*.6);if(d>=1)continue;const P=k?[[i,j],[i+1,j],[i,j+1]]:[[i+1,j],[i+1,j+1],[i,j+1]],
+    cx=(P[0][0]+P[1][0]+P[2][0])/3*cw,cy=(P[0][1]+P[1][1]+P[2][1])/3*ch;x.save();x.translate(cx,cy+d*d*h*1.4);x.rotate(d*(rnd(s+1)-.5)*4);x.translate(-cx,-cy);
+    x.beginPath();P.forEach(([a,b],q)=>q?x.lineTo(a*cw,b*ch):x.moveTo(a*cw,b*ch));x.closePath();x.clip();scene(x,w,h,BG,FG,'SCENE 1');x.restore()}},
+push(x,w,h,t){const p=eIO(cl(((t%2.6)-.5)/1.4));x.save();x.translate(-p*w,0);scene(x,w,h,BG,FG,'SCENE 1');x.translate(w,0);scene(x,w,h,rgb(A),BG,'SCENE 2');x.restore()},
+flash(x,w,h,t){const tt=t%2.6;tt<1.2?scene(x,w,h,BG,FG,'SCENE 1'):scene(x,w,h,rgb(A),BG,'SCENE 2');const f=Math.max(0,1-Math.abs(tt-1.2)/.25);
+  if(f>0){x.fillStyle=`rgba(255,255,255,${f*.9})`;x.fillRect(0,0,w,h);x.save();x.translate(w/2,h/2);x.rotate(tt);x.fillStyle=`rgba(255,236,190,${f})`;for(let i=0;i<8;i++){x.rotate(Math.PI/4);x.beginPath();x.moveTo(0,-4);x.lineTo(w*.7*f,0);x.lineTo(0,4);x.fill()}x.restore()}},
+softdiag(x,w,h,t,st,c,d){const p=eIO(cl(((t%2.6)-.5)/1.4)),s=-.3+p*1.6;scene(x,w,h,'#1B2A4A',FG,'SCENE 2');const o=off(st,w,h,d);scene(o,w,h,BG,FG,'SCENE 1');
+  o.globalCompositeOperation='destination-out';const g=o.createLinearGradient(0,0,w,h*.6);g.addColorStop(cl(s-.25),'rgba(0,0,0,1)');g.addColorStop(cl(s),'rgba(0,0,0,0)');o.fillStyle=g;o.fillRect(0,0,w,h);o.globalCompositeOperation='source-over';x.drawImage(st.o,0,0,w,h)},
+blurzoom(x,w,h,t){const p=eIO(cl(((t%2.6)-.5)/1.4));clear(x,w,h);const L=(s,a,bl,bg,txt)=>{x.save();x.filter=`blur(${bl}px)`;x.globalAlpha=a;x.translate(w/2,h/2);x.scale(s,s);x.translate(-w/2,-h/2);scene(x,w,h,bg,FG,txt);x.restore()};
+  L(1+p*.3,1-p,p*12,BG,'SCENE 1');L(.8+p*.2,p,(1-p)*12,'#1B2A4A','SCENE 2')},
+panel(x,w,h,t){const p=1-Math.pow(2,-10*cl(((t%2.6)-.5)/1.2));scene(x,w,h,BG,FG,'SCENE 1');x.fillStyle=`rgba(0,0,0,${.4*p})`;x.fillRect(0,0,w,h);
+  x.save();x.translate(w*(1-p)+(p<.001?40:0),0);x.shadowColor='rgba(0,0,0,.6)';x.shadowBlur=30;x.shadowOffsetX=-10;x.fillStyle='#F2EFE8';x.fillRect(0,0,w,h);x.shadowColor='transparent';
+  x.fillStyle=BG;x.font=`700 ${h*.13}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText('SCENE 2',w/2,h/2);x.restore()},
+filmfx(x,w,h,t){const s=1+.04*((t%6)/6);x.save();x.translate(w/2,h/2);x.scale(s,s);x.translate(-w/2,-h/2);scene(x,w,h,'#1B2233',FG,'CINEMA');x.restore();
+  const v=x.createRadialGradient(w/2,h/2,h*.3,w/2,h/2,w*.7);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.75)');x.fillStyle=v;x.fillRect(0,0,w,h);
+  const f=Math.floor(t*24);for(let i=0;i<900;i++){x.fillStyle=`rgba(255,255,255,${rnd(f*1000+i)*.14})`;x.fillRect(rnd(f*7+i*3.1)*w,rnd(f*13+i*1.7)*h,1.5,1.5)}},
+camshake(x,w,h,t){const b=60/128,p=(t%b)/b,k=Math.floor(t/b),f=Math.pow(1-cl(p/.35),2),W=['CUT','BEAT','HIT'][k%3];clear(x,w,h);x.save();x.translate(w/2+(rnd(k)-.5)*30*f,h/2+(rnd(k+.5)-.5)*20*f);x.scale(1+.08*f,1+.08*f);
+  x.font=`700 ${h*.26}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.globalCompositeOperation='lighter';x.fillStyle=rgb(A,.9);x.fillText(W,-12*f,0);x.fillStyle=rgb(B,.9);x.fillText(W,12*f,0);
+  x.fillStyle=`rgba(237,239,245,${.4+.6*(1-f)})`;x.fillText(W,0,0);x.restore();x.globalCompositeOperation='source-over'},
+hud(x,w,h,t){scene(x,w,h,'#161B26','rgba(237,239,245,.18)','HUD');const m=w*.05,l=h*.08;x.strokeStyle=FG;x.lineWidth=2;
+  [[m,m,1,1],[w-m,m,-1,1],[m,h-m,1,-1],[w-m,h-m,-1,-1]].forEach(([X,Yp,a,b])=>{x.beginPath();x.moveTo(X,Yp+b*l);x.lineTo(X,Yp);x.lineTo(X+a*l,Yp);x.stroke()});
+  if(Math.floor(t*1.5)%2){x.fillStyle='#FF3B30';x.beginPath();x.arc(m+l*.6,m+l*.9,5,0,7);x.fill()}x.fillStyle=FG;x.font=`600 ${Math.max(10,h*.055)}px "JetBrains Mono",monospace`;x.textAlign='left';x.textBaseline='middle';x.fillText('REC',m+l*.6+12,m+l*.9);
+  const s=Math.floor(t),fr=Math.floor((t%1)*30),z=v=>String(v).padStart(2,'0');x.textAlign='right';x.fillText(`00:${z(Math.floor(s/60)%60)}:${z(s%60)}:${z(fr)}`,w-m-l*.4,m+l*.9);x.textAlign='left';x.fillText('CH.03 / BRAND',m+l*.4,h-m-l*.7);
+  x.fillStyle=rgb(A);x.fillRect(m,h-m-4,(w-2*m)*((t%10)/10),3);x.lineWidth=1;x.beginPath();x.moveTo(w/2-12,h/2);x.lineTo(w/2+12,h/2);x.moveTo(w/2,h/2-12);x.lineTo(w/2,h/2+12);x.stroke()},
+glasswall(x,w,h,t){const g=x.createLinearGradient(0,0,w,h);g.addColorStop(0,'#070B22');g.addColorStop(1,'#151A45');x.fillStyle=g;x.fillRect(0,0,w,h);
+  [[A,.72,.28,.32],[B,.25,.7,.4]].forEach(([c,px,py,r],i)=>{const X=w*(px+.04*Math.sin(t*.6+i*2)),Yp=h*(py+.05*Math.cos(t*.5+i)),R=h*r*2;const rg=x.createRadialGradient(X,Yp,0,X,Yp,R);rg.addColorStop(0,rgb(c,.5));rg.addColorStop(1,rgb(c,0));x.fillStyle=rg;x.fillRect(0,0,w,h)});
+  const lt=t%5,cam=eIO(cl(lt/3.6)),cw=w*.17,ch=h*.42;for(let r=1;r>=0;r--)for(let c=0;c<4;c++){const i=r*4+c,p=eOC(cl((lt-.15-i*.07)/.9));if(p<=0)continue;const d=r?0.82:1,X=w/2+(c-1.5)*cw*1.12*d-cam*w*.04+(r?w*.08:0),Yp=h*.44+(r-.5)*h*.42-(1-p)*h*.15;
+    x.save();x.translate(X,Yp);x.globalAlpha=p*(r?.7:1);if(r)x.filter='blur(1.5px)';x.fillStyle='rgba(255,255,255,.08)';rr(x,-cw*d/2,-ch*d/2,cw*d,ch*d,12);x.strokeStyle='rgba(255,255,255,.25)';x.lineWidth=1;x.strokeRect&&0;
+    x.beginPath();x.roundRect?x.roundRect(-cw*d/2,-ch*d/2,cw*d,ch*d,12):x.rect(-cw*d/2,-ch*d/2,cw*d,ch*d);x.stroke();x.fillStyle=i%2?rgb(A,.9):rgb(B,.9);x.beginPath();x.arc(0,-ch*d*.1,cw*d*.22,0,7);x.fill();x.fillStyle='rgba(255,255,255,.7)';x.fillRect(-cw*d*.3,ch*d*.18,cw*d*.6,3);x.restore()}},
+heroorbit(x,w,h,t){const bg=x.createRadialGradient(w/2,h*.45,0,w/2,h*.45,w*.7);bg.addColorStop(0,'#1B2160');bg.addColorStop(1,'#05081A');x.fillStyle=bg;x.fillRect(0,0,w,h);
+  const cx=w/2,cy=h/2,RX=w*.38,RY=h*.18,tl=-.12,n=6,O=[];for(let i=0;i<n;i++){const a=i/n*Math.PI*2+t*.9,ox=Math.cos(a)*RX,oy=Math.sin(a)*RY;O.push({i,z:Math.sin(a),X:cx+ox*Math.cos(tl)-oy*Math.sin(tl),Y:cy+ox*Math.sin(tl)+oy*Math.cos(tl)})}
+  x.save();x.translate(cx,cy);x.rotate(tl);x.strokeStyle='rgba(170,180,255,.35)';x.lineWidth=1;x.beginPath();x.ellipse(0,0,RX,RY,0,0,7);x.stroke();x.restore();
+  const dot=o=>{const s=h*(.05+.035*(o.z+1)/2);x.globalAlpha=.4+.6*(o.z+1)/2;x.fillStyle=[rgb(A),rgb(B),Y,'#7BD88F','#E1306C','#FF0000'][o.i];rr(x,o.X-s,o.Y-s,s*2,s*2,s*.5);x.globalAlpha=1};
+  O.filter(o=>o.z<0).forEach(dot);const pw=h*.36,ph=h*.72;x.save();x.translate(cx,cy);x.rotate(-.04+.02*Math.sin(t*.8));x.fillStyle='#8C93B0';rr(x,-pw/2-5,-ph/2-5,pw+10,ph+10,pw*.16);x.fillStyle='#0B0E1C';rr(x,-pw/2,-ph/2,pw,ph,pw*.13);
+  x.beginPath();x.rect(-pw/2,-ph/2+pw*.12,pw,ph-pw*.14);x.clip();const sc=(t*40)%(ph*.5);for(let k=0;k<6;k++){x.fillStyle=k%2?'#2A3040':rgb(A,.75);rr(x,-pw/2+6,-ph/2+pw*.15+k*ph*.25-sc,pw-12,ph*.21,6)}x.restore();O.filter(o=>o.z>=0).sort((a,b)=>a.z-b.z).forEach(dot)},
+kenburns(x,w,h,t,st,c,d){const o=off(st,w,h,d);{const g=o.createLinearGradient(0,0,0,h);g.addColorStop(0,'#F6B26B');g.addColorStop(.55,'#C0577A');g.addColorStop(1,'#2B1E3F');o.fillStyle=g;o.fillRect(0,0,w,h);o.fillStyle='rgba(255,236,190,.9)';o.beginPath();o.arc(w*.68,h*.42,h*.1,0,7);o.fill();
+    [['#3A2850',.62],['#22183A',.75],['#120C22',.88]].forEach(([col,b],k)=>{o.fillStyle=col;o.beginPath();o.moveTo(0,h);for(let X=0;X<=w;X+=8)o.lineTo(X,h*b-Math.sin(X*.02+k*2)*h*.06-Math.sin(X*.007+k)*h*.08);o.lineTo(w,h);o.fill()});}
+  const T=6,p=(t%T)/T,s=1.04+.12*p,dx=(-.5+p)*w*.04;x.save();x.translate(w/2+dx,h/2);x.scale(s,s);x.drawImage(st.o,-w/2,-h/2,w,h);x.restore();x.fillStyle=`rgba(0,0,0,${cl(1-p*12)+cl((p-.92)*12)})`;x.fillRect(0,0,w,h)},
+sepiacolor(x,w,h,t){const tt=t%5,p=eIO(cl((tt-1.8)/1.4));const S=[[64,120,180],[230,120,70],[70,160,110]],G=[150,128,100];const m=(a,k)=>a.map((v,i)=>G[i]+(v-G[i])*k);
+  x.fillStyle=rgb(m([20,24,36],p));x.fillRect(0,0,w,h);for(let i=0;i<3;i++){x.fillStyle=rgb(m(S[i],p));rr(x,w*(.1+i*.28),h*.25,w*.24,h*.5,8)}
+  x.fillStyle=`rgba(255,255,255,${.85})`;x.font=`700 ${h*.12}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText(p<.5?'1989':'2026',w/2,h*.5);
+  const f=Math.floor(t*24);for(let i=0;i<400*(1-p);i++){x.fillStyle=`rgba(255,240,210,${rnd(f*900+i)*.25})`;x.fillRect(rnd(f*7+i*3.1)*w,rnd(f*13+i*1.7)*h,1.5,1.5)}if(p<1){x.fillStyle=`rgba(90,60,20,${.18*(1-p)})`;x.fillRect(0,0,w,h)}},
+wordcollapse(x,w,h,t){clear(x,w,h);const W=['創新','品質','服務'],tt=t%4.6,out=cl((tt-3.4)/.4),fs=Math.min(h*.18,w*.1);x.font=`900 ${fs}px "Noto Sans TC"`;x.textAlign='center';x.textBaseline='middle';
+  W.forEach((s,i)=>{const p=cl((tt-.3-i*.6)/.3),e=eOB(p),X=w/2+(i-1)*w*.28;x.save();x.globalAlpha=p;x.translate(X+(w/2-X)*eIO(out),h*.42+(1-e)*20);x.scale(1-out*.85,1-out*.85);x.fillStyle=i==1?rgb(A):FG;x.fillText(s,0,0);x.restore()});
+  const lw=w*.7*eOC(cl((tt-1.9)/.5))*(1-out);x.fillStyle=rgb(A);x.fillRect(w/2-lw/2,h*.58,lw,3);const q=cl((tt-3.7)/.4);if(q>0){x.globalAlpha=q;x.fillStyle=FG;x.font=`700 ${fs*.6}px Unbounded,sans-serif`;x.fillText('BRAND',w/2,h*.45);x.globalAlpha=1}},
+gooey(x,w,h,t,st,c,d){const o=off(st,w,h,d);o.fillStyle='#000';o.fillRect(0,0,w,h);o.filter='blur(10px)';o.fillStyle='#fff';
+  for(let i=0;i<5;i++){const a=t*(.6+i*.17)+i*1.3,r=h*(.08+.03*(i%3));o.beginPath();o.arc(w/2+Math.cos(a)*w*.18*Math.sin(t*.4+i),h/2+Math.sin(a*1.3)*h*.2,r,0,7);o.fill()}
+  o.beginPath();o.arc(w/2,h/2,h*.13,0,7);o.fill();o.filter='none';x.save();x.filter='contrast(30)';x.drawImage(st.o,0,0,w,h);x.restore();x.save();x.globalCompositeOperation='multiply';const g=x.createLinearGradient(0,0,w,h);g.addColorStop(0,rgb(A));g.addColorStop(1,rgb(B));x.fillStyle=g;x.fillRect(0,0,w,h);x.restore()},
+circletext(x,w,h,t){clear(x,w,h);const s='SCROLL · FOLLOW · SAVE · SHARE · ',R=h*.33,n=s.length;x.font=`700 ${h*.07}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillStyle=FG;
+  for(let i=0;i<n;i++){const a=i/n*Math.PI*2+t*.5;x.save();x.translate(w/2+Math.cos(a)*R,h/2+Math.sin(a)*R);x.rotate(a+Math.PI/2);x.fillText(s[i],0,0);x.restore()}
+  x.fillStyle=rgb(A);x.beginPath();x.arc(w/2,h/2,R*.55,0,7);x.fill();x.fillStyle=BG;x.font=`900 ${h*.09}px "Noto Sans TC"`;x.fillText('追蹤',w/2,h/2)},
+ascii(x,w,h,t){clear(x,w,h);const C=' .:-=+*#%@',cs=Math.max(8,h/26),cols=Math.floor(w/cs*1.7),rows=Math.floor(h/cs),cw=w/cols;x.font=`600 ${cs}px "JetBrains Mono",monospace`;x.textAlign='center';x.textBaseline='middle';
+  const lx=Math.cos(t),ly=Math.sin(t*.7)*.6;for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const u=(i*cw-w/2)/(h*.38),v=(j*cs+cs/2-h/2)/(h*.38),r2=u*u+v*v;let b=0;
+    if(r2<1){const z=Math.sqrt(1-r2);b=cl(.15+.85*(u*lx*-.7+v*ly*-.7+z*.7))}else b=.06*(.5+.5*Math.sin(i*.5+j*.3-t*3));const k=Math.min(C.length-1,Math.floor(b*C.length));if(k<1)continue;x.fillStyle=r2<1?mix(b):rgb(B,.5);x.fillText(C[k],i*cw+cw/2,j*cs+cs/2)}},
+dither(x,w,h,t){clear(x,w,h);const M=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5],tt=t%5,p=eIO(cl(tt/2.5))*(1-cl((tt-4.2)/.6)),cs=Math.max(3,h/70);x.fillStyle=rgb(A);
+  for(let j=0;j*cs<h;j++)for(let i=0;i*cs<w;i++){const u=(i*cs-w/2)/(h*.4),v=(j*cs-h/2)/(h*.4),r=Math.hypot(u,v),b=(r<1?.35+.65*Math.sqrt(1-r*r)*(.5+.5*(-u*.5-v*.6+.6)):.08+.12*(j*cs/h))*p;if(b*16>M[(j%4)*4+(i%4)]+.5)x.fillRect(i*cs,j*cs,cs*.9,cs*.9)}},
+spotlight(x,w,h,t){scene(x,w,h,'#1B2233',FG,'');x.font=`900 ${h*.16}px "Noto Sans TC"`;x.textAlign='center';x.textBaseline='middle';x.fillStyle=rgb(A);x.fillText('找到重點',w/2,h*.42);x.fillStyle=FG;x.font=`500 ${h*.06}px "Noto Sans TC"`;x.fillText('聚光燈照到哪裡，內容就出現在哪裡',w/2,h*.62);
+  const tt=t%6,o=cl((tt-4.4)/.8),cx=w*(.5+.32*Math.sin(t*.9)),cy=h*(.5+.25*Math.sin(t*1.4)),R=h*(.22+.9*eIO(o));const g=x.createRadialGradient(cx,cy,R*.55,cx,cy,R);g.addColorStop(0,'rgba(5,6,10,0)');g.addColorStop(1,'rgba(5,6,10,.96)');x.fillStyle=g;x.fillRect(0,0,w,h)},
+odometer(x,w,h,t){clear(x,w,h);const T=4.5,tt=t%T,v=48216*eOC(cl(tt/3)),N=5,dh=h*.3,dw=dh*.62,x0=w/2-N*dw/2,y0=h/2-dh/2;x.font=`700 ${dh*.78}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';
+  for(let k=0;k<N;k++){const pw=Math.pow(10,N-1-k),q=v/pw,base=Math.floor(q)%10,fr=pw===1?q-Math.floor(q):cl(((q-Math.floor(q))*pw-(pw-1))),X=x0+k*dw;x.fillStyle='#232937';rr(x,X+2,y0,dw-4,dh,8);
+    x.save();x.beginPath();x.rect(X,y0,dw,dh);x.clip();x.fillStyle=k<2?rgb(A):FG;x.fillText(base,X+dw/2,h/2-fr*dh);x.fillText((base+1)%10,X+dw/2,h/2+dh-fr*dh);x.restore()}
+  x.fillStyle='rgba(18,21,29,.6)';x.fillRect(x0,y0,N*dw,dh*.12);x.fillRect(x0,y0+dh*.88,N*dw,dh*.12)},
+barrace(x,w,h,t){clear(x,w,h);const L=['YouTube','IG','TikTok','FB','LINE'],V=[[60,30,10,80,50],[70,45,30,78,55],[78,62,55,74,58],[85,75,80,70,60],[90,82,95,66,61]],C=[rgb(A),rgb(B),Y,'#7BD88F','#9AA1B3'];
+  const yr=(t*.5)%(V.length-1),a=Math.floor(yr),f=eIO(yr-a),val=L.map((_,i)=>V[a][i]+(V[a+1][i]-V[a][i])*f),rk=y=>{const s=L.map((_,i)=>i).sort((p,q)=>V[y][q]-V[y][p]),r=[];s.forEach((i,k)=>r[i]=k);return r},r0=rk(a),r1=rk(a+1),bh=h*.12;
+  L.forEach((l,i)=>{const r=r0[i]+(r1[i]-r0[i])*f,Yp=h*.14+r*bh*1.3,bw=w*.62*val[i]/100;x.fillStyle=C[i];rr(x,w*.2,Yp,bw,bh,4);x.fillStyle=FG;x.font=`600 ${bh*.45}px Unbounded,sans-serif`;x.textAlign='right';x.textBaseline='middle';x.fillText(l,w*.18,Yp+bh/2);x.textAlign='left';x.fillText(Math.round(val[i]),w*.2+bw+6,Yp+bh/2)});
+  x.fillStyle='rgba(237,239,245,.25)';x.font=`700 ${h*.2}px Unbounded,sans-serif`;x.textAlign='right';x.textBaseline='alphabetic';x.fillText(String(2022+Math.round(yr)),w*.95,h*.95)},
+linerace(x,w,h,t){clear(x,w,h);const S=[[A,s=>.3+.5*s+.08*Math.sin(s*9)],[B,s=>.25+.35*s+.1*Math.sin(s*6+1)],[[255,200,87],s=>.2+.6*s*s+.05*Math.sin(s*12)]],L=['A 品牌','B 品牌','C 品牌'],p=eIO(cl(((t%5))/3.6)),x0=w*.1,x1=w*.78;x.strokeStyle=M;x.lineWidth=1;
+  for(let k=0;k<4;k++){const Yp=h*.85-k*h*.22;x.beginPath();x.moveTo(x0,Yp);x.lineTo(x1,Yp);x.stroke()}S.forEach(([c,f],i)=>{x.strokeStyle=rgb(c);x.lineWidth=3;x.beginPath();for(let s=0;s<=p;s+=.01){const X=x0+(x1-x0)*s,Yp=h*.85-f(s)*h*.7;s?x.lineTo(X,Yp):x.moveTo(X,Yp)}x.stroke();
+    const X=x0+(x1-x0)*p,Yp=h*.85-f(p)*h*.7;x.fillStyle=rgb(c);x.beginPath();x.arc(X,Yp,5,0,7);x.fill();x.font=`700 ${h*.06}px "Noto Sans TC"`;x.textAlign='left';x.textBaseline='middle';x.fillText(L[i]+' '+Math.round(f(p)*100),X+10,Yp)})},
+weightwave(x,w,h,t){clear(x,w,h);const s='字重波浪WAVE',n=s.length,fs=Math.min(h*.2,w*.11),Wt=[300,400,500,700,900];x.textBaseline='middle';x.textAlign='center';let tw=0;const ws=[];
+  for(let i=0;i<n;i++){const k=.5+.5*Math.sin(t*3-i*.55),wt=Wt[Math.round(k*4)];x.font=`${wt} ${fs}px "Noto Sans TC",Unbounded,sans-serif`;const cw=x.measureText(s[i]).width*(.85+.3*k);ws.push([wt,cw,k]);tw+=cw}
+  let X=(w-tw)/2;ws.forEach(([wt,cw,k],i)=>{x.font=`${wt} ${fs}px "Noto Sans TC",Unbounded,sans-serif`;x.save();x.translate(X+cw/2,h/2);x.scale(.85+.3*k,1);x.fillStyle=mix(k);x.fillText(s[i],0,0);x.restore();X+=cw})},
+blurin(x,w,h,t){clear(x,w,h);const s='每個字都清楚登場',T=4,tt=t%T,n=s.length,fs=Math.min(h*.14,w*.8/n);x.font=`700 ${fs}px "Noto Sans TC"`;x.textAlign='left';x.textBaseline='middle';let X=(w-x.measureText(s).width)/2;const q=cl((tt-3.3)/.5);
+  for(let i=0;i<n;i++){const p=eOC(cl((tt-.2-i*.09)/.7)),cw=x.measureText(s[i]).width;x.save();x.filter=`blur(${(1-p)*12+q*10}px)`;x.globalAlpha=p*(1-q);x.fillStyle=i>=5?rgb(A):FG;x.fillText(s[i],X,h/2+(1-p)*fs*.5);x.restore();X+=cw}},
+zoomtext(x,w,h,t,st,c,d){const T=3.2,tt=t%T,p=cl((tt-.6)/2),s=Math.pow(60,eIO(p));scene(x,w,h,BG,FG,'');const o=off(st,w,h,d);scene(o,w,h,rgb(A),BG,'SCENE 2');o.globalCompositeOperation='destination-in';
+  const fs=h*.42;o.font=`900 ${fs}px Unbounded,sans-serif`;o.textBaseline='middle';o.textAlign='left';const off_=o.measureText('B').width+o.measureText('I').width/2;o.save();o.translate(w/2,h/2);o.scale(s,s);o.fillText('BIG',-off_,0);o.restore();o.globalCompositeOperation='source-over';x.drawImage(st.o,0,0,w,h)},
+mosaic(x,w,h,t){clear(x,w,h);const C=4,R=3,cw=w/C,ch=h/R,tt=t%5,P=[[A,B],[B,Y],[Y,A]];const big=(X,Yp)=>{const k=X/w;return mix(k,1)};
+  for(let j=0;j<R;j++)for(let i=0;i<C;i++){const p=cl((tt-.3-(i+j)*.15)/.5),q=cl((tt-2.2-(i+j)*.12)/.5),fl=q>0?q:p,sc=Math.abs(Math.cos(fl*Math.PI)),X=i*cw,Yp=j*ch;if(p<=0)continue;x.save();x.translate(X+cw/2,Yp+ch/2);x.scale(Math.max(.02,sc),1);
+    if(q<.5){const g=x.createLinearGradient(-cw/2,-ch/2,cw/2,ch/2);const pr=P[(i+j)%3];g.addColorStop(0,typeof pr[0]==='string'?pr[0]:rgb(pr[0]));g.addColorStop(1,typeof pr[1]==='string'?pr[1]:rgb(pr[1]));x.fillStyle=g;x.fillRect(-cw/2+2,-ch/2+2,cw-4,ch-4)}
+    else{const g=x.createLinearGradient(-X-cw/2,0,w-X-cw/2,0);g.addColorStop(0,rgb(B));g.addColorStop(1,rgb(A));x.fillStyle=g;x.fillRect(-cw/2,-ch/2,cw,ch)}x.restore()}
+  if(tt>3.4){x.globalAlpha=cl((tt-3.4)/.4);x.fillStyle=BG;x.font=`700 ${h*.14}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText('RECAP',w/2,h/2);x.globalAlpha=1}},
+cardswipe(x,w,h,t){clear(x,w,h);const T=1.2,k=Math.floor(t/T),p=eIO(cl((t%T-.5)/.6)),cw=w*.42,ch=h*.62,C=[rgb(A),rgb(B),'#FFC857','#7BD88F'];
+  for(let j=3;j>=0;j--){const idx=k+j,dep=j-p;if(dep<-0.999)continue;x.save();if(j===0){x.translate(w/2+p*w*.8,h/2+p*h*.1);x.rotate(p*.5)}else{x.translate(w/2,h/2+dep*h*.04);x.scale(1-dep*.06,1-dep*.06)}
+    x.globalAlpha=j===0?1-p*.5:1-dep*.2;x.fillStyle=C[idx%4];rr(x,-cw/2,-ch/2,cw,ch,14);x.fillStyle=BG;x.font=`700 ${ch*.3}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText('#'+(idx%10+1),0,0);x.restore()}},
+chat(x,w,h,t){clear(x,w,h);const M_=[['今天剪好了嗎？',0],['快好了，在加動態',1],['有字幕嗎？',0],['有，逐字高亮 ✓',1]],T=7,tt=t%T,fs=h*.065;x.font=`500 ${fs}px "Noto Sans TC"`;x.textBaseline='middle';let Yp=h*.12;
+  M_.forEach(([s,me],i)=>{const st0=.4+i*1.4,ty=tt-st0;if(ty<0)return;const bw=x.measureText(s).width+fs*1.4,bh=fs*1.9,X=me?w*.92-bw:w*.08;x.fillStyle=me?rgb(A):'#2A3040';
+    if(ty<.6){const dw=fs*2.6;rr(x,me?w*.92-dw:w*.08,Yp,dw,bh,bh/2);for(let k=0;k<3;k++){x.fillStyle=`rgba(237,239,245,${.4+.6*(Math.floor(t*6+k)%3==0)})`;x.beginPath();x.arc((me?w*.92-dw:w*.08)+dw*(.3+k*.2),Yp+bh/2,fs*.12,0,7);x.fill()}}
+    else{const p=eOB(cl((ty-.6)/.3));x.save();x.translate(me?X+bw:X,Yp+bh/2);x.scale(p,p);rr(x,me?-bw:0,-bh/2,bw,bh,bh/2);x.fillStyle=FG;x.textAlign='left';x.fillText(s,(me?-bw:0)+fs*.7,0);x.restore()}Yp+=bh*1.3})},
+notify(x,w,h,t){scene(x,w,h,'#1E2433','rgba(237,239,245,.15)','9:41');const N=['新訂單 #1024','新訂單 #1025','有人按讚了你的影片','新訂單 #1026','新追蹤者 +12'],T=1.1,k=Math.floor(t/T),p=eOB(cl((t%T)/.45)),nh=h*.15,nw=w*.84;
+  for(let j=0;j<4;j++){const idx=k-j;if(idx<0)continue;const pos=j-1+p,Yp=h*.06+Math.max(0,pos)*nh*.32+(pos<0?pos*nh*1.3:0),s=1-Math.max(0,pos)*.05;x.save();x.translate(w/2,Yp+nh/2);x.scale(s,s);x.globalAlpha=j==3?1-p:1;
+    x.fillStyle='rgba(245,246,250,.92)';rr(x,-nw/2,-nh/2,nw,nh,nh*.25);x.fillStyle=rgb(A);rr(x,-nw/2+nh*.2,-nh*.3,nh*.6,nh*.6,nh*.15);x.fillStyle='#161922';x.font=`600 ${nh*.28}px "Noto Sans TC"`;x.textAlign='left';x.textBaseline='middle';x.fillText(N[idx%N.length],-nw/2+nh*.95,0);x.restore()}},
+checklist(x,w,h,t){clear(x,w,h);const S=['上傳素材','自動配效果','逐字字幕','輸出 9:16'],T=5,tt=t%T,x0=w*.22,fs=h*.08,gap=h*.19,y0=h*.2;x.strokeStyle=M;x.lineWidth=3;x.beginPath();x.moveTo(x0,y0);x.lineTo(x0,y0+gap*3);x.stroke();
+  const lp=cl(tt/3.2)*3;x.strokeStyle=rgb(A);x.beginPath();x.moveTo(x0,y0);x.lineTo(x0,y0+gap*Math.min(3,lp));x.stroke();S.forEach((s,i)=>{const Yp=y0+i*gap,on=lp>=i,p=eOB(cl((lp-i)*2.5));x.fillStyle=on?rgb(A):'#2A3040';x.beginPath();x.arc(x0,Yp,fs*.5*(on?.8+.2*p:1),0,7);x.fill();
+    if(on){x.strokeStyle=BG;x.lineWidth=3;x.beginPath();const c=cl((lp-i)*3);x.moveTo(x0-fs*.22,Yp);x.lineTo(x0-fs*.22+fs*.15*Math.min(1,c*2),Yp+fs*.15*Math.min(1,c*2));if(c>.5)x.lineTo(x0-fs*.07+fs*.3*(c-.5)*2,Yp+fs*.15-fs*.35*(c-.5)*2);x.stroke()}
+    x.fillStyle=on?FG:'rgba(237,239,245,.4)';x.font=`700 ${fs}px "Noto Sans TC"`;x.textAlign='left';x.textBaseline='middle';x.fillText(s,x0+fs*1.1,Yp)})},
+routemap(x,w,h,t){clear(x,w,h);x.fillStyle=M;for(let j=0;j<h;j+=10)for(let i=0;i<w;i+=10){const n=Math.sin(i*.013)+Math.cos(j*.017+i*.004)+Math.sin((i+j)*.006);if(n>.4)x.fillRect(i,j,3,3)}
+  const P=[[.12,.7],[.3,.35],[.52,.6],[.7,.3],[.88,.55]],seg=P.length-1,tt=t%6,p=cl(tt/4.5)*seg,pt=s=>{const a=Math.min(seg-1,Math.floor(s)),f=s-a;return[(P[a][0]+(P[a+1][0]-P[a][0])*f)*w,(P[a][1]+(P[a+1][1]-P[a][1])*f)*h]};
+  x.strokeStyle=rgb(A);x.lineWidth=3;x.setLineDash([8,6]);x.lineDashOffset=-t*20;x.beginPath();for(let s=0;s<=p;s+=.02){const q=pt(s);s?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1])}x.stroke();x.setLineDash([]);
+  P.forEach(([px,py],i)=>{if(i<=p+.01){x.fillStyle=FG;x.beginPath();x.arc(px*w,py*h,5,0,7);x.fill()}});for(let k=0;k<8;k++){const q=pt(Math.max(0,p-k*.03));x.fillStyle=rgb(A,1-k/8);x.beginPath();x.arc(q[0],q[1],7-k*.6,0,7);x.fill()}},
+lightleak(x,w,h,t){scene(x,w,h,'#2A3040',FG,'MEMORIES');x.save();x.globalCompositeOperation='screen';[[255,140,60,.55],[255,80,90,.4],[255,210,120,.45]].forEach(([r,g,b,a],i)=>{const X=w*(.5+.6*Math.sin(t*.35+i*2.1)),Yp=h*(.5+.5*Math.cos(t*.27+i*1.3)),R=h*(.6+.25*Math.sin(t*.5+i));
+  const rg=x.createRadialGradient(X,Yp,0,X,Yp,R);rg.addColorStop(0,`rgba(${r},${g},${b},${a})`);rg.addColorStop(1,`rgba(${r},${g},${b},0)`);x.fillStyle=rg;x.fillRect(0,0,w,h)});x.restore()},
+lissajous(x,w,h,t){clear(x,w,h);x.lineWidth=1.6;[[3,2],[5,4],[4,3]].forEach(([a,b],k)=>{x.strokeStyle=mix(k/2,.75);x.beginPath();for(let s=0;s<=6.3;s+=.01){const X=w/2+Math.sin(a*s+t*(.4+k*.15))*w*.36,Yp=h/2+Math.sin(b*s)*h*.38;s?x.lineTo(X,Yp):x.moveTo(X,Yp)}x.stroke()});
+  const s=t*1.2;x.fillStyle=FG;x.beginPath();x.arc(w/2+Math.sin(3*s+t*.4)*w*.36,h/2+Math.sin(2*s)*h*.38,4,0,7);x.fill()},
+voronoi(x,w,h,t){const N=14,cs=Math.max(4,h/50),S=Array.from({length:N},(_,i)=>[rnd(i)*w+Math.sin(t*.4+i)*w*.06,rnd(i+50)*h+Math.cos(t*.35+i*1.7)*h*.08]);
+  for(let Yp=0;Yp<h;Yp+=cs)for(let X=0;X<w;X+=cs){let d1=1e9,d2=1e9,k=0;for(let i=0;i<N;i++){const d=Math.hypot(X-S[i][0],Yp-S[i][1]);if(d<d1){d2=d1;d1=d;k=i}else if(d<d2)d2=d}
+    x.fillStyle=d2-d1<cs*1.3?'rgba(237,239,245,.75)':mix(k/(N-1),.18+.25*(k%3)/2);x.fillRect(X,Yp,cs+.5,cs+.5)}},
+magnetic(x,w,h,t){clear(x,w,h);const ax=w/2+Math.cos(t*.9)*w*.3,ay=h/2+Math.sin(t*1.3)*h*.3,R=h*.3,g=Math.max(12,h/14);for(let Yp=g/2;Yp<h;Yp+=g)for(let X=g/2;X<w;X+=g){const dx=ax-X,dy=ay-Yp,f=Math.exp(-(dx*dx+dy*dy)/(R*R));
+  x.fillStyle=mix(f,.35+.65*f);x.beginPath();x.arc(X+dx*f*.35,Yp+dy*f*.35,1.5+3.5*f,0,7);x.fill()}},
+galaxy(x,w,h,t){clear(x,w,h);const R=Math.min(w,h)*.46,cx=w/2,cy=h/2;const g=x.createRadialGradient(cx,cy,0,cx,cy,R*.35);g.addColorStop(0,'rgba(255,220,180,.8)');g.addColorStop(1,'rgba(255,220,180,0)');x.fillStyle=g;x.fillRect(0,0,w,h);
+  for(let i=0;i<700;i++){const r=Math.pow(rnd(i),.7)*R,arm=(i%3)*Math.PI*2/3,a=r*.035+arm+t*.25*(1.2-r/R)+(rnd(i+3)-.5)*.5;x.fillStyle=mix(r/R,.4+.6*rnd(i+7));x.fillRect(cx+Math.cos(a)*r,cy+Math.sin(a)*r*.55,1.6,1.6)}},
+matrixrain(x,w,h,t){clear(x,w,h);const C='01アイウエオカキクケコサシスセソ',cs=Math.max(10,h/22),cols=Math.ceil(w/cs);x.font=`600 ${cs}px "JetBrains Mono",monospace`;x.textAlign='center';x.textBaseline='top';
+  for(let i=0;i<cols;i++){const sp=.25+rnd(i)*.35,hy=(((t*sp+rnd(i+9))%1.4)*h*1.4)-h*.2,L=8+Math.floor(rnd(i+4)*10);for(let k=0;k<L;k++){const Yp=hy-k*cs;if(Yp<-cs||Yp>h)continue;const ch=C[Math.floor(rnd(i*31+Math.floor(Yp/cs)+Math.floor(t*8)*(k<2?1:0))*C.length)];
+    x.fillStyle=k==0?FG:rgb(k<3?A:B,1-k/L);x.fillText(ch,i*cs+cs/2,Yp)}}},
+bokeh(x,w,h,t){const g=x.createLinearGradient(0,0,0,h);g.addColorStop(0,'#141833');g.addColorStop(1,'#0B0D16');x.fillStyle=g;x.fillRect(0,0,w,h);x.save();x.globalCompositeOperation='lighter';
+  for(let i=0;i<34;i++){const r=h*(.03+.09*rnd(i)),X=((rnd(i+1)*w+t*w*.02*(rnd(i+2)-.5)*4)%w+w)%w,Yp=rnd(i+3)*h+Math.sin(t*.5+i)*h*.03,al=.12+.25*rnd(i+4)*(.6+.4*Math.sin(t+i));const rg=x.createRadialGradient(X,Yp,r*.6,X,Yp,r);
+    const c=[A,B,[255,200,87]][i%3];rg.addColorStop(0,rgb(c,al));rg.addColorStop(1,rgb(c,0));x.fillStyle=rg;x.beginPath();x.arc(X,Yp,r,0,7);x.fill()}x.restore()},
+snow(x,w,h,t){const g=x.createLinearGradient(0,0,0,h);g.addColorStop(0,'#1A2240');g.addColorStop(1,'#2E3B66');x.fillStyle=g;x.fillRect(0,0,w,h);x.fillStyle='rgba(255,255,255,.9)';
+  for(let i=0;i<160;i++){const z=.3+.7*rnd(i),Yp=((rnd(i+1)*h+t*h*.12*z)%(h+10))-5,X=rnd(i+2)*w+Math.sin(t*z*1.5+i)*12*z;x.globalAlpha=.3+.7*z;x.beginPath();x.arc(X,Yp,1+2.2*z,0,7);x.fill()}x.globalAlpha=1},
+halftone(x,w,h,t){x.fillStyle='#F2EFE8';x.fillRect(0,0,w,h);const cs=Math.max(8,h/22),lx=w/2+Math.cos(t*.7)*w*.3,ly=h/2+Math.sin(t*.9)*h*.3;x.fillStyle=rgb(A);
+  for(let Yp=cs/2;Yp<h;Yp+=cs)for(let X=cs/2+((Yp/cs|0)%2)*cs/2;X<w;X+=cs){const d=Math.hypot(X-lx,Yp-ly)/Math.hypot(w,h),r=cs*.5*cl(1-d*1.8)*(.75+.25*Math.sin(d*30-t*3));if(r>.4){x.beginPath();x.arc(X,Yp,r,0,7);x.fill()}}},
+kaleido(x,w,h,t){clear(x,w,h);const R=Math.min(w,h)*.48;x.save();x.translate(w/2,h/2);for(let k=0;k<12;k++){x.save();x.rotate(k*Math.PI/6);if(k%2)x.scale(1,-1);x.beginPath();x.moveTo(0,0);x.arc(0,0,R,0,Math.PI/6);x.closePath();x.clip();
+  for(let i=0;i<5;i++){const r=R*(.2+.16*i+.06*Math.sin(t+i)),a=.26+.2*Math.sin(t*.7+i*1.3);x.fillStyle=mix(i/4,.75);x.beginPath();x.arc(Math.cos(a)*r,Math.sin(a)*r,R*(.05+.03*Math.sin(t*1.3+i)),0,7);x.fill()}x.restore()}x.restore()},
+splitflap(x,w,h,t){clear(x,w,h);const L=['NOW','BOARDING'],CH='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',tt=t%5,cw=Math.min(w*.095,h*.2),chh=cw*1.35;x.font=`700 ${chh*.68}px "JetBrains Mono",monospace`;x.textAlign='center';x.textBaseline='middle';
+  L.forEach((s,r)=>{const x0=w/2-s.length*cw*1.08/2,Yp=h*.32+r*chh*1.25;for(let i=0;i<s.length;i++){const X=x0+i*cw*1.08,land=.3+(r*3+i)*.09,ch=tt<land?CH[Math.floor(rnd(i*13+r*7+Math.floor(tt*20))*CH.length)]:s[i];
+    x.fillStyle='#232937';rr(x,X,Yp,cw,chh,4);x.fillStyle=tt<land?'rgba(237,239,245,.6)':(r?rgb(A):FG);x.fillText(ch,X+cw/2,Yp+chh/2);x.fillStyle=BG;x.fillRect(X,Yp+chh/2-1,cw,2)}})},
+flip3d(x,w,h,t){clear(x,w,h);const s='立體翻轉登場',tt=t%4,n=s.length,fs=Math.min(h*.18,w*.8/n);x.font=`900 ${fs}px "Noto Sans TC"`;x.textAlign='center';x.textBaseline='middle';const sw=fs*1.05,x0=w/2-sw*(n-1)/2;
+  for(let i=0;i<n;i++){const p=cl((tt-.2-i*.12)/.6),e=eOB(p),sc=Math.cos((1-e)*Math.PI/2),q=cl((tt-3.3)/.5);x.save();x.translate(x0+i*sw,h/2);x.scale(1,Math.max(.02,sc*(1-q)));x.fillStyle=i>3?rgb(A):`rgba(237,239,245,${.5+.5*sc})`;x.fillText(s[i],0,0);x.restore()}},
+echo(x,w,h,t){clear(x,w,h);const P=tt=>[w/2+Math.sin(tt*1.1)*w*.25,h/2+Math.sin(tt*1.7)*h*.22];x.font=`700 ${h*.22}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';
+  for(let k=8;k>=0;k--){const [X,Yp]=P(t-k*.06);x.fillStyle=k?mix(k/8,.6*(1-k/9)):FG;x.fillText('ECHO',X,Yp)}},
+outlinefill(x,w,h,t){clear(x,w,h);const s='FILL UP',fs=Math.min(h*.3,w*.17),tt=t%4,p=eIO(cl((tt-.6)/2.2))*(1-cl((tt-3.5)/.4));x.font=`700 ${fs}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';
+  x.lineWidth=2;x.strokeStyle=FG;x.strokeText(s,w/2,h/2);const top=h/2+fs*.45-p*fs*1.0;x.save();x.beginPath();x.moveTo(0,h);for(let X=0;X<=w;X+=6)x.lineTo(X,top+Math.sin(X*.04+t*5)*fs*.05);x.lineTo(w,h);x.closePath();x.clip();x.fillStyle=rgb(A);x.fillText(s,w/2,h/2);x.restore()},
+textpath(x,w,h,t){clear(x,w,h);const s='沿著曲線流動的文字 · FLOW ALONG THE PATH · ',fs=h*.075;x.font=`700 ${fs}px "Noto Sans TC",Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';const Yf=X=>h/2+Math.sin(X*.012+t*1.2)*h*.2;
+  x.strokeStyle=rgb(B,.35);x.lineWidth=1;x.beginPath();for(let X=0;X<=w;X+=5)X?x.lineTo(X,Yf(X)):x.moveTo(X,Yf(X));x.stroke();let X=(-(t*50)%(fs*12));for(let i=0;X<w+fs;i++){const ch=s[i%s.length],cw=x.measureText(ch).width,m=X+cw/2,a=Math.atan2(Yf(m+1)-Yf(m-1),2);
+    x.save();x.translate(m,Yf(m)-fs*.4);x.rotate(a);x.fillStyle=mix((m/w+1)%1);x.fillText(ch,0,0);x.restore();X+=cw}},
+treemap(x,w,h,t){clear(x,w,h);const L=[[0,0,.5,1,'影音 42%',A],[.5,0,.5,.55,'新聞 26%',B],[.5,.55,.25,.45,'社群 19%',[255,200,87]],[.75,.55,.25,.25,'Podcast 8%',[123,216,143]],[.75,.8,.25,.2,'其他 5%',[154,161,179]]],tt=t%4.5,m=w*.04;
+  L.forEach(([a,b,c_,d_,l,col],i)=>{const p=eOB(cl((tt-i*.25)/.5)),X=m+a*(w-2*m),Yp=m+b*(h-2*m),W_=c_*(w-2*m),H_=d_*(h-2*m);if(p<=0)return;x.save();x.translate(X+W_/2,Yp+H_/2);x.scale(p,p);x.fillStyle=rgb(col,.9);rr(x,-W_/2+2,-H_/2+2,W_-4,H_-4,6);
+    x.fillStyle=BG;x.font=`700 ${Math.min(H_*.18,W_*.12)}px "Noto Sans TC"`;x.textAlign='left';x.textBaseline='top';x.fillText(l,-W_/2+10,-H_/2+8);x.restore()})},
+heatmap(x,w,h,t){clear(x,w,h);const C=26,R=7,g=Math.min(w*.9/C,h*.7/R),x0=(w-C*g)/2,y0=(h-R*g)/2,n=Math.floor(cl((t%5)/3.5)*C);for(let i=0;i<C;i++)for(let j=0;j<R;j++){const v=rnd(i*7+j),on=i<=n;
+  x.fillStyle=on?(v<.25?'#2A3040':v<.5?rgb(A,.35):v<.75?rgb(A,.65):rgb(A)):'#1E2330';rr(x,x0+i*g+1,y0+j*g+1,g-2,g-2,2)}x.fillStyle=FG;x.font=`600 ${h*.06}px "Noto Sans TC"`;x.textAlign='left';x.textBaseline='bottom';x.fillText('半年更新紀錄',x0,y0-6)},
+funnel(x,w,h,t){clear(x,w,h);const S=[['曝光',10000],['點擊',3200],['加入購物車',900],['下單',240]],tt=t%5,sh=h*.19,top=h*.1;S.forEach(([l,v],i)=>{const p=eOC(cl((tt-i*.4)/.5)),w0=w*(.8-i*.17),w1=w*(.8-(i+1)*.17),Yp=top+i*sh*1.08;if(p<=0)return;
+  x.globalAlpha=p;x.fillStyle=mix(1-i/3);x.beginPath();x.moveTo(w/2-w0/2,Yp);x.lineTo(w/2+w0/2,Yp);x.lineTo(w/2+w1/2,Yp+sh);x.lineTo(w/2-w1/2,Yp+sh);x.closePath();x.fill();x.fillStyle=BG;x.font=`700 ${sh*.36}px "Noto Sans TC"`;x.textAlign='center';x.textBaseline='middle';
+  x.fillText(l+' '+Math.round(v*p).toLocaleString(),w/2,Yp+sh/2);x.globalAlpha=1})},
+ecg(x,w,h,t){clear(x,w,h);x.strokeStyle='rgba(111,139,255,.12)';x.lineWidth=1;x.beginPath();for(let X=0;X<w;X+=20){x.moveTo(X,0);x.lineTo(X,h)}for(let Yp=0;Yp<h;Yp+=20){x.moveTo(0,Yp);x.lineTo(w,Yp)}x.stroke();
+  const f=u=>{const q=((u%1)+1)%1;return q<.1?Math.sin(q/.1*Math.PI)*.08:q<.14?-(q-.1)/.04*.15:q<.18?-.15+(q-.14)/.04*1.15:q<.22?1-(q-.18)/.04*1.3:q<.26?-.3+(q-.22)/.04*.3:q<.4?0:q<.5?Math.sin((q-.4)/.1*Math.PI)*.18:0},head=(t*.3%1)*w;
+  x.strokeStyle=rgb(A);x.lineWidth=2.5;x.shadowColor=rgb(A);x.shadowBlur=10;x.beginPath();for(let X=0;X<=head;X+=2){const Yp=h*.55-f(X/w*3-t*0)*h*.35;X?x.lineTo(X,Yp):x.moveTo(X,Yp)}x.stroke();x.shadowBlur=0;
+  x.fillStyle=FG;x.beginPath();x.arc(head,h*.55-f(head/w*3)*h*.35,4,0,7);x.fill();x.font=`700 ${h*.1}px Unbounded,sans-serif`;x.textAlign='right';x.textBaseline='top';x.fillText('72 BPM',w*.95,h*.06)},
+oscillo(x,w,h,t){clear(x,w,h);[[A,1,0],[B,.7,1.7],[[255,200,87],.45,3.1]].forEach(([c,amp,ph])=>{x.strokeStyle=rgb(c,.85);x.lineWidth=2;x.beginPath();for(let X=0;X<=w;X+=3){const u=X/w,env=Math.sin(u*Math.PI),Yp=h/2+Math.sin(u*14+t*4+ph)*Math.sin(u*5-t*1.3+ph)*h*.32*amp*env*(.6+.4*Math.sin(t*2+ph));X?x.lineTo(X,Yp):x.moveTo(X,Yp)}x.stroke()})},
+speedlines(x,w,h,t){x.fillStyle='#F2EFE8';x.fillRect(0,0,w,h);const k=Math.floor(t*12);x.fillStyle='#161922';for(let i=0;i<70;i++){const a=rnd(i+k*.37)*Math.PI*2,r0=Math.min(w,h)*(.18+.15*rnd(i+k)),r1=Math.hypot(w,h);
+  x.beginPath();x.moveTo(w/2+Math.cos(a-.012)*r0,h/2+Math.sin(a-.012)*r0);x.lineTo(w/2+Math.cos(a)*r1,h/2+Math.sin(a)*r1);x.lineTo(w/2+Math.cos(a+.012)*r0,h/2+Math.sin(a+.012)*r0);x.fill()}
+  const p=(t%1.6)/1.6,s=1+.5*Math.pow(1-cl(p/.2),3);x.save();x.translate(w/2,h/2);x.scale(s,s);x.rotate(-.06);x.font=`900 ${h*.24}px "Noto Sans TC"`;x.textAlign='center';x.textBaseline='middle';x.lineWidth=h*.03;x.strokeStyle='#161922';x.strokeText('爆！',0,0);x.fillStyle=rgb(A);x.fillText('爆！',0,0);x.restore()},
+fireworks(x,w,h,t){x.fillStyle='rgba(10,12,22,1)';x.fillRect(0,0,w,h);for(let b=0;b<4;b++){const T=1.8,tt=(t+b*.45)%T,cyc=Math.floor((t+b*.45)/T),s=cyc*10+b,cx=w*(.2+.6*rnd(s)),cy=h*(.25+.3*rnd(s+1)),col=[A,B,[255,200,87],[123,216,143]][s%4];
+  if(tt<.35){x.fillStyle=rgb(col);x.fillRect(cx-1,h-(h-cy)*tt/.35,2,8)}else{const u=tt-.35;for(let i=0;i<40;i++){const a=i/40*Math.PI*2,v=h*.35*(.7+.3*rnd(s*40+i)),X=cx+Math.cos(a)*v*eOC(cl(u/1)),Yp=cy+Math.sin(a)*v*eOC(cl(u/1))+u*u*h*.12;
+    x.fillStyle=rgb(col,cl(1-u/1.4));x.beginPath();x.arc(X,Yp,1.8,0,7);x.fill()}}}},
+sticker(x,w,h,t){clear(x,w,h);const tt=t%3,p=cl(tt/.6),e=p<1?1+Math.sin(p*Math.PI*3)*Math.exp(-p*4)*.6-.4*(1-p)*(1-p):1,r=Math.min(w,h)*.26;x.save();x.translate(w/2,h/2);x.rotate(-.2+Math.sin(tt*6)*.1*Math.exp(-tt*2));x.scale(e,e);
+  x.fillStyle=rgb(A);x.beginPath();for(let i=0;i<24;i++){const a=i/24*Math.PI*2,rr_=i%2?r:r*1.12;x.lineTo(Math.cos(a)*rr_,Math.sin(a)*rr_)}x.closePath();x.fill();x.lineWidth=4;x.strokeStyle=FG;x.stroke();
+  x.fillStyle=FG;x.font=`900 ${r*.48}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText('NEW!',0,0);x.restore();for(let i=0;i<6;i++){const a=i/6*Math.PI*2+t,d=r*1.5,q=Math.sin(t*4+i)*.5+.5;x.fillStyle=`rgba(255,200,87,${q})`;x.beginPath();x.arc(w/2+Math.cos(a)*d,h/2+Math.sin(a)*d,3,0,7);x.fill()}},
+arrow(x,w,h,t){scene(x,w,h,'#1B2233','rgba(237,239,245,.12)','');const tt=t%4,p=eOC(cl((tt-.3)/1)),bx=w*.68,by=h*.5,bw=w*.2,bh=h*.22;x.fillStyle='#2A3040';rr(x,bx-bw/2,by-bh/2,bw,bh,8);x.fillStyle=FG;x.font=`700 ${bh*.3}px "Noto Sans TC"`;x.textAlign='center';x.textBaseline='middle';x.fillText('點這裡',bx,by);
+  const P=u=>[w*.15+(bx-bw*.6-w*.15)*u,h*.78-Math.sin(u*Math.PI)*h*.4+(by-h*.78)*u*u];x.strokeStyle=rgb(A);x.lineWidth=4;x.lineCap='round';x.beginPath();for(let u=0;u<=p;u+=.02){const q=P(u);u?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1])}x.stroke();
+  if(p>.98){const a=P(1),b=P(.95),ang=Math.atan2(a[1]-b[1],a[0]-b[0]);x.beginPath();x.moveTo(a[0]-Math.cos(ang-.5)*16,a[1]-Math.sin(ang-.5)*16);x.lineTo(a[0],a[1]);x.lineTo(a[0]-Math.cos(ang+.5)*16,a[1]-Math.sin(ang+.5)*16);x.stroke();
+    const q=cl((tt-1.4)/.6);x.globalAlpha=1-q;x.beginPath();x.ellipse(bx,by,bw*.6*(1+q*.3),bh*.75*(1+q*.3),0,0,7);x.stroke();x.globalAlpha=1}x.lineCap='butt'},
+cursor(x,w,h,t){scene(x,w,h,'#F2EFE8','rgba(22,25,34,.06)','');const tt=t%4,bx=w*.62,by=h*.58,bw=w*.28,bh=h*.16,clicked=tt>1.6,p=eIO(cl(tt/1.4)),cx=w*.15+(bx-w*.15)*p,cy=h*.2+(by-h*.2)*p;
+  x.fillStyle=clicked?'#2A3040':rgb(A);rr(x,bx-bw/2,by-bh/2+(tt>1.5&&tt<1.7?2:0),bw,bh,bh/2);x.fillStyle='#fff';x.font=`700 ${bh*.38}px "Noto Sans TC"`;x.textAlign='center';x.textBaseline='middle';x.fillText(clicked?'已訂閱 ✓':'訂閱',bx,by);
+  const q=cl((tt-1.5)/.5);if(q>0&&q<1){x.strokeStyle=rgb(A,1-q);x.lineWidth=3;x.beginPath();x.arc(cx,cy,10+q*30,0,7);x.stroke()}x.save();x.translate(cx,cy);x.fillStyle='#161922';x.strokeStyle='#fff';x.lineWidth=1.5;x.beginPath();x.moveTo(0,0);x.lineTo(0,22);x.lineTo(6,17);x.lineTo(10,26);x.lineTo(14,24);x.lineTo(10,15);x.lineTo(17,15);x.closePath();x.fill();x.stroke();x.restore()},
+pricetag(x,w,h,t){clear(x,w,h);const tt=t%4.5,fs=h*.14;x.textAlign='center';x.textBaseline='middle';x.font=`500 ${fs}px Unbounded,sans-serif`;x.fillStyle='rgba(237,239,245,.6)';x.fillText('$2,980',w*.4,h*.38);
+  const p=eOC(cl((tt-.5)/.4)),tw=x.measureText('$2,980').width;x.strokeStyle=rgb(A);x.lineWidth=4;x.beginPath();x.moveTo(w*.4-tw/2-6,h*.38);x.lineTo(w*.4-tw/2-6+(tw+12)*p,h*.38);x.stroke();
+  const q=eOB(cl((tt-1.1)/.5));x.save();x.translate(w*.4,h*.62);x.scale(q,q);x.font=`700 ${fs*1.5}px Unbounded,sans-serif`;x.fillStyle=Y;x.fillText('$1,780',0,0);x.restore();
+  const sw=Math.sin(tt*5)*Math.exp(-Math.max(0,tt-1.6)*1.5)*.4,r=cl((tt-1.6)/.3);if(r>0){x.save();x.translate(w*.78,h*.18);x.rotate(.3+sw);x.globalAlpha=r;x.strokeStyle=FG;x.lineWidth=1.5;x.beginPath();x.moveTo(0,-h*.12);x.lineTo(0,0);x.stroke();x.fillStyle=rgb(A);rr(x,-w*.09,0,w*.18,h*.22,8);x.fillStyle=FG;x.font=`900 ${h*.07}px Unbounded,sans-serif`;x.fillText('SALE',0,h*.07);x.fillText('-40%',0,h*.15);x.restore()}},
+quote(x,w,h,t){clear(x,w,h);const tt=t%5,p=eOB(cl(tt/.5));x.save();x.translate(w*.14,h*.3);x.scale(p,p);x.fillStyle=rgb(A);x.font=`900 ${h*.45}px Georgia,serif`;x.textAlign='left';x.textBaseline='middle';x.fillText('“',-w*.03,0);x.restore();
+  const L=['好的設計是','讓人看不見設計'],fs=h*.11;L.forEach((s,i)=>{const q=eOC(cl((tt-.5-i*.4)/.6));x.save();x.beginPath();x.rect(0,h*.38+i*fs*1.4-fs*.7,w,fs*1.4);x.clip();x.fillStyle=FG;x.font=`900 ${fs}px "Noto Sans TC"`;x.textAlign='left';x.textBaseline='middle';x.fillText(s,w*.2,h*.38+i*fs*1.4+(1-q)*fs*1.3);x.restore()});
+  const r=cl((tt-1.6)/.5);x.globalAlpha=r;x.fillStyle=rgb(A);x.fillRect(w*.2,h*.8,w*.06*r,2);x.fillStyle='rgba(237,239,245,.7)';x.font=`500 ${fs*.45}px "Noto Sans TC"`;x.fillText('— 設計師 迪特・拉姆斯',w*.28,h*.8);x.globalAlpha=1},
+letterbox(x,w,h,t){const tt=t%5,s=1.02+.04*(tt/5);x.save();x.translate(w/2,h/2);x.scale(s,s);x.translate(-w/2,-h/2);DRAW.parallax(x,w,h,t);x.restore();const bar=h*.5*(1-1/2.39*w/h)*0+h*.13*eIO(cl(tt/.8));x.fillStyle='#000';x.fillRect(0,0,w,bar);x.fillRect(0,h-bar,w,bar);
+  const q=cl((tt-1)/.8)*(1-cl((tt-4.3)/.5));x.globalAlpha=q;x.fillStyle=FG;x.font=`500 ${h*.06}px Unbounded,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.letterSpacing&&(x.letterSpacing='6px');x.fillText('A FILM BY YOU',w/2,h-bar/2);x.letterSpacing&&(x.letterSpacing='0px');x.globalAlpha=1},
+laserwipe(x,w,h,t){const p=eIO(cl(((t%2.6)-.5)/1.4)),Yp=p*h;scene(x,w,h,BG,FG,'SCENE 1');x.save();x.beginPath();x.rect(0,0,w,Yp);x.clip();scene(x,w,h,rgb(A),BG,'SCENE 2');x.restore();
+  if(p>0&&p<1){const g=x.createLinearGradient(0,Yp-24,0,Yp+24);g.addColorStop(0,'rgba(111,139,255,0)');g.addColorStop(.5,'rgba(200,220,255,.9)');g.addColorStop(1,'rgba(111,139,255,0)');x.fillStyle=g;x.fillRect(0,Yp-24,w,48);x.fillStyle='#fff';x.fillRect(0,Yp-1,w,2)}},
+pageturn(x,w,h,t){const p=eIO(cl(((t%2.6)-.5)/1.4)),fx=w*(1-p);scene(x,w,h,rgb(A),BG,'SCENE 2');x.save();x.beginPath();x.rect(0,0,fx,h);x.clip();scene(x,w,h,BG,FG,'SCENE 1');x.restore();
+  if(p>0&&p<1){const fw=Math.min(w-fx,fx)*.5+w*.05*(1-p);const g=x.createLinearGradient(fx-fw,0,fx,0);g.addColorStop(0,'#C9CCD6');g.addColorStop(1,'#F5F6FA');x.fillStyle=g;x.fillRect(fx-fw,0,fw,h);
+    const sh=x.createLinearGradient(fx,0,fx+30,0);sh.addColorStop(0,'rgba(0,0,0,.45)');sh.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=sh;x.fillRect(fx,0,30,h)}},
+/* 1. 火花漣漪：一點火花脹成光球，下方水面橢圓漣漪一圈圈擴散。循環 6 秒 */
+sparkring(x,w,h,t){clear(x,w,h);const tt=t%6,cx=w/2,cy=h*.44,m=Math.min(w,h),R=m*.045,
+  ig=eOB(cl((tt-.25)/.9)),a=1-cl((tt-5.3)/.6),gy=cy+R*2.6;
+  const pool=x.createRadialGradient(0,0,0,0,0,m*.55);pool.addColorStop(0,rgb(A,.28*ig*a));pool.addColorStop(1,rgb(A,0));
+  x.save();x.translate(cx,gy);x.scale(1,.26);x.fillStyle=pool;x.beginPath();x.arc(0,0,m*.55,0,7);x.fill();x.restore();
+  for(let i=0;i<6;i++){const p=(tt-1.1-i*.55)/3.4;if(p<=0||p>=1)continue;const rx=m*(.07+.46*eOC(p)),al=(1-p)*(1-p)*a;
+    x.strokeStyle=mix(.35+.6*(1-p),al*.95);x.lineWidth=.8+2.2*(1-p);x.beginPath();x.ellipse(cx,gy,rx,rx*.26,0,0,7);x.stroke()}
+  for(let k=0;k<12;k++){const u=(tt*.45+k/12)%1,sx=cx+(rnd(k*3.7)-.5)*R*7*u,sy=cy-R*.6-u*h*.13;
+    x.fillStyle=`rgba(255,226,190,${(1-u)*ig*a*.9})`;x.beginPath();x.arc(sx,sy,1.2+rnd(k)*1.8,0,7);x.fill()}
+  const r=R*ig*(1+.06*Math.sin(tt*6)),g=x.createRadialGradient(cx,cy,0,cx,cy,Math.max(1,r*5));
+  g.addColorStop(0,`rgba(255,220,180,${.95*ig*a})`);g.addColorStop(.3,rgb(A,.38*ig*a));g.addColorStop(1,rgb(A,0));
+  x.fillStyle=g;x.fillRect(0,0,w,h);x.fillStyle=`rgba(255,246,230,${ig*a})`;x.beginPath();x.arc(cx,cy,Math.max(.1,r*.55),0,7);x.fill();
+  const tx=cl((tt-1.2)/.5)*(1-cl((tt-5.2)/.5));x.globalAlpha=tx;x.fillStyle=FG;x.font=`500 ${m*.042}px "Noto Sans TC",sans-serif`;
+  x.textAlign='center';x.textBaseline='middle';x.fillText('先有一點火花',cx,h*.7);x.globalAlpha=1},
+
+/* 2. 發光卡片倒影：漸層細條展開成卡片，下方有淡出的倒影。循環 6 秒 */
+glowcard(x,w,h,t){clear(x,w,h);const tt=t%6,m=Math.min(w,h),cw=Math.min(w*.82,m*1.5),chF=Math.min(h*.2,cw*.42),cx=w/2,cyTop=h*.38;
+  const pw=eOB(cl((tt-.2)/.7)),ph=eOB(cl((tt-.7)/.8)),ct=cl((tt-1.5)/.5),out=1-eIO(cl((tt-5.1)/.7)),fl=Math.sin(tt*2.2)*h*.006;
+  const bw=cw*cl(pw),bh=Math.max(chF*.07,chF*cl(ph))*out+0.01,top=cyTop+fl+(chF-bh)/2;
+  const draw=(ref)=>{const g=x.createLinearGradient(cx-bw/2,0,cx+bw/2,0);g.addColorStop(0,'#FF5E7A');g.addColorStop(.55,'#FF7A55');g.addColorStop(1,'#FFA84C');
+    x.fillStyle=g;rr(x,cx-bw/2,top,bw,bh,Math.min(bh/2,chF*.28));
+    if(bh>chF*.4){x.save();x.globalAlpha=ct*out;const ic=bh*.15,ix=cx-bw/2+chF*.34,iy=top+bh/2;x.strokeStyle='#fff';x.lineWidth=ic*.34;x.lineCap='round';
+      for(let k=0;k<3;k++){const an=k*Math.PI/3;x.beginPath();x.moveTo(ix-Math.cos(an)*ic,iy-Math.sin(an)*ic);x.lineTo(ix+Math.cos(an)*ic,iy+Math.sin(an)*ic);x.stroke()}
+      x.fillStyle='#fff';x.textAlign='left';x.textBaseline='middle';x.font=`700 ${bh*.25}px "Noto Sans TC",sans-serif`;x.fillText('功能詳情',ix+ic*2,top+bh*.4);
+      x.fillStyle='rgba(255,255,255,.75)';x.font=`400 ${bh*.15}px "Noto Sans TC",sans-serif`;x.fillText('重點一眼看懂',ix+ic*2,top+bh*.66);x.restore()}
+    if(!ref&&bh>chF*.3){x.save();x.globalAlpha=.55*out;x.strokeStyle='rgba(255,255,255,.7)';x.lineWidth=1.4;x.beginPath();
+      x.roundRect?x.roundRect(cx-bw/2+.7,top+.7,bw-1.4,bh-1.4,Math.min(bh/2,chF*.28)):x.rect(cx-bw/2,top,bw,bh);x.stroke();x.restore()}};
+  x.save();x.shadowColor=rgb(A,.55*out);x.shadowBlur=h*.05*(.8+.2*Math.sin(tt*3));draw(false);x.restore();
+  const base=top+bh;x.save();x.beginPath();x.rect(0,base+h*.012,w,h);x.clip();x.translate(0,(base+h*.012)*2-0);x.scale(1,-1);x.globalAlpha=.5;draw(true);x.restore();
+  const fy=base+h*.012,fg=x.createLinearGradient(0,fy,0,fy+chF*.75);fg.addColorStop(0,rgb([18,21,29],.2));fg.addColorStop(1,rgb([18,21,29],1));
+  x.fillStyle=fg;x.fillRect(0,fy,w,chF*.8)},
+
+/* 3. 膠囊串連：米白底，黑色膠囊節點用一條垂掛細線依序串起。循環 7.5 秒 */
+pillchain(x,w,h,t){const tt=t%7.5,m=Math.min(w,h),CR='#F6EFE6',INK='#1C1814',out=1-cl((tt-6.7)/.6);
+  x.fillStyle=CR;x.fillRect(0,0,w,h);const gl=x.createRadialGradient(w/2,h*.95,0,w/2,h*.95,h*.55);gl.addColorStop(0,'rgba(255,196,150,.55)');gl.addColorStop(1,'rgba(255,196,150,0)');x.fillStyle=gl;x.fillRect(0,0,w,h);
+  const N=[['先想',.32,.3],['再做',.68,.5],['上線',.36,.7]],fs=Math.min(h*.03,w*.062),ph=fs*2.5;x.font=`700 ${fs}px "Noto Sans TC",sans-serif`;
+  const P=N.map((n,i)=>({s:n[0],x:w*n[1],y:h*n[2]+Math.sin(tt*1.6+i*2)*h*.004,w:x.measureText(n[0]).width+fs*3.1,p:eOB(cl((tt-.3-i*1.5)/.55))*out}));
+  x.globalAlpha=out;
+  for(let i=0;i<2;i++){const a=P[i],b=P[i+1],dr=cl((tt-.8-i*1.5)/.8),sw=Math.sin(tt*1.4+i)*w*.02,
+    X0=a.x,Y0=a.y+ph/2,X1=b.x,Y1=b.y-ph/2,c1x=X0+sw,c1y=Y0+(Y1-Y0)*.7,c2x=X1-sw,c2y=Y1-(Y1-Y0)*.7,bz=u=>{const v=1-u;return[v*v*v*X0+3*v*v*u*c1x+3*v*u*u*c2x+u*u*u*X1,v*v*v*Y0+3*v*v*u*c1y+3*v*u*u*c2y+u*u*u*Y1]};
+    if(dr<=0)continue;x.strokeStyle=INK;x.lineWidth=2;x.lineCap='round';x.beginPath();for(let u=0;u<=dr+1e-6;u+=.02){const q=bz(Math.min(u,dr));u?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1])}x.stroke();
+    if(dr<1){const q=bz(dr);x.fillStyle=rgb(A);x.beginPath();x.arc(q[0],q[1],4.5,0,7);x.fill()}}
+  P.forEach((q,i)=>{if(q.p<=0)return;const last=i===2;x.save();x.translate(q.x,q.y);x.scale(q.p,q.p);x.fillStyle=last?rgb(A):INK;rr(x,-q.w/2,-ph/2,q.w,ph,ph/2);
+    x.fillStyle=last?'#fff':rgb(A);x.beginPath();x.arc(-q.w/2+ph*.5,0,ph*.15,0,7);x.fill();
+    x.fillStyle=last?'#fff':CR;x.font=`700 ${fs}px "Noto Sans TC",sans-serif`;x.textAlign='left';x.textBaseline='middle';x.fillText(q.s,-q.w/2+ph*.85,1);x.restore()});
+  x.globalAlpha=1},
+cmb_launch(x,w,h,t,st,c,d){LY(x,w,h,t,st,'a','starfield',d,1,'source-over');LY(x,w,h,t,st,'b','perspgrid',d,.55);LY(x,w,h,t,st,'c','scramble',d,1);GRV(x,w,h,t,.05,.5)},
+cmb_platform(x,w,h,t,st,c,d){LY(x,w,h,t,st,'a','perspgrid',d,.5,'source-over');LY(x,w,h,t,st,'b','carousel',d,.85);LY(x,w,h,t,st,'c','beatslam',d,1);GRV(x,w,h,t,.04,.45)},
+cmb_globe(x,w,h,t,st,c,d){LY(x,w,h,t,st,'a','aurora',d,.55,'source-over');LY(x,w,h,t,st,'b','sphere',d,.45);LY(x,w,h,t,st,'c','wireglobe',d,1);GRV(x,w,h,t,.03,.5)},
+cmb_ai(x,w,h,t,st,c,d){LY(x,w,h,t,st,'a','neural',d,.55,'source-over');LY(x,w,h,t,st,'b','ascii',d,.35);LY(x,w,h,t,st,'c','typewriter',d,1)},
+cmb_milestone(x,w,h,t,st,c,d){LY(x,w,h,t,st,'a','grid',d,.3,'source-over');LY(x,w,h,t,st,'b','burst',d,.55);LY(x,w,h,t,st,'c','odometer',d,1);GRV(x,w,h,t,.03,.4)},
+cmb_podcast(x,w,h,t,st,c,d){LY(x,w,h,t,st,'a','aurora',d,.5,'source-over');LY(x,w,h,t,st,'b','audio',d,.6);LY(x,w,h,t,st,'c','karaoke',d,1)},
+cmb_luxury(x,w,h,t,st,c,d){LY(x,w,h,t,st,'a','blob',d,.35,'source-over');LY(x,w,h,t,st,'b','maskrise',d,1);LY(x,w,h,t,st,'c','bokeh',d,.45,'screen');GRV(x,w,h,t,.05,.6)},
+cmb_social(x,w,h,t,st,c,d){LY(x,w,h,t,st,'a','plexus',d,.4,'source-over');LY(x,w,h,t,st,'b','heroorbit',d,1);LY(x,w,h,t,st,'c','notify',d,.55,'lighten')},
+cmb_retro(x,w,h,t,st,c,d){LY(x,w,h,t,st,'a','perspgrid',d,1,'source-over');LY(x,w,h,t,st,'b','glitch',d,.95);GRV(x,w,h,t,.08,.6);x.fillStyle='rgba(0,0,0,.18)';for(let Yp=0;Yp<h;Yp+=3)x.fillRect(0,Yp,w,1)},
+cmb_finance(x,w,h,t,st,c,d){LY(x,w,h,t,st,'a','plexus',d,.3,'source-over');LY(x,w,h,t,st,'b','candle',d,1);LY(x,w,h,t,st,'c','hud',d,.6)},
+cmb_journey(x,w,h,t,st,c,d){LY(x,w,h,t,st,'a','ripple',d,.35,'source-over');LY(x,w,h,t,st,'b','routemap',d,1);LY(x,w,h,t,st,'c','bokeh',d,.3,'screen')},
+cmb_recap(x,w,h,t,st,c,d){LY(x,w,h,t,st,'a','mosaic',d,1,'source-over');LY(x,w,h,t,st,'b','confetti',d,.9);GRV(x,w,h,t,.03,.4)},
+cmb_hook(x,w,h,t,st,c,d){LY(x,w,h,t,st,'a','tunnel',d,.7,'source-over');LY(x,w,h,t,st,'b','speedlines',d,.18,'screen');LY(x,w,h,t,st,'c','camshake',d,1)},
+cmb_cozy(x,w,h,t,st,c,d){LY(x,w,h,t,st,'a','kenburns',d,1,'source-over');LY(x,w,h,t,st,'b','snow',d,.5,'screen');LY(x,w,h,t,st,'c','bokeh',d,.3,'screen');GRV(x,w,h,t,.05,.5)},
+kpitrend(x,w,h,t){uiBg(x,w,h);const tt=t%5,cw=w*.62,ch=h*.78,X=w/2-cw/2,Yp=h*.11;uiCard(x,X,Yp,cw,ch,16);uiText(x,'Weekly sign-ups',X+cw*.07,Yp+ch*.1,h*.05,'#5B6274',600,'left');
+  const v=Math.round(200*eOC(cl(tt/1.8)));x.fillStyle='#DDF5E6';rr(x,X+cw*.07,Yp+ch*.18,cw*.42,ch*.16,ch*.08);uiText(x,'+'+v+'%',X+cw*.28,Yp+ch*.26,ch*.11,'#167A3E',800);
+  const n=7,bx=X+cw*.07,bw=cw*.86/n,base=Yp+ch*.9,mh=ch*.46;for(let i=0;i<n;i++){const p=eOB(cl((tt-.3-i*.12)/.6)),hh=mh*(.2+.8*i/(n-1))*p,g=x.createLinearGradient(0,base-hh,0,base);g.addColorStop(0,'#5B8CFF');g.addColorStop(1,UI_B);x.fillStyle=g;rr(x,bx+i*bw+bw*.12,base-hh,bw*.76,hh,5)}
+  const lp=cl((tt-1.2)/1.2);x.strokeStyle=UI_G;x.lineWidth=3;x.lineCap='round';x.beginPath();for(let i=0;i<n;i++){if(i/(n-1)>lp)break;const px=bx+i*bw+bw/2,py=base-mh*(.2+.8*i/(n-1))-9;i?x.lineTo(px,py):x.moveTo(px,py)}x.stroke();x.lineCap='butt'},
+pricetoggle(x,w,h,t){uiBg(x,w,h);const tt=t%5,sw=eIO(cl((tt-1.2)/.5))-eIO(cl((tt-3.6)/.5)),cw=w*.5,ch=h*.74,X=w/2-cw/2,Yp=h*.13;uiCard(x,X,Yp,cw,ch,18);
+  const tw=cw*.72,tx=w/2-tw/2,ty=Yp+ch*.1,th=ch*.13;x.fillStyle='#E6E9F2';rr(x,tx,ty,tw,th,th/2);x.save();x.shadowColor='rgba(0,0,0,.2)';x.shadowBlur=6;x.fillStyle='#fff';rr(x,tx+3+(tw/2-3)*sw,ty+3,tw/2-3,th-6,(th-6)/2);x.restore();
+  uiText(x,'Monthly',tx+tw*.25,ty+th/2,th*.4,sw<.5?UI_INK:'#8A91A4',700);uiText(x,'Yearly',tx+tw*.75,ty+th/2,th*.4,sw>.5?UI_INK:'#8A91A4',700);
+  uiText(x,'Pro',w/2,Yp+ch*.42,h*.055,'#5B6274',700);uiText(x,'$'+Math.round(29+261*sw),w/2,Yp+ch*.64,h*.17,UI_INK,800);
+  x.globalAlpha=cl(sw);x.fillStyle='#DDF5E6';rr(x,w/2-cw*.26,Yp+ch*.8,cw*.52,ch*.11,ch*.055);uiText(x,'2 months free',w/2,Yp+ch*.855,ch*.055,'#167A3E',700);x.globalAlpha=1},
+island(x,w,h,t){uiBg(x,w,h);const pw=w*.34,ph=h*.92,X=w/2-pw/2,Yp=h*.04;x.fillStyle='#D9DDE8';rr(x,X,Yp,pw,ph,pw*.14);const g=x.createLinearGradient(X,Yp,X+pw,Yp+ph);g.addColorStop(0,'#FFD9C9');g.addColorStop(.5,'#E4D8FF');g.addColorStop(1,'#CFE0FF');x.fillStyle=g;rr(x,X+4,Yp+4,pw-8,ph-8,pw*.12);
+  const tt=t%5,e=Math.max(0,eOB(cl((tt-.6)/.6))-eIO(cl((tt-3.6)/.5))),iw=pw*(.28+.5*e),ih=ph*(.045+.12*e),ix=w/2-iw/2,iy=Yp+ph*.03;x.fillStyle='#000';rr(x,ix,iy,iw,ih,Math.min(iw,ih)/2);
+  if(e>.6){x.globalAlpha=cl((e-.6)/.4);x.fillStyle='#FF3B30';x.beginPath();x.arc(ix+iw*.13,iy+ih*.36,ih*.09*(1+.3*Math.sin(t*8)),0,7);x.fill();uiText(x,'LIVE',w/2,iy+ih*.36,ih*.3,'#fff',800);uiText(x,'Webinar starts now',w/2,iy+ih*.74,ih*.12,'rgba(255,255,255,.7)',500);x.globalAlpha=1}
+  [UI_B,'#2A2F3B','#FFC857','#FF6A4D'].forEach((c,k)=>{x.fillStyle=c;rr(x,X+pw*(.1+k*.22),Yp+ph*.84,pw*.18,pw*.18,pw*.045)})},
+particlefunnel(x,w,h,t){uiBg(x,w,h);const cx=w/2,top=h*.1,neck=h*.5,bot=h*.64,fw=w*.34,nw=w*.035,tt=t%5;x.fillStyle='rgba(59,107,255,.10)';x.beginPath();x.moveTo(cx-fw,top);x.lineTo(cx+fw,top);x.lineTo(cx+nw,neck);x.lineTo(cx+nw,bot);x.lineTo(cx-nw,bot);x.lineTo(cx-nw,neck);x.closePath();x.fill();
+  for(let i=0;i<110;i++){const ph=(t*.45+rnd(i))%1,yy=top+(bot-top)*ph,u=cl((yy-top)/(neck-top)),half=fw*(1-u)+nw*u,xx=cx+(rnd(i+9)-.5)*1.9*half;x.fillStyle=UI_B;x.globalAlpha=.35+.65*rnd(i+5);x.beginPath();x.arc(xx,yy,1.4+1.4*rnd(i+3),0,7);x.fill()}x.globalAlpha=1;
+  const v=Math.round(600*eOC(cl(tt/3.5)));uiCard(x,cx-w*.15,h*.72,w*.3,h*.2,12);uiText(x,String(v),cx-w*.035,h*.82,h*.1,UI_INK,800);uiText(x,'sales',cx+w*.085,h*.84,h*.045,'#8A91A4',600)},
+buttondone(x,w,h,t){uiBg(x,w,h);const tt=t%4,s=h/190,H0=h*.2,W0=w*.34,p=eIO(cl((tt-1.25)/.45))*(1-eIO(cl((tt-3.4)/.4))),bw=W0+(H0*1.05-W0)*p,press=(tt>1.05&&tt<1.3)?.94:1;
+  x.save();x.translate(w/2,h/2);x.scale(press,press);x.shadowColor=p>.5?'rgba(45,190,96,.45)':'rgba(59,107,255,.45)';x.shadowBlur=18;x.shadowOffsetY=8;x.fillStyle=p>.5?UI_G:UI_B;rr(x,-bw/2,-H0/2,bw,H0,H0/2);x.restore();
+  if(p<.5){x.globalAlpha=1-p*2;uiText(x,'Publish',w/2,h/2,H0*.4,'#fff',700);x.globalAlpha=1}else{const c=cl((tt-1.6)/.4),X=w/2-H0*.2;x.strokeStyle='#fff';x.lineWidth=H0*.09;x.lineCap='round';x.lineJoin='round';x.beginPath();x.moveTo(X,h/2);x.lineTo(X+H0*.14*Math.min(1,c*2),h/2+H0*.14*Math.min(1,c*2));if(c>.5)x.lineTo(X+H0*.14+H0*.3*(c-.5)*2,h/2+H0*.14-H0*.34*(c-.5)*2);x.stroke();x.lineCap='butt'}
+  const q=cl((tt-1.7)/.8);if(q>0&&q<1){x.strokeStyle=`rgba(45,190,96,${1-q})`;x.lineWidth=3;x.beginPath();x.arc(w/2,h/2,H0*.55+q*H0*.8,0,7);x.stroke()}
+  const cp=eIO(cl(tt/1.0));if(tt<2.4)uiCursor(x,w*.78+(w/2+W0*.2-w*.78)*cp,h*.85+(h/2+H0*.15-h*.85)*cp,s)},
+paybutton(x,w,h,t){uiBg(x,w,h);const tt=t%5,H0=h*.2,W0=w*.42,a=eIO(cl((tt-1.3)/.4)),b=eIO(cl((tt-2.7)/.4)),k=a-b,bw=W0+(H0-W0)*k,al=Math.min(cl(tt/.3),1-cl((tt-4.4)/.3)),press=(tt>1.1&&tt<1.35)?.95:1;
+  x.globalAlpha=al;x.save();x.translate(w/2,h/2);x.scale(press,press);x.shadowColor='rgba(80,70,220,.4)';x.shadowBlur=18;x.shadowOffsetY=8;x.fillStyle=b>.5?UI_G:'#5B4BFF';rr(x,-bw/2,-H0/2,bw,H0,H0/2);x.restore();
+  if(k<.25&&b<.5){x.globalAlpha=al*(1-k*4);uiText(x,'Pay $48.00',w/2,h/2,H0*.36,'#fff',700);x.globalAlpha=al}else if(tt<2.7&&k>.75){x.strokeStyle='#fff';x.lineWidth=H0*.08;x.lineCap='round';x.beginPath();x.arc(w/2,h/2,H0*.25,t*7,t*7+4.2);x.stroke();x.lineCap='butt'}
+  if(b>.5){const c=cl((tt-3.0)/.4),X=w/2-W0*.2;x.strokeStyle='#fff';x.lineWidth=H0*.08;x.lineCap='round';x.lineJoin='round';x.beginPath();x.moveTo(X,h/2);x.lineTo(X+H0*.12*Math.min(1,c*2),h/2+H0*.12*Math.min(1,c*2));if(c>.5)x.lineTo(X+H0*.12+H0*.26*(c-.5)*2,h/2+H0*.12-H0*.3*(c-.5)*2);x.stroke();x.lineCap='butt';uiText(x,'Paid',w/2+W0*.08,h/2,H0*.4,'#fff',700)}
+  if(tt<1.3){const q=eIO(cl(tt/1));uiCursor(x,w*.75+(w*.55-w*.75)*q,h*.85+(h*.55-h*.85)*q,h/190)}x.globalAlpha=1},
+sketchapp(x,w,h,t){uiBg(x,w,h);const tt=t%6,p=eIO(cl((tt-.9)/1.6))*(1-eIO(cl((tt-4.8)/.8))),pw=w*.34,ph=h*.9,X=w/2-pw/2,Yp=h*.05,R=pw*.27,cx=w/2,cy=Yp+ph*.4;
+  const sr=(a,b,c,d,r)=>{x.beginPath();x.roundRect?x.roundRect(a,b,c,d,r):x.rect(a,b,c,d);x.stroke()};
+  x.save();x.globalAlpha=Math.max(0,1-p*.9);x.strokeStyle='#8A91A4';x.lineWidth=1.4;x.setLineDash([5,4]);sr(X,Yp,pw,ph,pw*.12);sr(X+pw*.1,Yp+ph*.07,pw*.5,ph*.04,3);x.beginPath();x.arc(cx,cy,R,0,7);x.stroke();sr(X+pw*.1,Yp+ph*.66,pw*.38,ph*.2,8);sr(X+pw*.52,Yp+ph*.66,pw*.38,ph*.2,8);x.restore();
+  x.save();x.globalAlpha=p;uiCard(x,X,Yp,pw,ph,pw*.12);uiText(x,'Daily Focus',X+pw*.1,Yp+ph*.09,ph*.045,UI_INK,700,'left');x.lineWidth=R*.18;x.strokeStyle='#E3E8F5';x.beginPath();x.arc(cx,cy,R,0,7);x.stroke();x.strokeStyle=UI_B;x.lineCap='round';x.beginPath();x.arc(cx,cy,R,-Math.PI/2,-Math.PI/2+Math.PI*2*.86*p);x.stroke();x.lineCap='butt';uiText(x,Math.round(86*p)+'%',cx,cy,R*.5,UI_INK,800);
+  [['Sleep','3h 40m'],['Streak','12']].forEach(([a,b],i)=>{const bx=X+pw*(.1+i*.42),by=Yp+ph*.66;x.fillStyle='#F2F4FA';rr(x,bx,by,pw*.38,ph*.2,8);uiText(x,a,bx+pw*.04,by+ph*.06,ph*.032,'#8A91A4',600,'left');uiText(x,b,bx+pw*.04,by+ph*.14,ph*.065,UI_INK,800,'left')});x.restore()},
+calendardrag(x,w,h,t){uiBg(x,w,h);const tt=t%6,cw=w*.62,ch=h*.84,X=w/2-cw/2,Yp=h*.08;uiCard(x,X,Yp,cw,ch,14);const c0=X+cw*.18,colw=cw*.38;
+  uiText(x,'Mon',c0+colw*.05,Yp+ch*.1,ch*.045,'#8A91A4',600,'left');uiText(x,'16',c0+colw*.3,Yp+ch*.1,ch*.09,UI_INK,800,'left');uiText(x,'Tue',c0+colw+colw*.05,Yp+ch*.1,ch*.045,'#8A91A4',600,'left');uiText(x,'17',c0+colw+colw*.3,Yp+ch*.1,ch*.09,'#8A91A4',800,'left');
+  x.strokeStyle='#E6E9F2';x.lineWidth=1;for(let i=0;i<5;i++){const yy=Yp+ch*(.24+i*.15);x.beginPath();x.moveTo(X+cw*.05,yy);x.lineTo(X+cw*.95,yy);x.stroke();uiText(x,(9+i)+':00',X+cw*.05,yy+ch*.035,ch*.035,'#A0A7BA',500,'left')}
+  const d=eIO(cl((tt-1.3)/1.2))*(1-eIO(cl((tt-4.8)/.8))),bw=colw*.9,bh=ch*.13,bx=c0+colw*.02+colw*d,by=Yp+ch*(.27+.3*d),booked=tt>2.6&&tt<4.9,mv=d>0&&d<1;
+  x.save();x.shadowColor='rgba(120,80,220,.35)';x.shadowBlur=mv?14:6;x.shadowOffsetY=mv?8:2;x.fillStyle=booked?UI_G:'#8B5CF6';rr(x,bx,by,bw,bh,8);x.restore();uiText(x,booked?'Booked ✓':'Call with Sam',bx+bw*.08,by+bh/2,bh*.36,'#fff',700,'left');
+  if(tt<3.2){const q=eIO(cl(tt/1.3)),px=tt<1.3?w*.9+(c0+colw*.5-w*.9)*q:bx+bw*.5,py=tt<1.3?h*.95+(Yp+ch*.33-h*.95)*q:by+bh*.5;uiCursor(x,px,py,h/190)}},
+ringclose(x,w,h,t){uiBg(x,w,h);const tt=t%5,cx=w/2,cy=h/2,R=h*.3,p=eOC(cl((tt-.3)/2.2)),done=cl((tt-2.5)/.4),Lw=R*.28;x.lineWidth=Lw;x.strokeStyle='#D8F0E0';x.beginPath();x.arc(cx,cy,R,0,7);x.stroke();
+  x.strokeStyle=UI_G;x.lineCap='round';x.beginPath();x.arc(cx,cy,R,-Math.PI/2,-Math.PI/2+Math.PI*2*p);x.stroke();x.lineCap='butt';
+  if(done>0){const e=eOB(done),f=Math.min(1,e);x.fillStyle=UI_G;x.beginPath();x.arc(cx,cy,(R-Lw*.5)*f,0,7);x.fill();uiText(x,'Goal',cx,cy-R*.14,R*.34*f,'#fff',800);uiText(x,'hit',cx,cy+R*.22,R*.34*f,'#fff',800);
+    const q=eOC(cl((tt-2.5)/1));for(let i=0;i<10;i++){const a=i/10*Math.PI*2,dd=R*(1.25+.5*q);x.fillStyle=`rgba(45,190,96,${1-q})`;x.beginPath();x.arc(cx+Math.cos(a)*dd,cy+Math.sin(a)*dd,3*(1-q)+1,0,7);x.fill()}}else uiText(x,Math.round(p*100)+'%',cx,cy,R*.5,UI_INK,800)},
+dockmagnify(x,w,h,t){uiBg(x,w,h);const tt=t%6,n=7,s0=h*.1,gap=s0*.28,mx=w*(.5+.27*Math.sin(t*.9)),C=['#FF6A4D','#2A2F3B','#FFC857','#3B6BFF','#2DBE60','#8B5CF6','#E1306C'],base=[];let acc=0;for(let i=0;i<n;i++){base.push(acc+s0/2);acc+=s0+gap}
+  const tot0=acc-gap,bx0=w/2-tot0/2,sizes=base.map(b=>s0*(1+.85*Math.exp(-Math.pow((bx0+b-mx)/(w*.08),2)))),tot=sizes.reduce((a,b)=>a+b+gap,-gap),by=h*.9;let X=w/2-tot/2;
+  x.save();x.shadowColor='rgba(40,50,90,.2)';x.shadowBlur=18;x.fillStyle='rgba(255,255,255,.78)';rr(x,w/2-tot/2-10,by-s0*1.9-6,tot+20,s0*1.9+16,14);x.restore();
+  sizes.forEach((sz,i)=>{const bn=(i===3&&tt>2.2&&tt<3.2)?-Math.abs(Math.sin((tt-2.2)*Math.PI*2))*s0*.6:0;x.fillStyle=C[i];rr(x,X,by-sz+bn,sz,sz,sz*.25);x.fillStyle='rgba(255,255,255,.85)';x.beginPath();x.arc(X+sz/2,by-sz/2+bn,sz*.18,0,7);x.fill();X+=sz+gap});
+  const wp=Math.max(0,eOB(cl((tt-3.2)/.5))-eIO(cl((tt-5.3)/.5)));if(wp>.02){const ww=w*.4,wh=h*.42,wx=w/2,wy=h*.12;x.save();x.translate(wx,h*.82);x.scale(wp,wp);x.translate(-wx,-h*.82);uiCard(x,wx-ww/2,wy,ww,wh,12);uiText(x,'Campaign report',wx-ww*.44,wy+wh*.14,wh*.08,'#5B6274',700,'left');uiText(x,'+37%',wx-ww*.44,wy+wh*.42,wh*.22,UI_G,800,'left');x.restore()}},
+product360(x,w,h,t){uiBg(x,w,h);const tt=t%6,cx=w*.35,cy=h*.5,R=h*.26,a=t*1.1,c=Math.cos(a),s=Math.sin(a);x.fillStyle='rgba(40,50,90,.12)';x.beginPath();x.ellipse(cx,cy+R*1.15,R*(.6+.3*Math.abs(c)),R*.12,0,0,7);x.fill();
+  x.strokeStyle=UI_B;x.lineWidth=R*.14;x.lineCap='round';x.beginPath();x.ellipse(cx,cy-R*.1,Math.max(.5,R*Math.abs(c)*.95),R*.9,0,Math.PI,Math.PI*2);x.stroke();x.lineCap='butt';
+  const cup=(X,fr)=>{const wd=R*(.2+.32*Math.abs(s)),hh=R*.72;x.fillStyle=fr?'#2F5BFF':'#7E9BFF';rr(x,X-wd/2,cy-hh*.1,wd,hh,wd*.5);x.fillStyle='rgba(255,255,255,.25)';rr(x,X-wd*.3,cy+hh*.05,wd*.35,hh*.5,wd*.15)},X1=cx-R*c*.95,X2=cx+R*c*.95;if(s>0){cup(X1,false);cup(X2,true)}else{cup(X2,false);cup(X1,true)}
+  ['主動降噪','40 小時續航','空間音訊'].forEach((s_,i)=>{const p=eOC(cl((tt-1-i*.7)/.5));if(p<=0)return;const X=w*.62+(1-p)*20,Yp=h*.32+i*h*.17;x.globalAlpha=p;uiCard(x,X,Yp-h*.06,w*.32,h*.12,10);x.fillStyle=UI_G;x.beginPath();x.arc(X+w*.03,Yp,h*.03,0,7);x.fill();uiText(x,'✓',X+w*.03,Yp,h*.035,'#fff',800);uiText(x,s_,X+w*.065,Yp,h*.045,UI_INK,700,'left');x.globalAlpha=1});
+  uiText(x,'$129',cx,h*.9,h*.07,UI_INK,800)},
+buttonplayer(x,w,h,t){x.fillStyle='#F2EFE8';x.fillRect(0,0,w,h);const tt=t%5,m=Math.max(0,Math.min(1.08,eOB(cl((tt-1)/.6))-eIO(cl((tt-4.1)/.5)))),W0=w*.22,H0=h*.14,W1=w*.62,H1=h*.46,bw=W0+(W1-W0)*m,bh=H0+(H1-H0)*m,X=w/2-bw/2,Yp=h/2-bh/2;
+  x.save();x.shadowColor='rgba(0,0,0,.25)';x.shadowBlur=18;x.shadowOffsetY=8;x.fillStyle='#161922';rr(x,X,Yp,bw,bh,Math.min(bh/2,H0/2+(14-H0/2)*m));x.restore();
+  if(m<.35){x.globalAlpha=1-m*2.8;x.fillStyle='#fff';x.beginPath();x.moveTo(X+bw*.2,h/2-H0*.22);x.lineTo(X+bw*.2,h/2+H0*.22);x.lineTo(X+bw*.2+H0*.38,h/2);x.fill();uiText(x,'Preview',X+bw*.42,h/2,H0*.34,'#fff',700,'left');x.globalAlpha=1}
+  else{const a=cl((m-.45)/.5),pr=cl((tt-1.8)/2.2);x.globalAlpha=a;uiText(x,'Summer reel',X+bw*.06,Yp+bh*.16,bh*.09,'#fff',700,'left');for(let i=0;i<32;i++){const bx=X+bw*.06+i*bw*.88/32,amp=(.25+.75*Math.abs(Math.sin(i*.8+t*4)))*bh*.2;x.fillStyle=i/32<pr?rgb(A):'rgba(255,255,255,.28)';x.fillRect(bx,Yp+bh*.52-amp/2,bw*.015,amp)}
+    x.fillStyle='rgba(255,255,255,.2)';rr(x,X+bw*.06,Yp+bh*.8,bw*.88,4,2);x.fillStyle=rgb(A);rr(x,X+bw*.06,Yp+bh*.8,bw*.88*pr,4,2);x.fillStyle='#fff';x.beginPath();x.arc(X+bw*.06+bw*.88*pr,Yp+bh*.8+2,6,0,7);x.fill();x.globalAlpha=1}},
+cardexpand(x,w,h,t){uiBg(x,w,h);const tt=t%5,e=eIO(cl((tt-1)/.8))-eIO(cl((tt-4)/.7)),W0=w*.2,H0=h*.22,W1=w*.8,H1=h*.82,bw=W0+(W1-W0)*e,bh=H0+(H1-H0)*e,X=w/2-bw/2,Yp=h/2-bh/2;uiCard(x,X,Yp,bw,bh,10+8*e);
+  if(e<.25){x.globalAlpha=1-e*4;uiText(x,'Q3 brief',X+bw*.12,Yp+bh*.35,bh*.2,UI_INK,700,'left');x.fillStyle='#E6E9F2';rr(x,X+bw*.12,Yp+bh*.6,bw*.6,bh*.07,3);x.globalAlpha=1}
+  else{const a=cl((e-.5)/.5);x.globalAlpha=a;x.fillStyle='#F2F4FA';rr(x,X+4,Yp+4,bw*.2,bh-8,12);for(let i=0;i<4;i++){x.fillStyle=i==0?UI_B:'#D5DAE8';rr(x,X+bw*.04,Yp+bh*(.12+i*.1),bw*.12,bh*.045,4)}
+    uiText(x,'Q3 brief',X+bw*.26,Yp+bh*.12,bh*.07,UI_INK,800,'left');for(let i=0;i<5;i++){x.fillStyle='#E6E9F2';rr(x,X+bw*.26,Yp+bh*(.24+i*.09),bw*(.62-.08*(i%3)),bh*.04,3)}x.fillStyle=UI_B;rr(x,X+bw*.26,Yp+bh*.74,bw*.18,bh*.09,8);uiText(x,'Open',X+bw*.35,Yp+bh*.785,bh*.04,'#fff',700);x.globalAlpha=1}},
+tabspanels(x,w,h,t){uiBg(x,w,h);const T=1.8,k=Math.floor(t/T),i0=k%3,i1=(k+1)%3,p=eIO(cl((t%T-1.1)/.5)),cw=w*.64,ch=h*.84,X=w/2-cw/2,Yp=h*.08;uiCard(x,X,Yp,cw,ch,14);const tabs=['Reels','Posts','Email'],tw=cw*.26,tx=X+cw*.05,ty=Yp+ch*.07,th=ch*.1,ai=i0+(i1-i0)*p;
+  x.fillStyle='#F0F2F8';rr(x,tx,ty,tw*3+8,th,th/2);x.fillStyle='#161922';rr(x,tx+tw*ai+2,ty+2,tw,th-4,(th-4)/2);tabs.forEach((s,i)=>uiText(x,s,tx+tw*i+tw/2+2,ty+th/2,th*.38,Math.abs(i-ai)<.5?'#fff':'#5B6274',700));
+  const N=[['Launch teaser','Spring kit','Welcome mail'],['Studio tour','Studio shoot','Weekly digest'],['Tool tip','Behind scenes','Promo blast']],V=['21k','14k','9.6k'],CL=['#9DD7FF','#FF9D88','#161922'];
+  [[i0,1-p,-1],[i1,p,1]].forEach(([ti,al,sg])=>{if(al<=.01)return;x.save();x.globalAlpha=al;x.translate(sg*(1-al)*cw*.08,0);for(let r=0;r<3;r++){const ry=Yp+ch*(.28+r*.22);x.fillStyle=CL[r];rr(x,X+cw*.07,ry,ch*.14,ch*.14,6);uiText(x,N[r][ti],X+cw*.07+ch*.2,ry+ch*.04,ch*.055,UI_INK,700,'left');uiText(x,V[r],X+cw*.93,ry+ch*.07,ch*.055,'#8A91A4',700,'right')}x.restore()})},
+chartmorph(x,w,h,t){uiBg(x,w,h);const tt=t%5.2,m=eIO(cl((tt-1.1)/1.1))-eIO(cl((tt-3.6)/1.1)),cw=w*.7,ch=h*.78,X=w/2-cw/2,Yp=h*.11;uiCard(x,X,Yp,cw,ch,14);uiText(x,'Weekly reach',X+cw*.06,Yp+ch*.1,ch*.055,'#5B6274',700,'left');
+  const V=[.35,.5,.42,.68,.6,.82,.95],n=7,bx=X+cw*.08,bw=cw*.84/n,base=Yp+ch*.86,mh=ch*.55,P=V.map((v,i)=>[bx+i*bw+bw/2,base-v*mh]);
+  if(m>.02){x.save();x.globalAlpha=m;const g=x.createLinearGradient(0,Yp+ch*.3,0,base);g.addColorStop(0,'rgba(59,107,255,.28)');g.addColorStop(1,'rgba(59,107,255,0)');x.fillStyle=g;x.beginPath();x.moveTo(P[0][0],base);P.forEach(p=>x.lineTo(p[0],p[1]));x.lineTo(P[n-1][0],base);x.closePath();x.fill();x.strokeStyle=UI_B;x.lineWidth=3;x.lineJoin='round';x.beginPath();P.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]));x.stroke();x.restore()}
+  const r=5;for(let i=0;i<n;i++){const wd=bw*.62*(1-m)+2*r*m,hh=(base-P[i][1])*(1-m)+2*r*m,ty=P[i][1]-r*m;x.fillStyle=i===n-1?rgb(A):UI_B;rr(x,P[i][0]-wd/2,ty,wd,hh,wd/2*m+4*(1-m))}},
+dashzoom(x,w,h,t){uiBg(x,w,h);const tt=t%6,z=eIO(cl((tt-1)/.9))-eIO(cl((tt-3.8)/.9)),s=1+1.35*z,T4=[['Open rate','48%'],['Click rate','6.2%'],['Replies','31'],['Revenue','$4.2k']],tw=w*.3,th=h*.3,gx=w*.03,gy=h*.04,X0=w/2-tw-gx/2,Y0=h/2-th-gy/2,fi=1,fx=X0+(fi%2)*(tw+gx)+tw/2,fy=Y0+Math.floor(fi/2)*(th+gy)+th/2,qx=w/2+(fx-w/2)*z,qy=h/2+(fy-h/2)*z;
+  x.save();x.translate(w/2-s*qx,h/2-s*qy);x.scale(s,s);T4.forEach(([a,b],i)=>{const X=X0+(i%2)*(tw+gx),Yp=Y0+Math.floor(i/2)*(th+gy),hl=i===fi;x.globalAlpha=hl?1:1-.55*z;uiCard(x,X,Yp,tw,th,10);uiText(x,a,X+tw*.08,Yp+th*.25,th*.13,'#8A91A4',600,'left');uiText(x,b,X+tw*.08,Yp+th*.62,th*.3,hl&&z>.5?UI_G:UI_INK,800,'left');
+    if(hl&&z>.3){x.strokeStyle=`rgba(59,107,255,${z})`;x.lineWidth=2/s;x.beginPath();x.roundRect?x.roundRect(X,Yp,tw,th,10):x.rect(X,Yp,tw,th);x.stroke()}});x.globalAlpha=1;x.restore()},
+springstack(x,w,h,t){uiBg(x,w,h);const tt=t%5,cw=w*.26,ch=h*.5,C=['#FFD9C9','#CFE0FF','#fff'],ang=[-.22,.18,-.02],dx=[-w*.2,w*.2,0];
+  [0,1,2].forEach(i=>{const p=eOB(cl((tt-.5-i*.18)/.7))-eIO(cl((tt-3.8-(2-i)*.1)/.6)),px=w/2+dx[i]*p,py=h/2,a=ang[i]*p;x.save();x.translate(px,py);x.rotate(a);x.shadowColor='rgba(40,50,90,.22)';x.shadowBlur=18;x.shadowOffsetY=8;x.fillStyle=C[i];rr(x,-cw/2,-ch/2,cw,ch,14);x.restore();
+    if(i===2){x.save();x.translate(px,py);x.rotate(a);x.fillStyle=rgb(A);x.beginPath();x.arc(0,-ch*.12,cw*.26,0,7);x.fill();uiText(x,'Summer kit',0,ch*.2,ch*.07,UI_INK,800);uiText(x,'$24',-cw*.2,ch*.35,ch*.09,UI_INK,800);x.fillStyle=UI_INK;x.beginPath();x.arc(cw*.28,ch*.35,ch*.065,0,7);x.fill();uiText(x,'✓',cw*.28,ch*.35,ch*.07,'#fff',800);x.restore()}})},
+elastictype(x,w,h,t){clear(x,w,h);const k=.5+.5*Math.sin(t*1.1-1.2),sx=.7+.9*k,S_='STRETCH',n=S_.length,fs=Math.min(h*.3,w*.1),wt=[300,400,500,600,700,800,900][Math.round(k*6)];x.textBaseline='middle';x.textAlign='center';x.font=`${wt} ${fs}px Unbounded,sans-serif`;
+  let tw=0;const ws=[];for(let i=0;i<n;i++){const cw=x.measureText(S_[i]).width*sx;ws.push(cw);tw+=cw}let X=(w-tw)/2;for(let i=0;i<n;i++){x.save();x.translate(X+ws[i]/2,h*.42);x.scale(sx,1);x.fillStyle=i===2?rgb(A):FG;x.fillText(S_[i],0,0);x.restore();X+=ws[i]}
+  const tx=w*.2,tw2=w*.6,ty=h*.78;x.fillStyle='#2A3040';rr(x,tx,ty-2,tw2,4,2);x.fillStyle=rgb(A);rr(x,tx,ty-2,tw2*k,4,2);x.fillStyle='#fff';x.beginPath();x.arc(tx+tw2*k,ty,9,0,7);x.fill();uiText(x,'wdth '+Math.round(70+90*k)+'  wght '+wt,w/2,h*.9,h*.05,'rgba(237,239,245,.7)',500)},
+textlayout(x,w,h,t){uiBg(x,w,h);const tt=t%5.5,W_=['Design','that','moves','people'],e=eIO(cl((tt-1.4)/1.1))-eIO(cl((tt-4.3)/.9)),fs=h*.095,S=[[w*.19,h*.5],[w*.4,h*.5],[w*.59,h*.5],[w*.82,h*.5]],E=[[w*.2,h*.2],[w*.21,h*.56],[w*.5,h*.56],[w*.79,h*.56]];
+  x.globalAlpha=e;uiCard(x,w*.08,h*.1,w*.84,h*.2,12);for(let i=0;i<3;i++){uiCard(x,w*.08+i*w*.29,h*.4,w*.26,h*.5,12);x.fillStyle='#E6E9F2';rr(x,w*.1+i*w*.29,h*.66,w*.2,h*.03,3);rr(x,w*.1+i*w*.29,h*.73,w*.14,h*.03,3)}x.globalAlpha=1;
+  W_.forEach((s,i)=>{const p=cl(e*1.2-i*.05),X=S[i][0]+(E[i][0]-S[i][0])*p,Yp=S[i][1]+(E[i][1]-S[i][1])*p;uiText(x,s,X,Yp,fs*(1-.3*p),i===2?'#E2492F':UI_INK,800)})},
+curtainreveal(x,w,h,t,st,c,d){const o=off(st,w,h,d),g=o.createLinearGradient(0,0,0,h);g.addColorStop(0,'#F6B26B');g.addColorStop(.55,'#C0577A');g.addColorStop(1,'#2B1E3F');o.fillStyle=g;o.fillRect(0,0,w,h);o.fillStyle='rgba(255,236,190,.95)';o.beginPath();o.arc(w*.5,h*.45,h*.16,0,7);o.fill();
+  [['#3A2850',.64],['#22183A',.78],['#120C22',.9]].forEach(([col,b],k)=>{o.fillStyle=col;o.beginPath();o.moveTo(0,h);for(let X=0;X<=w;X+=8)o.lineTo(X,h*b-Math.sin(X*.02+k*2)*h*.05-Math.sin(X*.007+k)*h*.07);o.lineTo(w,h);o.fill()});
+  clear(x,w,h);const tt=t%5,N=12,cw=w/N;for(let i=0;i<N;i++){const p=eOC(cl((tt-.3-i*.07)/.7))*(1-eIO(cl((tt-4-i*.04)/.6)));x.fillStyle='#1B2030';x.fillRect(i*cw,0,cw-1,h);if(p>0){x.save();x.beginPath();x.rect(i*cw,0,cw-1,h*p);x.clip();x.drawImage(st.o,0,0,w,h);x.restore()}}},
+perspshift(x,w,h,t){uiBg(x,w,h);const tt=t%5,sp=eIO(cl((tt-.8)/.9))-eIO(cl((tt-3.4)/.9)),cw=w*.34,F=['#fff','#EAF0FF','#FFE7DF'],K=[UI_B,'#8B5CF6',rgb(A)];
+  for(let i=2;i>=0;i--){const z=(i-1)*h*.16*(.35+sp*.9);x.save();x.translate(w/2,h*.52-z);x.transform(.9,.38,-.9,.38,0,0);x.shadowColor='rgba(40,50,90,.18)';x.shadowBlur=14;x.shadowOffsetY=10;x.fillStyle=F[i];rr(x,-cw/2,-cw*.375,cw,cw*.75,12);x.restore();
+    x.save();x.translate(w/2,h*.52-z);x.transform(.9,.38,-.9,.38,0,0);x.fillStyle=K[i];rr(x,-cw*.4,-cw*.3,cw*.35,cw*.07,3);x.fillStyle='#D5DAE8';rr(x,-cw*.4,-cw*.15,cw*.7,cw*.05,3);rr(x,-cw*.4,-cw*.04,cw*.55,cw*.05,3);x.restore()}},
+glassfocus(x,w,h,t){uiBg(x,w,h);const T=2,k=Math.floor(t/T)%4,p=eIO(cl((t%T-1.2)/.6)),nx=(k+1)%4,pos=k+(nx-k)*p,cw=w*.62,ch=h*.8,X=w/2-cw/2,Yp=h*.1,R=[['Open rate','48%'],['Click rate','6.2%'],['Replies','31'],['Revenue','$4.2k']];
+  uiCard(x,X,Yp,cw,ch,14);uiText(x,'Campaign report',X+cw*.06,Yp+ch*.1,ch*.06,UI_INK,800,'left');const rh=ch*.17,y0=Yp+ch*.22;
+  R.forEach(([a,b],i)=>{const f=cl(1-Math.abs(i-pos));x.globalAlpha=.4+.6*f;uiText(x,a,X+cw*.08,y0+i*rh+rh/2,rh*.34,UI_INK,600,'left');uiText(x,b,X+cw*.92,y0+i*rh+rh/2,rh*(.34+.14*f),UI_INK,800,'right')});x.globalAlpha=1;
+  const gy=y0+pos*rh;x.save();x.shadowColor='rgba(59,107,255,.25)';x.shadowBlur=14;x.fillStyle='rgba(255,255,255,.55)';rr(x,X+cw*.03,gy+2,cw*.94,rh-4,10);x.restore();x.strokeStyle='rgba(59,107,255,.55)';x.lineWidth=1.5;x.beginPath();x.roundRect?x.roundRect(X+cw*.03,gy+2,cw*.94,rh-4,10):x.rect(X+cw*.03,gy+2,cw*.94,rh-4);x.stroke()},
+gradientwave(x,w,h,t){x.fillStyle='#F7F3FF';x.fillRect(0,0,w,h);const L=[['#FFB36B','#FF6A8A',.3,1.0],['#FF6A8A','#B65BFF',.4,1.3],['#B65BFF','#5B8CFF',.5,.8],['#5B8CFF','#6FE0FF',.6,1.1]];
+  L.forEach(([c1,c2,b,sp],i)=>{const g=x.createLinearGradient(0,0,w,0);g.addColorStop(0,c1);g.addColorStop(1,c2);x.fillStyle=g;x.globalAlpha=.92;x.beginPath();x.moveTo(0,h);for(let X=0;X<=w;X+=4){const u=X/w;x.lineTo(X,h*(b+.05*i)+Math.sin(u*5+t*sp+i*1.7)*h*.09+Math.sin(u*9-t*sp*1.3+i)*h*.035)}x.lineTo(w,h);x.closePath();x.fill()});x.globalAlpha=1;uiText(x,'Flow',w*.07,h*.1,h*.07,UI_INK,800,'left')},
+glasstilt(x,w,h,t){const g=x.createLinearGradient(0,0,w,h);g.addColorStop(0,'#1B2160');g.addColorStop(1,'#3A1E6B');x.fillStyle=g;x.fillRect(0,0,w,h);[[rgb(A,.6),.25,.3],[rgb(B,.6),.78,.72]].forEach(([c,px,py])=>{const rg=x.createRadialGradient(w*px,h*py,0,w*px,h*py,h*.55);rg.addColorStop(0,c);rg.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=rg;x.fillRect(0,0,w,h)});
+  const a=.45*Math.sin(t*.9),cw=w*.46,ch=cw*.62;x.save();x.translate(w/2,h/2);x.transform(Math.cos(a*.6),Math.sin(a)*.12,0,1,0,0);x.save();x.shadowColor='rgba(0,0,0,.4)';x.shadowBlur=24;x.shadowOffsetY=14;x.fillStyle='rgba(255,255,255,.14)';rr(x,-cw/2,-ch/2,cw,ch,16);x.restore();
+  x.strokeStyle='rgba(255,255,255,.45)';x.lineWidth=1.2;x.beginPath();x.roundRect?x.roundRect(-cw/2,-ch/2,cw,ch,16):x.rect(-cw/2,-ch/2,cw,ch);x.stroke();x.save();x.beginPath();x.roundRect?x.roundRect(-cw/2,-ch/2,cw,ch,16):x.rect(-cw/2,-ch/2,cw,ch);x.clip();
+  const gx=-cw/2+cw*(.5+a*1.2),gl=x.createLinearGradient(gx,-ch/2,gx+cw*.35,ch/2);gl.addColorStop(0,'rgba(255,255,255,0)');gl.addColorStop(.5,'rgba(255,255,255,.35)');gl.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=gl;x.fillRect(-cw/2,-ch/2,cw,ch);x.restore();
+  x.fillStyle='rgba(255,236,190,.9)';rr(x,-cw*.4,-ch*.3,cw*.16,ch*.2,4);uiText(x,'4242  4242  4242  4242',-cw*.4,ch*.2,ch*.09,'#fff',600,'left');uiText(x,'Alex Chen',-cw*.4,ch*.36,ch*.07,'rgba(255,255,255,.75)',500,'left');x.restore()},
+dotmesh(x,w,h,t){x.fillStyle='#F6F3FA';x.fillRect(0,0,w,h);const NX=48,NY=22;for(let j=0;j<NY;j++){const gy=j/(NY-1);for(let i=0;i<NX;i++){const gx=i/(NX-1),z=Math.sin(gx*9+t*1.6)*Math.cos(gy*7-t*1.2)*.5+Math.sin(gx*4-gy*3+t)*.3,px=w/2+(gx-.5)*w*(.5+gy*.75),py=h*.3+gy*h*.62-z*h*(.07+gy*.16),r=.8+gy*1.8+z;x.fillStyle=mix(.5+.5*z,.35+.55*gy);x.beginPath();x.arc(px,py,Math.max(.4,r),0,7);x.fill()}}},
+cardshuffle(x,w,h,t){uiBg(x,w,h);const T=1.3,k=Math.floor(t/T),p=eIO(cl((t%T-.3)/.8)),cw=w*.3,ch=h*.5,G=[['#FF9A6B','#FF5E8A'],['#8B5CF6','#5B8CFF'],['#34D399','#3B82F6'],['#FBBF24','#F97316']];
+  const I=[0,1,2,3].map(j=>({id:(k+j)%4,r:j===0?3*p:j-p,sd:j===0?Math.sin(p*Math.PI)*w*.2:0})).sort((a,b)=>b.r-a.r);
+  I.forEach(o=>{const X=w/2-w*.1+o.r*w*.06+o.sd,Yp=h/2+h*.02-o.r*h*.035,s=1-o.r*.05,g=x.createLinearGradient(X-cw/2,Yp-ch/2,X+cw/2,Yp+ch/2);g.addColorStop(0,G[o.id][0]);g.addColorStop(1,G[o.id][1]);x.save();x.translate(X,Yp);x.scale(s,s);x.shadowColor='rgba(40,50,90,.25)';x.shadowBlur=16;x.shadowOffsetY=8;x.fillStyle=g;rr(x,-cw/2,-ch/2,cw,ch,14);x.restore();x.save();x.translate(X,Yp);x.scale(s,s);uiText(x,'0'+(o.id+1),-cw*.28,-ch*.3,ch*.14,'rgba(255,255,255,.9)',800,'left');x.restore()})},
+ribbontwist(x,w,h,t){clear(x,w,h);const N=90,P=[];for(let i=0;i<=N;i++){const u=i/N,X=w*.06+u*w*.88,Y=h/2+Math.sin(u*Math.PI*2.2-t*1.1)*h*.22,tw=u*9-t*1.6,hw=h*.17*Math.cos(tw)*(.35+.65*Math.sin(u*Math.PI));P.push([X,Y,hw,Math.cos(tw),u])}
+  for(let i=0;i<N;i++){const a=P[i],b=P[i+1];x.fillStyle=mix(a[4],.55+.45*Math.abs(a[3]));x.strokeStyle=x.fillStyle;x.lineWidth=.6;x.beginPath();x.moveTo(a[0],a[1]-a[2]);x.lineTo(b[0],b[1]-b[2]);x.lineTo(b[0],b[1]+b[2]);x.lineTo(a[0],a[1]+a[2]);x.closePath();x.fill();x.stroke()}},
+metaball3d(x,w,h,t){uiBg(x,w,h);const P=[0,1,2].map(i=>{const a=t*(.9+.3*i)+i*2.1;return[w/2+Math.cos(a)*w*.13*(i?1:.2),h*.48+Math.sin(a*1.2)*h*.1*(i?1:.2),h*(i?.1+.015*i:.17)]});
+  x.fillStyle='rgba(40,50,90,.12)';x.beginPath();x.ellipse(w/2,h*.86,w*.22,h*.04,0,0,7);x.fill();const col='#8B5CF6';x.fillStyle=col;P.forEach(p=>{x.beginPath();x.arc(p[0],p[1],p[2],0,7);x.fill()});
+  for(let i=0;i<3;i++)for(let j=i+1;j<3;j++){const a=P[i],b=P[j],dd=Math.hypot(a[0]-b[0],a[1]-b[1]),th=(a[2]+b[2])*1.6;if(dd<th){const q=1-dd/th;x.strokeStyle=col;x.lineCap='round';x.lineWidth=Math.min(a[2],b[2])*1.6*q;x.beginPath();x.moveTo(a[0],a[1]);x.lineTo(b[0],b[1]);x.stroke()}}x.lineCap='butt';
+  P.forEach(p=>{const g=x.createRadialGradient(p[0]-p[2]*.35,p[1]-p[2]*.4,p[2]*.05,p[0],p[1],p[2]);g.addColorStop(0,'rgba(255,255,255,.75)');g.addColorStop(.35,'rgba(200,170,255,.25)');g.addColorStop(1,'rgba(60,20,140,.45)');x.fillStyle=g;x.beginPath();x.arc(p[0],p[1],p[2],0,7);x.fill()})},
+phoneexplode(x,w,h,t){uiBg(x,w,h);const tt=t%6,sp=eIO(cl((tt-.9)/1))-eIO(cl((tt-3.9)/.9)),cw=w*.2,ch=cw*1.9,L=[['#2A2F3B','Case'],['#1B6B52','Board'],['#fff','Display'],['rgba(160,200,255,.45)','Glass']];
+  for(let i=0;i<4;i++){const z=(i-1.5)*h*.17*sp,Y=h*.52-z;x.save();x.translate(w*.42,Y);x.transform(.9,.38,-.9,.38,0,0);x.shadowColor='rgba(40,50,90,.2)';x.shadowBlur=10;x.shadowOffsetY=8;x.fillStyle=L[i][0];rr(x,-cw/2,-ch/2,cw,ch,cw*.12);x.restore();
+    x.save();x.translate(w*.42,Y);x.transform(.9,.38,-.9,.38,0,0);if(i===2){x.fillStyle='#E6EEFF';rr(x,-cw*.4,-ch*.4,cw*.8,ch*.25,5);x.fillStyle=UI_B;rr(x,-cw*.4,-ch*.08,cw*.35,ch*.2,5);x.fillStyle='#FFD9C9';rr(x,cw*.02,-ch*.08,cw*.38,ch*.2,5)}
+    if(i===1){x.fillStyle='#7BD88F';[[-.25,-.3],[.1,-.3],[-.25,.05]].forEach(([a,b])=>rr(x,cw*a,ch*b,cw*.3,ch*.2,3))}x.restore();x.save();x.globalAlpha=sp;uiText(x,L[i][1],w*.42+cw*1.1+10,Y,h*.05,'#5B6274',700,'left');x.restore()}},
+};
+
+/* ---------- runtime ---------- */
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const dpr=Math.min(2,window.devicePixelRatio||1);
+const items=EFFECTS.map((e,i)=>({e,c:e.canvas,x:e.canvas.getContext('2d'),fn:DRAW[e.id],st:{},vis:false,w:0,h:0,off:i*.37}));
+function size(it){const r=it.c.getBoundingClientRect();if(!r.width)return;it.w=r.width;it.h=r.height;it.c.width=Math.round(r.width*dpr);it.c.height=Math.round(r.height*dpr);it.st={};if(reduce)still(it)}
+function frame(it,t){it.x.setTransform(dpr,0,0,dpr,0,0);it.fn(it.x,it.w,it.h,t,it.st,it.c,dpr)}
+function still(it){if(it.e.id==='flow'){for(let k=0;k<90;k++)frame(it,1+k/60)}else frame(it,2.2)}
+const ro=new ResizeObserver(es=>es.forEach(en=>{const it=items.find(i=>i.c===en.target);if(it)size(it)}));
+const io=new IntersectionObserver(es=>es.forEach(en=>{const it=items.find(i=>i.c===en.target);if(it)it.vis=en.isIntersecting}),{rootMargin:'80px'});
+items.forEach(it=>{ro.observe(it.c);io.observe(it.c)});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{items.forEach(it=>{if(it.e.id==='ptext')it.st={}});if(reduce)items.forEach(still)});
+if(!reduce){const loop=now=>{const t=now/1000;items.forEach(it=>{if(it.vis&&it.w)frame(it,t+it.off)});requestAnimationFrame(loop)};requestAnimationFrame(loop)}
+</script>
+</body>
+</html>

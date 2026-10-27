@@ -1,0 +1,23 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>圖鑑移植冒煙測試</title>
+<!-- 不載入原版 DRAW（_original_draw.js），只載入 fx_runtime 與各效果檔，逐一用預設參數畫出來。
+     用來抓「移植版靠原版的全域函式才能跑」這類比對頁看不到的缺漏。結果在 window.SMOKE。只供驗證，不進建置。 -->
+<script src="../fx_runtime.js"></script>
+<script src="_plan.js"></script>
+<script>
+window.addEventListener("load", () => {
+  const W = 1130, H = 760, SMOKE = { total: 0, ok: 0, failed: [] };
+  for (const id in FXPLAN) {
+    const c = document.createElement("canvas"); c.width = W; c.height = H;
+    const x = c.getContext("2d"), K = fxHelpers(null, "#12151D"); K.canvas = c; K.dpr = 1;
+    SMOKE.total++;
+    try {
+      if (!FX[id]) throw new Error("FX 沒有註冊：" + id);
+      for (const t of FXPLAN[id]) { x.setTransform(1, 0, 0, 1, 0, 0); x.clearRect(0, 0, W, H); FX[id].draw(x, W, H, t, Object.assign({}, FX[id].defaults), K); }
+      SMOKE.ok++;
+    } catch (e) { SMOKE.failed.push([id, String(e)]); }
+  }
+  window.SMOKE = SMOKE; document.title = "smoke done";
+});
+</script>

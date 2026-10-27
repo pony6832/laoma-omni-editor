@@ -1,0 +1,46 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>圖鑑移植比對</title>
+<!-- 開啟後結果寫在 window.RESULT：逐像素比對「原版 DRAW」與「移植版」。只供驗證，不進建置。 -->
+<script src="_original_draw.js"></script>
+<script src="../fx_runtime.js"></script>
+<script src="_plan.js"></script>
+<script>
+const W = 1130, H = 760;
+const mkc = () => { const c = document.createElement("canvas"); c.width = W; c.height = H; return c; };
+function px(c) { return c.getContext("2d").getImageData(0, 0, W, H).data; }
+function diff(a, b) { let n = 0, mx = 0; for (let i = 0; i < a.length; i++) { const d = Math.abs(a[i] - b[i]); if (d) { n++; if (d > mx) mx = d; } } return { bytes: n, max: mx }; }
+const C0 = fxHelpers(null, "#12151D");
+const RESULT = {};
+const plan = FXPLAN;
+for (const id in plan) {
+  const c1 = mkc(), c2 = mkc(), x1 = c1.getContext("2d"), x2 = c2.getContext("2d");
+  const Ck = fxHelpers(null, "#12151D"); Ck.canvas = c2; Ck.dpr = 1;
+  let err = null;
+  const rows = plan[id].map((t) => {
+    try {
+      x1.setTransform(1, 0, 0, 1, 0, 0); x2.setTransform(1, 0, 0, 1, 0, 0);
+      x1.clearRect(0, 0, W, H); x2.clearRect(0, 0, W, H);
+      DRAW[id](x1, W, H, t, {}, c1, 1);
+      FX[id].draw(x2, W, H, t, Object.assign({}, FX[id].defaults), Ck);
+      return Object.assign({ t }, diff(px(c1), px(c2)));
+    } catch (e) { err = String(e); return { t, bytes: -1, max: -1 }; }
+  });
+  RESULT[id] = { identical: !err && rows.every((r) => r.bytes === 0), frames: rows.length, worst: rows.reduce((m, r) => Math.max(m, r.bytes), 0), rows, err };
+}
+// 參數有效、透明底有效、主題色盤有效
+{
+  const c = mkc(), x = c.getContext("2d");
+  const T = fxHelpers(null, null);
+  FX.counter.draw(x, W, H, 1, Object.assign({}, FX.counter.defaults, { label: "上班族睡眠不足", value: 30, tag: "" }), T);
+  const d = px(c); const a0 = d[3]; // 左上角 alpha
+  let painted = 0; for (let i = 3; i < d.length; i += 4) if (d[i]) painted++;
+  const c3 = mkc(); const x3 = c3.getContext("2d");
+  FX.quote.draw(x3, W, H, 0.8, Object.assign({}, FX.quote.defaults), fxHelpers({ coral: "#f5b942", indigo: "#5b8def", gold: "#ffd36b" }, null));
+  const c4 = mkc(); const x4 = c4.getContext("2d");
+  FX.quote.draw(x4, W, H, 0.8, Object.assign({}, FX.quote.defaults), fxHelpers(null, null));
+  RESULT.extra = { transparentCornerAlpha: a0, paintedPixels: painted, paletteChangesPixels: diff(px(c3), px(c4)).bytes > 0 };
+}
+window.RESULT = RESULT;
+document.title = "done";
+</script>

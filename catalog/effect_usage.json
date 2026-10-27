@@ -1,0 +1,429 @@
+{
+ "OUT": {
+  "file": "core/scenes/OUT.js",
+  "helpers": [],
+  "effect_ids": [
+   "lightsweep",
+   "softdiag"
+  ]
+ },
+ "g_compare": {
+  "file": "core/scenes/g_compare.js",
+  "helpers": [
+   "pscene"
+  ],
+  "effect_ids": [
+   "panel",
+   "splitscreen"
+  ]
+ },
+ "g_fx": {
+  "file": "core/scenes/g_fx.js",
+  "helpers": [
+   "pscene"
+  ],
+  "effect_ids": [
+   "panel"
+  ]
+ },
+ "g_list": {
+  "file": "core/scenes/g_list.js",
+  "helpers": [
+   "pscene"
+  ],
+  "effect_ids": [
+   "checklist",
+   "panel"
+  ]
+ },
+ "g_number": {
+  "file": "core/scenes/g_number.js",
+  "helpers": [
+   "pscene"
+  ],
+  "effect_ids": [
+   "counter",
+   "panel"
+  ]
+ },
+ "g_number_legacy": {
+  "file": "core/scenes/g_number_legacy.js",
+  "helpers": [
+   "bignum",
+   "pop",
+   "pscene"
+  ],
+  "effect_ids": [
+   "counter",
+   "panel",
+   "sticker"
+  ]
+ },
+ "g_point": {
+  "file": "core/scenes/g_point.js",
+  "helpers": [
+   "chip",
+   "pscene"
+  ],
+  "effect_ids": [
+   "highlighter",
+   "kinetic",
+   "notify",
+   "panel",
+   "sticker"
+  ]
+ },
+ "g_quote": {
+  "file": "core/scenes/g_quote.js",
+  "helpers": [
+   "pscene"
+  ],
+  "effect_ids": [
+   "panel",
+   "quote"
+  ]
+ },
+ "A": {
+  "file": "packs/weather/scenes/A.js",
+  "helpers": [
+   "bignum",
+   "drawMap",
+   "followT",
+   "mpath",
+   "oscene",
+   "showPath",
+   "typhEl"
+  ],
+  "effect_ids": [
+   "counter",
+   "ripple",
+   "routemap"
+  ]
+ },
+ "BC": {
+  "file": "packs/weather/scenes/BC.js",
+  "helpers": [
+   "bignum",
+   "chip",
+   "drawMap",
+   "follow",
+   "followT",
+   "lbl",
+   "mpath",
+   "pin",
+   "pscene",
+   "rain",
+   "showPath",
+   "stamp",
+   "topicChip",
+   "typhEl"
+  ],
+  "effect_ids": [
+   "callout",
+   "counter",
+   "matrixrain",
+   "notify",
+   "panel",
+   "ripple",
+   "routemap",
+   "snow",
+   "stamp",
+   "sticker"
+  ]
+ },
+ "D": {
+  "file": "packs/weather/scenes/D.js",
+  "helpers": [
+   "chip",
+   "pscene"
+  ],
+  "effect_ids": [
+   "notify",
+   "panel",
+   "sticker"
+  ]
+ },
+ "E": {
+  "file": "packs/weather/scenes/E.js",
+  "helpers": [
+   "pscene",
+   "stamp"
+  ],
+  "effect_ids": [
+   "panel",
+   "stamp"
+  ]
+ },
+ "F": {
+  "file": "packs/weather/scenes/F.js",
+  "helpers": [
+   "chip",
+   "pscene"
+  ],
+  "effect_ids": [
+   "notify",
+   "panel",
+   "sticker"
+  ]
+ },
+ "G": {
+  "file": "packs/weather/scenes/G.js",
+  "helpers": [
+   "bignum",
+   "chip",
+   "pscene"
+  ],
+  "effect_ids": [
+   "counter",
+   "notify",
+   "panel",
+   "sticker"
+  ]
+ },
+ "H": {
+  "file": "packs/weather/scenes/H.js",
+  "helpers": [
+   "chip",
+   "compass",
+   "followT",
+   "lbl",
+   "mpath",
+   "showPath",
+   "twScene",
+   "typhEl",
+   "waves"
+  ],
+  "effect_ids": [
+   "clockdial",
+   "gauge",
+   "notify",
+   "ripple",
+   "routemap",
+   "sticker"
+  ]
+ },
+ "I": {
+  "file": "packs/weather/scenes/I.js",
+  "helpers": [
+   "chip",
+   "follow",
+   "mpath",
+   "rainRegion",
+   "showPath",
+   "sunIcon",
+   "twScene",
+   "typhEl"
+  ],
+  "effect_ids": [
+   "notify",
+   "ripple",
+   "routemap",
+   "sticker"
+  ]
+ },
+ "J": {
+  "file": "packs/weather/scenes/J.js",
+  "helpers": [
+   "chip",
+   "followT",
+   "mpath",
+   "showPath",
+   "stamp",
+   "twScene",
+   "typhEl"
+  ],
+  "effect_ids": [
+   "notify",
+   "ripple",
+   "routemap",
+   "stamp",
+   "sticker"
+  ]
+ },
+ "K": {
+  "file": "packs/weather/scenes/K.js",
+  "helpers": [
+   "chip",
+   "pscene"
+  ],
+  "effect_ids": [
+   "notify",
+   "panel",
+   "sticker"
+  ]
+ },
+ "L": {
+  "file": "packs/weather/scenes/L.js",
+  "helpers": [
+   "chip",
+   "cloudsRegion",
+   "follow",
+   "mpath",
+   "rainRegion",
+   "showPath",
+   "twScene",
+   "typhEl"
+  ],
+  "effect_ids": [
+   "notify",
+   "ripple",
+   "routemap",
+   "sticker"
+  ]
+ },
+ "M": {
+  "file": "packs/weather/scenes/M.js",
+  "helpers": [
+   "chip",
+   "drawMap",
+   "followT",
+   "lbl",
+   "mpath",
+   "pin",
+   "pscene",
+   "stamp",
+   "typhEl"
+  ],
+  "effect_ids": [
+   "callout",
+   "notify",
+   "panel",
+   "ripple",
+   "routemap",
+   "stamp",
+   "sticker"
+  ]
+ },
+ "N": {
+  "file": "packs/weather/scenes/N.js",
+  "helpers": [
+   "chip",
+   "pscene"
+  ],
+  "effect_ids": [
+   "notify",
+   "panel",
+   "sticker"
+  ]
+ },
+ "O": {
+  "file": "packs/weather/scenes/O.js",
+  "helpers": [
+   "chip",
+   "follow",
+   "followT",
+   "mpath",
+   "showPath",
+   "twScene",
+   "typhEl"
+  ],
+  "effect_ids": [
+   "notify",
+   "ripple",
+   "routemap",
+   "sticker"
+  ]
+ },
+ "P": {
+  "file": "packs/weather/scenes/P.js",
+  "helpers": [
+   "pscene"
+  ],
+  "effect_ids": [
+   "panel"
+  ]
+ },
+ "Q": {
+  "file": "packs/weather/scenes/Q.js",
+  "helpers": [
+   "chip",
+   "cloudsRegion",
+   "fogRegion",
+   "pin",
+   "rainRegion",
+   "tintRegion",
+   "twScene"
+  ],
+  "effect_ids": [
+   "callout",
+   "notify",
+   "sticker"
+  ]
+ },
+ "R": {
+  "file": "packs/weather/scenes/R.js",
+  "helpers": [
+   "chip",
+   "drawMap",
+   "follow",
+   "mpath",
+   "pin",
+   "pscene",
+   "showPath"
+  ],
+  "effect_ids": [
+   "callout",
+   "notify",
+   "panel",
+   "routemap",
+   "sticker"
+  ]
+ },
+ "S": {
+  "file": "packs/weather/scenes/S.js",
+  "helpers": [
+   "chip",
+   "oscene",
+   "stamp"
+  ],
+  "effect_ids": [
+   "notify",
+   "stamp",
+   "sticker"
+  ]
+ },
+ "g_bars": {
+  "file": "themes/finance/scenes/g_bars.js",
+  "helpers": [
+   "pscene"
+  ],
+  "effect_ids": [
+   "chart",
+   "panel"
+  ]
+ },
+ "g_bars_legacy": {
+  "file": "themes/finance/scenes/g_bars_legacy.js",
+  "helpers": [
+   "pscene"
+  ],
+  "effect_ids": [
+   "chart",
+   "panel"
+  ]
+ },
+ "g_ticker": {
+  "file": "themes/finance/scenes/g_ticker.js",
+  "helpers": [
+   "bignum",
+   "pop",
+   "pscene"
+  ],
+  "effect_ids": [
+   "candle",
+   "counter",
+   "panel",
+   "sticker"
+  ]
+ },
+ "g_timeline": {
+  "file": "themes/society/scenes/g_timeline.js",
+  "helpers": [
+   "pscene"
+  ],
+  "effect_ids": [
+   "panel",
+   "ptimeline"
+  ]
+ }
+}

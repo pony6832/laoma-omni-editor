@@ -1,0 +1,42 @@
+[
+  {
+    "id": "OUT",
+    "title": "片尾",
+    "file": "OUT.js"
+  },
+  {
+    "id": "g_point",
+    "title": "重點字卡",
+    "file": "g_point.js"
+  },
+  {
+    "id": "g_number",
+    "title": "大數字",
+    "file": "g_number.js"
+  },
+  {
+    "id": "g_list",
+    "title": "清單",
+    "file": "g_list.js"
+  },
+  {
+    "id": "g_compare",
+    "title": "左右對照",
+    "file": "g_compare.js"
+  },
+  {
+    "id": "g_quote",
+    "title": "引言卡",
+    "file": "g_quote.js"
+  },
+  {
+    "id": "g_fx",
+    "title": "圖鑑效果（已移植）",
+    "file": "g_fx.js"
+  },
+  {
+    "id": "g_number_legacy",
+    "title": "大數字（舊手寫版）",
+    "file": "g_number_legacy.js"
+  }
+]

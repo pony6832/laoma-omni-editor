@@ -1,0 +1,50 @@
+{
+ "panel": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Create a new 16:9 background image for the panel of a news graphic. Match the mood, darkness and low contrast of the reference image (deep, calm, lots of empty room for overlaid text) but with this theme: dark night city seen through soft bokeh: blurred skyline lights in amber and steel blue, calm and slightly desaturated. No people, no text, no logos, no bright hotspots in the center.",
+  "ref": "weather/assets/panel.png",
+  "date": "2026-10-22",
+  "art": {
+   "primary": "warm amber",
+   "secondary": "steel blue",
+   "badge_motif": "a stylized city skyline silhouette with a megaphone, in amber and steel blue",
+   "nameplate_icon": "a small white megaphone icon",
+   "panel_motif": "dark night city seen through soft bokeh: blurred skyline lights in amber and steel blue, calm and slightly desaturated"
+  }
+ },
+ "plate": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Edit the reference image: keep the exact slanted parallelogram ribbon shape, its bevel, highlights, proportions and the small lightning-bolt tab on its left end. Recolor the ribbon body to a glossy rose-crimson gradient and the lightning bolt to steel blue. Place it centered on a flat pure green (#00FF00) background with a lot of empty margin. Nothing else in the frame.",
+  "ref": "weather/assets/plate.png",
+  "date": "2026-10-22",
+  "art": {
+   "primary": "rose-crimson",
+   "secondary": "steel blue",
+   "badge_motif": "a stylized city skyline silhouette with a megaphone, in rose-crimson and steel blue",
+   "nameplate_icon": "a small white megaphone icon",
+   "panel_motif": "dark night city seen through soft bokeh: blurred skyline lights in amber and steel blue, calm and slightly desaturated"
+  }
+ },
+ "nameplate": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Edit the reference image: keep the exact composition, proportions and bevel of this wide lower-third name banner: a slanted left tile plus a long dark navy glass bar with a thin glowing bottom edge. Recolor the left tile to a glossy rose-crimson, tint the glowing bottom edge with steel blue, and replace the white emblem on the left tile with a small white megaphone icon. Keep the long bar empty for text. Centered on a flat pure green (#00FF00) background with a lot of margin. Nothing else.",
+  "ref": "weather/assets/nameplate.png",
+  "date": "2026-10-22",
+  "art": {
+   "primary": "rose-crimson",
+   "secondary": "steel blue",
+   "badge_motif": "a stylized city skyline silhouette with a megaphone, in rose-crimson and steel blue",
+   "nameplate_icon": "a small white megaphone icon",
+   "panel_motif": "dark night city seen through soft bokeh: blurred skyline lights in amber and steel blue, calm and slightly desaturated"
+  }
+ },
+ "badge": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Edit the reference image: keep the circular metallic clock-style bezel with tick marks, its glossy navy dial, proportions and lighting. Replace the central swirl with a stylized city skyline silhouette with a megaphone, in rose-crimson and steel blue. Centered on a flat pure green (#00FF00) background with margin. Nothing else.",
+  "ref": "weather/assets/badge.png",
+  "date": "2026-10-22",
+  "art": {
+   "primary": "rose-crimson",
+   "secondary": "steel blue",
+   "badge_motif": "a stylized city skyline silhouette with a megaphone, in rose-crimson and steel blue",
+   "nameplate_icon": "a small white megaphone icon",
+   "panel_motif": "dark night city seen through soft bokeh: blurred skyline lights in amber and steel blue, calm and slightly desaturated"
+  }
+ }
+}

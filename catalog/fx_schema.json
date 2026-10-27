@@ -1,0 +1,591 @@
+{
+ "_說明": "效果選用機制的「菜單」：Agent 從這裡挑，並依 params 規格把逐字稿裡的文字與數字填進去。choice 寫法：g_* ＝核心／主題範本；fx:<id> ＝用 g_fx 範本播放已移植的圖鑑效果；talk ＝這一段不放圖解，維持口播全屏。grounded：number＝數字必須出現在該段逐字稿；text＝文字要取自逐字稿（不得憑空新增）；none＝裝飾性欄位。derive：由 select.py 把 Agent 給的原始數字換算成效果真正需要的參數（例如把「42、26」換成占比 0.42、0.26），避免 Agent 自己算錯。",
+ "common": {
+  "topic": {
+   "type": "str",
+   "max_len": 8,
+   "desc": "畫面右上角的頁首標籤，如「睡眠現況」「盤勢重點」；用該段主題的 2～6 個字",
+   "grounded": "none"
+  },
+  "line": {
+   "type": "int",
+   "desc": "效果內容開始出現的句子，相對本段第一句（1＝第一句；省略＝第 1 句）"
+  },
+  "key": {
+   "type": "str",
+   "max_len": 8,
+   "desc": "該句逐字稿裡真的有的詞，效果會在這個詞被說出口時出現；沒有把握就省略"
+  }
+ },
+ "choices": {
+  "talk": {
+   "kind": "talk",
+   "use": "沒有適合圖解的內容（寒暄、過場、情緒、結尾呼籲）。口播全屏，不放圖。",
+   "params": {}
+  },
+  "g_point": {
+   "kind": "template",
+   "use": "一般重點、觀點、結論：一個大關鍵詞加一句說明。其他都不適合時的預設。",
+   "params": {
+    "keyword": {
+     "type": "str",
+     "required": true,
+     "max_len": 10,
+     "desc": "大關鍵詞，取自逐字稿的核心詞",
+     "grounded": "text"
+    },
+    "sub": {
+     "type": "str",
+     "max_len": 18,
+     "desc": "一句補充說明（選填）",
+     "grounded": "text"
+    }
+   }
+  },
+  "g_number": {
+   "kind": "template",
+   "use": "整段的重點是「單一個數字」，如比例、金額、人數、時數。",
+   "params": {
+    "label": {
+     "type": "str",
+     "required": true,
+     "max_len": 16,
+     "desc": "數字上方的說明，如「成年人每天建議睡眠」",
+     "grounded": "text"
+    },
+    "value": {
+     "type": "num",
+     "desc": "數字（與 text 二選一）",
+     "grounded": "number"
+    },
+    "text": {
+     "type": "str",
+     "max_len": 8,
+     "desc": "區間或不能跳動的數字，如「7～9」（與 value 二選一）",
+     "grounded": "number"
+    },
+    "unit": {
+     "type": "str",
+     "max_len": 4,
+     "desc": "單位，如 %、小時、萬、公里",
+     "grounded": "text"
+    },
+    "note": {
+     "type": "str",
+     "max_len": 20,
+     "desc": "下方補充（選填）",
+     "grounded": "text"
+    }
+   }
+  },
+  "g_list": {
+   "kind": "template",
+   "use": "並列的幾點、步驟、方法（第一、第二、第三…，或「三個重點」）。2～5 項。",
+   "params": {
+    "title": {
+     "type": "str",
+     "required": true,
+     "max_len": 14,
+     "desc": "清單標題，如「三個簡單的方法」",
+     "grounded": "text"
+    },
+    "items": {
+     "type": "arr",
+     "required": true,
+     "min": 2,
+     "max": 5,
+     "item": {
+      "text": {
+       "type": "str",
+       "max_len": 18,
+       "grounded": "text"
+      },
+      "line": {
+       "type": "int"
+      },
+      "key": {
+       "type": "str",
+       "max_len": 8
+      }
+     },
+     "desc": "每項一句短語；line／key 讓該項在被說到時出現"
+    }
+   }
+  },
+  "g_compare": {
+   "kind": "template",
+   "use": "兩邊對照：以前／現在、A／B、優點／缺點、有／沒有。",
+   "params": {
+    "left": {
+     "type": "obj",
+     "required": true,
+     "desc": "左側 {title, items[1～3 短語], line, key}",
+     "grounded": "text"
+    },
+    "right": {
+     "type": "obj",
+     "required": true,
+     "desc": "右側，格式同左",
+     "grounded": "text"
+    }
+   }
+  },
+  "g_quote": {
+   "kind": "template",
+   "use": "引述名言、專家說法、他人的話。",
+   "params": {
+    "text": {
+     "type": "str",
+     "required": true,
+     "max_len": 28,
+     "desc": "引言內文，須逐字取自逐字稿",
+     "grounded": "text"
+    },
+    "by": {
+     "type": "str",
+     "max_len": 12,
+     "desc": "出處（選填）",
+     "grounded": "text"
+    }
+   }
+  },
+  "g_ticker": {
+   "kind": "template",
+   "theme": "finance",
+   "use": "指數、股價、匯率的當日行情（有點數與漲跌）。僅財經主題。",
+   "params": {
+    "name": {
+     "type": "str",
+     "required": true,
+     "max_len": 8,
+     "desc": "標的名稱，如「加權指數」",
+     "grounded": "text"
+    },
+    "value": {
+     "type": "int",
+     "required": true,
+     "desc": "收盤數值（整數）",
+     "grounded": "number"
+    },
+    "change": {
+     "type": "str",
+     "max_len": 8,
+     "desc": "漲跌點數，含正負號，如「+215」",
+     "grounded": "number"
+    },
+    "pct": {
+     "type": "str",
+     "max_len": 8,
+     "desc": "漲跌幅，如「1.02%」",
+     "grounded": "number"
+    },
+    "dir": {
+     "type": "str",
+     "enum": [
+      "up",
+      "down"
+     ],
+     "required": true,
+     "desc": "漲 up／跌 down",
+     "grounded": "none"
+    },
+    "note": {
+     "type": "str",
+     "max_len": 20,
+     "grounded": "text"
+    }
+   }
+  },
+  "g_bars": {
+   "kind": "template",
+   "theme": "finance",
+   "use": "三到五個項目的數值大小比較（橫向長條）。僅財經主題。",
+   "params": {
+    "title": {
+     "type": "str",
+     "required": true,
+     "max_len": 12,
+     "grounded": "text"
+    },
+    "unit": {
+     "type": "str",
+     "max_len": 4,
+     "grounded": "text"
+    },
+    "bars": {
+     "type": "arr",
+     "required": true,
+     "min": 2,
+     "max": 5,
+     "item": {
+      "label": {
+       "type": "str",
+       "max_len": 6,
+       "grounded": "text"
+      },
+      "value": {
+       "type": "num",
+       "grounded": "number"
+      },
+      "line": {
+       "type": "int"
+      }
+     }
+    }
+   }
+  },
+  "g_timeline": {
+   "kind": "template",
+   "theme": "society",
+   "use": "事件先後經過、時間軸。僅社會主題。",
+   "params": {
+    "title": {
+     "type": "str",
+     "required": true,
+     "max_len": 12,
+     "grounded": "text"
+    },
+    "events": {
+     "type": "arr",
+     "required": true,
+     "min": 2,
+     "max": 5,
+     "item": {
+      "when": {
+       "type": "str",
+       "max_len": 8,
+       "grounded": "text"
+      },
+      "text": {
+       "type": "str",
+       "max_len": 20,
+       "grounded": "text"
+      },
+      "line": {
+       "type": "int"
+      },
+      "key": {
+       "type": "str"
+      }
+     }
+    }
+   }
+  },
+  "fx:donut": {
+   "kind": "fx",
+   "use": "整體由幾個部分組成、講占比（2～5 段）。",
+   "derive": "shares",
+   "params": {
+    "raw": {
+     "type": "arr",
+     "required": true,
+     "min": 2,
+     "max": 5,
+     "item_type": "num",
+     "grounded": "number",
+     "desc": "各部分的原始數字（逐字稿裡的，如 42、26、19）；系統會換算成占比"
+    },
+    "labels": {
+     "type": "arr",
+     "required": true,
+     "item_type": "str",
+     "grounded": "text",
+     "desc": "各部分名稱，與 raw 同順序同數量，如「直播」「短影音」"
+    },
+    "unit": {
+     "type": "str",
+     "max_len": 3,
+     "desc": "單位，預設 %",
+     "grounded": "text"
+    }
+   }
+  },
+  "fx:linechart": {
+   "kind": "fx",
+   "use": "一段時間的走勢、變化（3～10 個點）。",
+   "derive": "series",
+   "params": {
+    "raw": {
+     "type": "arr",
+     "required": true,
+     "min": 3,
+     "max": 10,
+     "item_type": "num",
+     "grounded": "number",
+     "desc": "依時間順序的原始數字（逐字稿裡的）；系統會換算成高度"
+    }
+   }
+  },
+  "fx:radar": {
+   "kind": "fx",
+   "use": "多個面向的評分或能力比較（3～8 軸）。",
+   "derive": "scores",
+   "params": {
+    "raw": {
+     "type": "arr",
+     "required": true,
+     "min": 3,
+     "max": 8,
+     "item_type": "num",
+     "grounded": "number",
+     "desc": "各軸分數（逐字稿裡的）"
+    },
+    "max": {
+     "type": "num",
+     "required": true,
+     "desc": "滿分（逐字稿或常識，如 5、10、100）"
+    },
+    "labels": {
+     "type": "arr",
+     "required": true,
+     "item_type": "str",
+     "grounded": "text",
+     "desc": "各軸名稱，與 raw 同順序同數量"
+    }
+   }
+  },
+  "fx:waffle": {
+   "kind": "fx",
+   "use": "「每 100 人有幾人」「佔百分之幾」的比例感（單一百分比）。",
+   "derive": "pct",
+   "params": {
+    "pct": {
+     "type": "num",
+     "required": true,
+     "desc": "百分比數字（0～100，逐字稿裡的）",
+     "grounded": "number"
+    },
+    "label": {
+     "type": "str",
+     "max_len": 10,
+     "desc": "百分比右側說明，如「民眾支持」",
+     "grounded": "text"
+    }
+   }
+  },
+  "fx:funnel": {
+   "kind": "fx",
+   "use": "層層篩選、轉換漏斗（3～5 層，數值遞減）。",
+   "derive": "stages",
+   "params": {
+    "stages": {
+     "type": "arr",
+     "required": true,
+     "min": 3,
+     "max": 5,
+     "item": {
+      "name": {
+       "type": "str",
+       "max_len": 5,
+       "grounded": "text"
+      },
+      "value": {
+       "type": "num",
+       "grounded": "number"
+      }
+     },
+     "desc": "各層名稱與數值，由大到小"
+    }
+   }
+  },
+  "fx:treemap": {
+   "kind": "fx",
+   "use": "多個部分的面積占比（3～6 塊，不同於圓環：強調大小差異）。",
+   "derive": "blocks",
+   "params": {
+    "items": {
+     "type": "arr",
+     "required": true,
+     "min": 3,
+     "max": 6,
+     "item": {
+      "label": {
+       "type": "str",
+       "max_len": 10,
+       "grounded": "text"
+      },
+      "value": {
+       "type": "num",
+       "grounded": "number"
+      }
+     },
+     "desc": "各塊名稱與數值"
+    }
+   }
+  },
+  "fx:gauge": {
+   "kind": "fx",
+   "use": "單一指數、滿意度、達成率（0～100）的儀表。",
+   "derive": "gauge",
+   "params": {
+    "pct": {
+     "type": "num",
+     "required": true,
+     "desc": "0～100 的數字（逐字稿裡的）",
+     "grounded": "number"
+    }
+   }
+  },
+  "fx:countdown": {
+   "kind": "fx",
+   "use": "倒數（逐字稿真的在倒數，或「還剩 N 秒／天」）。",
+   "derive": "countdown",
+   "params": {
+    "from": {
+     "type": "int",
+     "required": true,
+     "min_v": 2,
+     "max_v": 9,
+     "desc": "從幾開始倒數（2～9）",
+     "grounded": "number"
+    }
+   }
+  },
+  "fx:checklist": {
+   "kind": "fx",
+   "use": "步驟清單、檢查項目（3～5 項，逐項打勾）。",
+   "derive": "steps",
+   "params": {
+    "steps": {
+     "type": "arr",
+     "required": true,
+     "min": 3,
+     "max": 5,
+     "item_type": "str",
+     "grounded": "text",
+     "max_len": 12,
+     "desc": "各步驟短語"
+    }
+   }
+  },
+  "fx:highlighter": {
+   "kind": "fx",
+   "use": "一句重點用螢光筆劃過強調（前半鋪陳、後半是重點）。",
+   "derive": "hl",
+   "params": {
+    "lead": {
+     "type": "str",
+     "required": true,
+     "max_len": 10,
+     "desc": "前半句（不畫螢光）",
+     "grounded": "text"
+    },
+    "key_phrase": {
+     "type": "str",
+     "required": true,
+     "max_len": 10,
+     "desc": "要劃螢光筆的重點句",
+     "grounded": "text"
+    }
+   }
+  },
+  "fx:ptimeline": {
+   "kind": "fx",
+   "use": "年代、里程碑沿時間公路迎面而來（3～6 個年份或時間點）。",
+   "derive": "years",
+   "params": {
+    "years": {
+     "type": "arr",
+     "required": true,
+     "min": 3,
+     "max": 6,
+     "item_type": "str",
+     "max_len": 6,
+     "grounded": "number",
+     "desc": "年份或時間點文字，須出現在逐字稿"
+    }
+   }
+  },
+  "fx:notify": {
+   "kind": "fx",
+   "use": "一連串通知、留言、訊息、事件陸續出現（3～5 則）。",
+   "derive": "items",
+   "params": {
+    "items": {
+     "type": "arr",
+     "required": true,
+     "min": 3,
+     "max": 5,
+     "item_type": "str",
+     "max_len": 14,
+     "grounded": "text",
+     "desc": "各則通知文字"
+    }
+   }
+  },
+  "fx:stamp": {
+   "kind": "fx",
+   "use": "蓋章式的肯定／警示字（「首創」「重點」「注意」），用在一個關鍵宣告。",
+   "derive": "text",
+   "params": {
+    "text": {
+     "type": "str",
+     "required": true,
+     "max_len": 4,
+     "desc": "章上的字，2～4 個字",
+     "grounded": "text"
+    }
+   }
+  },
+  "fx:sticker": {
+   "kind": "fx",
+   "use": "貼紙式的提醒或新消息（「NEW」「注意」「重點」），輕鬆語氣。",
+   "derive": "text",
+   "params": {
+    "text": {
+     "type": "str",
+     "required": true,
+     "max_len": 5,
+     "desc": "貼紙上的字",
+     "grounded": "text"
+    }
+   }
+  },
+  "fx:charfall": {
+   "kind": "fx",
+   "use": "開場或轉折的大標題（逐字落下回彈），一句有力的短語。",
+   "derive": "title",
+   "params": {
+    "text": {
+     "type": "str",
+     "required": true,
+     "max_len": 8,
+     "desc": "大標題，取自逐字稿",
+     "grounded": "text"
+    },
+    "hi_start": {
+     "type": "int",
+     "desc": "從第幾個字起用主色強調（0 起算，省略＝2）",
+     "min_v": 0
+    },
+    "hi_count": {
+     "type": "int",
+     "desc": "強調幾個字（省略＝2）",
+     "min_v": 1
+    }
+   }
+  },
+  "fx:kinetic": {
+   "kind": "fx",
+   "use": "強調式的三行大字（口號、金句、行動呼籲）。",
+   "derive": "lines",
+   "params": {
+    "lines": {
+     "type": "arr",
+     "required": true,
+     "min": 2,
+     "max": 3,
+     "item_type": "str",
+     "max_len": 6,
+     "grounded": "text",
+     "desc": "分行短句，每行 2～6 字"
+    },
+    "hi": {
+     "type": "int",
+     "desc": "第幾行用主色（0 起算，省略＝1）",
+     "min_v": 0
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,33 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>圖鑑移植擴充參數預覽</title>
+<!-- 只供目視檢查 counter／chart 的擴充參數（單位、區間文字、置中、補充說明、橫向、標籤、數值、換色）。不進建置。 -->
+<style>
+  body { margin: 0; background: #0b1020; font-family: "Noto Sans TC", sans-serif; color: #cfe3ff; }
+  .g { display: grid; grid-template-columns: repeat(3, 560px); gap: 12px; padding: 12px; }
+  .g div { font-size: 14px; } canvas { width: 560px; height: 378px; background: #1a2a4a; border-radius: 12px; display: block; }
+</style>
+<div class="g" id="g"></div>
+<script src="../fx_runtime.js"></script>
+<script src="counter.js"></script>
+<script src="chart.js"></script>
+<script>
+const W = 1130, H = 760, pal = { coral: "#8a7cff", indigo: "#6f8bff", gold: "#ffc857", cyan: "#5fd0ff", green: "#4de39a" };
+const F = { font: '"Noto Sans TC"', textFont: '"Noto Sans TC"', numFont: '"Noto Sans TC"' };
+const cases = [
+  ["counter：數字＋單位（靠左）", "counter", 3, { ...F, label: "睡不到 6 小時的上班族", value: 30, unit: "%", tag: "" }],
+  ["counter：區間文字 7～9＋單位＋置中", "counter", 3, { ...F, label: "成年人每天建議睡眠", text: "7～9", unit: "小時", tag: "", align: "center", bar: false }],
+  ["counter：置中＋補充說明", "counter", 3.6, { ...F, label: "上班族每天睡不到 6 小時", value: 30, unit: "%", tag: "", align: "center", note: "睡眠不足：注意力下降、情緒失控" }],
+  ["chart：橫向＋標籤＋數值＋換色", "chart", 3, { ...F, orient: "h", colors: "cycle", fadeAt: null, data: [1, 0.78, 0.55, 0.34], labels: ["台北", "台中", "高雄", "花蓮"], values: ["2,500 萬", "1,950 萬", "1,380 萬", "850 萬"] }],
+  ["chart：直向＋標籤＋數值", "chart", 3, { ...F, fadeAt: null, data: [0.4, 0.62, 0.5, 0.85], labels: ["Q1", "Q2", "Q3", "Q4"], values: ["40", "62", "50", "85"] }],
+  ["chart：原版預設", "chart", 3, {}],
+];
+const out = [];
+cases.forEach(([title, id, t, P]) => {
+  const cell = document.createElement("div"); cell.textContent = title; const c = document.createElement("canvas"); c.width = W; c.height = H;
+  cell.appendChild(c); document.getElementById("g").appendChild(cell);
+  const x = c.getContext("2d"); FX[id].draw(x, W, H, t, Object.assign({}, FX[id].defaults, P), fxHelpers(pal, null));
+  const d = x.getImageData(0, 0, W, H).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i]) n++; out.push({ title, painted: n });
+});
+window.RESULT = out; document.title = "done";
+</script>

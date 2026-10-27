@@ -1,0 +1,142 @@
+{
+  "name": "weather",
+  "desc": "氣象領域包：台灣／東亞地圖、降雨雲霧風浪元件、颱風路徑、氣象場景與精華預告（颱風眼穿越）",
+  "core_js": [
+    "tw_data.js",
+    "land_data.js"
+  ],
+  "hook_js": "hook.js",
+  "hook_html": "hook.html",
+  "lib_js": [
+    "weather.js",
+    "_keep_helpers.js"
+  ],
+  "scenes": [
+    {
+      "id": "A",
+      "title": "開場（全屏口播＋圖卡）",
+      "file": "scenes/A.js",
+      "from": 1,
+      "to": 11
+    },
+    {
+      "id": "BC",
+      "title": "東亞地圖（冷高壓南下、颱風與環境場）",
+      "file": "scenes/BC.js",
+      "from": 12,
+      "to": 38
+    },
+    {
+      "id": "D",
+      "title": "山谷比喻",
+      "file": "scenes/D.js",
+      "from": 39,
+      "to": 48
+    },
+    {
+      "id": "E",
+      "title": "今天／明天重點、媒體標題",
+      "file": "scenes/E.js",
+      "from": 49,
+      "to": 55
+    },
+    {
+      "id": "F",
+      "title": "冷空氣灌進颱風",
+      "file": "scenes/F.js",
+      "from": 56,
+      "to": 66
+    },
+    {
+      "id": "G",
+      "title": "明天氣溫",
+      "file": "scenes/G.js",
+      "from": 67,
+      "to": 75
+    },
+    {
+      "id": "H",
+      "title": "路徑轉向與東部風浪",
+      "file": "scenes/H.js",
+      "from": 76,
+      "to": 82
+    },
+    {
+      "id": "I",
+      "title": "下雨區域",
+      "file": "scenes/I.js",
+      "from": 83,
+      "to": 89
+    },
+    {
+      "id": "J",
+      "title": "北轉角度大／小",
+      "file": "scenes/J.js",
+      "from": 90,
+      "to": 100
+    },
+    {
+      "id": "K",
+      "title": "強度減弱、暴風圈縮小",
+      "file": "scenes/K.js",
+      "from": 101,
+      "to": 112
+    },
+    {
+      "id": "L",
+      "title": "週五降雨分布",
+      "file": "scenes/L.js",
+      "from": 113,
+      "to": 117
+    },
+    {
+      "id": "M",
+      "title": "週五到週六的移動路徑",
+      "file": "scenes/M.js",
+      "from": 118,
+      "to": 127
+    },
+    {
+      "id": "N",
+      "title": "影響時間",
+      "file": "scenes/N.js",
+      "from": 128,
+      "to": 132
+    },
+    {
+      "id": "O",
+      "title": "海警與陸警",
+      "file": "scenes/O.js",
+      "from": 133,
+      "to": 149
+    },
+    {
+      "id": "P",
+      "title": "一週天氣",
+      "file": "scenes/P.js",
+      "from": 150,
+      "to": 156
+    },
+    {
+      "id": "Q",
+      "title": "降雨分區",
+      "file": "scenes/Q.js",
+      "from": 157,
+      "to": 165
+    },
+    {
+      "id": "R",
+      "title": "另一股冷高壓",
+      "file": "scenes/R.js",
+      "from": 166,
+      "to": 168
+    },
+    {
+      "id": "S",
+      "title": "放假問題（全屏口播）",
+      "file": "scenes/S.js",
+      "from": 169,
+      "to": 177
+    }
+  ]
+}

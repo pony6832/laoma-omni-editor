@@ -1,0 +1,50 @@
+{
+ "panel": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Create a new 16:9 background image for the panel of a news graphic. Match the mood, darkness and low contrast of the reference image (deep, calm, lots of empty room for overlaid text) but with this theme: smooth dark navy-to-violet gradient with faint grid lines and sparse floating light particles. No people, no text, no logos, no bright hotspots in the center.",
+  "ref": "weather/assets/panel.png",
+  "date": "2026-10-22",
+  "art": {
+   "primary": "soft indigo-violet",
+   "secondary": "warm coral",
+   "badge_motif": "a bright four-point sparkle star with orbit rings, in violet and coral",
+   "nameplate_icon": "a small white four-point sparkle star",
+   "panel_motif": "smooth dark navy-to-violet gradient with faint grid lines and sparse floating light particles"
+  }
+ },
+ "plate": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Edit the reference image: keep the exact slanted parallelogram ribbon shape, its bevel, highlights, proportions and the small lightning-bolt tab on its left end. Recolor the ribbon body to a glossy soft indigo-violet gradient and the lightning bolt to warm coral. Place it centered on a flat pure green (#00FF00) background with a lot of empty margin. Nothing else in the frame.",
+  "ref": "weather/assets/plate.png",
+  "date": "2026-10-22",
+  "art": {
+   "primary": "soft indigo-violet",
+   "secondary": "warm coral",
+   "badge_motif": "a bright four-point sparkle star with orbit rings, in violet and coral",
+   "nameplate_icon": "a small white four-point sparkle star",
+   "panel_motif": "smooth dark navy-to-violet gradient with faint grid lines and sparse floating light particles"
+  }
+ },
+ "nameplate": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Edit the reference image: keep the exact composition, proportions and bevel of this wide lower-third name banner: a slanted left tile plus a long dark navy glass bar with a thin glowing bottom edge. Recolor the left tile to a glossy soft indigo-violet, tint the glowing bottom edge with warm coral, and replace the white emblem on the left tile with a small white four-point sparkle star. Keep the long bar empty for text. Centered on a flat pure green (#00FF00) background with a lot of margin. Nothing else.",
+  "ref": "weather/assets/nameplate.png",
+  "date": "2026-10-22",
+  "art": {
+   "primary": "soft indigo-violet",
+   "secondary": "warm coral",
+   "badge_motif": "a bright four-point sparkle star with orbit rings, in violet and coral",
+   "nameplate_icon": "a small white four-point sparkle star",
+   "panel_motif": "smooth dark navy-to-violet gradient with faint grid lines and sparse floating light particles"
+  }
+ },
+ "badge": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Edit the reference image: keep the circular metallic clock-style bezel with tick marks, its glossy navy dial, proportions and lighting. Replace the central swirl with a bright four-point sparkle star with orbit rings, in violet and coral. Centered on a flat pure green (#00FF00) background with margin. Nothing else.",
+  "ref": "weather/assets/badge.png",
+  "date": "2026-10-22",
+  "art": {
+   "primary": "soft indigo-violet",
+   "secondary": "warm coral",
+   "badge_motif": "a bright four-point sparkle star with orbit rings, in violet and coral",
+   "nameplate_icon": "a small white four-point sparkle star",
+   "panel_motif": "smooth dark navy-to-violet gradient with faint grid lines and sparse floating light particles"
+  }
+ }
+}

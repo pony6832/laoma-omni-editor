@@ -1,0 +1,11 @@
+# koubo 口播影片技能：Python 套件（2026-10-22 在 RTX 5070 / Python 3.11 / Windows 11 上驗證過的版本）
+# 安裝：python -m pip install -r requirements.txt
+# 注意：4070 與 5070 都是 12 GB 顯存，共用同一組套件；5070（Blackwell）要求 NVIDIA 驅動 570 以上（CUDA 12.8）。4070 尚未實機驗證。
+faster-whisper==1.2.1
+ctranslate2==4.8.1
+numpy>=2.0
+Pillow>=11
+opencc-python-reimplemented==0.1.7
+# CUDA 函式庫（轉錄用 GPU 必要）。不要只靠別的專案的 PATH，裝在同一個 Python 環境裡，core/cuda_paths.py 會自動找到。
+nvidia-cublas-cu12==12.8.4.1
+nvidia-cudnn-cu12==9.10.2.21

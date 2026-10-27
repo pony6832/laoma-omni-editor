@@ -1,0 +1,9 @@
+[
+  {"id":"D01","kind":"image","src":"night.png","out":"night.png","vf":"scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080","source":"codex"},
+  {"id":"D02","kind":"image","src":"panel.png","out":"panel.png","vf":"scale=1130:760:force_original_aspect_ratio=increase,crop=1130:760","source":"codex"},
+  {"id":"D03","kind":"image","src":"badge.png","out":"badge.png","vf":"crop=900:900:177:177,scale=300:300","source":"codex"},
+  {"id":"D04","kind":"image","src":"plate.png","out":"plate.png","vf":"crop=1530:172:78:374,scale=1240:-2","source":"codex"},
+  {"id":"D05","kind":"image","src":"nameplate.png","out":"nameplate.png","vf":"crop=1580:170:94:358,scale=1560:-2","source":"codex"},
+  {"id":"D06","kind":"image","src":"logo.png","out":"logo.png","vf":"crop=1730:400:90:340","source":"公司提供"},
+  {"id":"D07","kind":"copy","src":"C:/Windows/Fonts/NotoSansTC-VF.ttf","out":"NotoSansTC-VF.ttf","source":"系統字型"}
+]
