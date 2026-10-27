@@ -1,0 +1,50 @@
+{
+ "panel": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Create a new 16:9 background image for the panel of a news graphic. Match the mood, darkness and low contrast of the reference image (deep, calm, lots of empty room for overlaid text) but with this theme: very dark slate-navy background: faint world-map grid lines and a softly glowing globe edge, out-of-focus city-light bokeh, no people, no flags. No people, no text, no logos, no bright hotspots in the center.",
+  "ref": "weather/assets/panel.png",
+  "date": "2026-10-27",
+  "art": {
+   "primary": "cool silver-white",
+   "secondary": "coral red",
+   "badge_motif": "a wireframe globe with latitude and longitude lines, in silver-white and coral red",
+   "nameplate_icon": "a small white globe icon",
+   "panel_motif": "very dark slate-navy background: faint world-map grid lines and a softly glowing globe edge, out-of-focus city-light bokeh, no people, no flags"
+  }
+ },
+ "plate": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Edit the reference image: keep the exact slanted parallelogram ribbon shape, its bevel, highlights, proportions and the small lightning-bolt tab on its left end. Recolor the ribbon body to a glossy cool silver-white gradient and the lightning bolt to coral red. Place it centered on a flat pure green (#00FF00) background with a lot of empty margin. Nothing else in the frame.",
+  "ref": "weather/assets/plate.png",
+  "date": "2026-10-27",
+  "art": {
+   "primary": "cool silver-white",
+   "secondary": "coral red",
+   "badge_motif": "a wireframe globe with latitude and longitude lines, in silver-white and coral red",
+   "nameplate_icon": "a small white globe icon",
+   "panel_motif": "very dark slate-navy background: faint world-map grid lines and a softly glowing globe edge, out-of-focus city-light bokeh, no people, no flags"
+  }
+ },
+ "nameplate": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Edit the reference image: keep the exact composition, proportions and bevel of this wide lower-third name banner: a slanted left tile plus a long dark navy glass bar with a thin glowing bottom edge. Recolor the left tile to a glossy cool silver-white, tint the glowing bottom edge with coral red, and replace the white emblem on the left tile with a small white globe icon. Keep the long bar empty for text. Centered on a flat pure green (#00FF00) background with a lot of margin. Nothing else.",
+  "ref": "weather/assets/nameplate.png",
+  "date": "2026-10-27",
+  "art": {
+   "primary": "cool silver-white",
+   "secondary": "coral red",
+   "badge_motif": "a wireframe globe with latitude and longitude lines, in silver-white and coral red",
+   "nameplate_icon": "a small white globe icon",
+   "panel_motif": "very dark slate-navy background: faint world-map grid lines and a softly glowing globe edge, out-of-focus city-light bokeh, no people, no flags"
+  }
+ },
+ "badge": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Edit the reference image: keep the circular metallic clock-style bezel with tick marks, its glossy navy dial, proportions and lighting. Replace the central swirl with a wireframe globe with latitude and longitude lines, in silver-white and coral red. Centered on a flat pure green (#00FF00) background with margin. Nothing else.",
+  "ref": "weather/assets/badge.png",
+  "date": "2026-10-27",
+  "art": {
+   "primary": "cool silver-white",
+   "secondary": "coral red",
+   "badge_motif": "a wireframe globe with latitude and longitude lines, in silver-white and coral red",
+   "nameplate_icon": "a small white globe icon",
+   "panel_motif": "very dark slate-navy background: faint world-map grid lines and a softly glowing globe edge, out-of-focus city-light bokeh, no people, no flags"
+  }
+ }
+}

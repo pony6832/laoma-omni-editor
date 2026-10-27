@@ -1,0 +1,51 @@
+{
+  "id": "entertainment",
+  "name": "娛樂演藝",
+  "version": 1,
+  "desc": "娛樂演藝主題：洋紅粉主色、金色輔色；聚光燈與星星圖示",
+  "palette": {
+    "coral": "#ff5fb0",
+    "coral_rgb": "255,95,176",
+    "hot": "#ff8cc6",
+    "soft": "#ffbfdf",
+    "on": "#1f0b15",
+    "indigo": "#ffd36b",
+    "cyan": "#ffb86b",
+    "green": "#3ddc97",
+    "red": "#ff4d5e",
+    "gold": "#ffd36b",
+    "ink": "#16081a"
+  },
+  "bgm": {
+    "bpm": 118
+  },
+  "match_keywords": [
+    "演唱會",
+    "藝人",
+    "歌手",
+    "演員",
+    "電影",
+    "影集",
+    "票房",
+    "綜藝",
+    "金曲獎",
+    "金馬獎",
+    "經紀公司",
+    "粉絲",
+    "新歌",
+    "專輯",
+    "演出",
+    "舞台",
+    "戲劇",
+    "導演"
+  ],
+  "assets_file": "assets/assets.json",
+  "scenes": [],
+  "art": {
+    "primary": "vivid magenta-pink",
+    "secondary": "gold",
+    "badge_motif": "a spotlight star with stage light beams, in magenta and gold",
+    "nameplate_icon": "a small white star icon",
+    "panel_motif": "very dark plum-black stage background: faint spotlight cones and out-of-focus concert lights bokeh, no people"
+  }
+}

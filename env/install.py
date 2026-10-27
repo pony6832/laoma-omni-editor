@@ -3,7 +3,7 @@
 用法：python -X utf8 install.py [--permissions] [--dry-run] [--target 資料夾] [--settings 設定檔]
   --permissions  同時把「這個技能流程會用到的指令」預先核准（原有設定保留、舊檔備份、重跑不重複）
   --dry-run      只看會做什麼，不寫入
-裝好後：①自動跑環境檢查（缺 Codex、Chrome 等必備項目會標 ✗）②在 Claude 新開對話說「老馬的全能剪輯助手」或「做口播影片」即可觸發。
+裝好後：①自動跑環境檢查（缺 Chrome、主題素材等必備項目會標 ✗；Codex 同事電腦不需要）②在 Claude 新開對話說「老馬的全能剪輯助手」或「做口播影片」即可觸發。
 更新技能就再跑一次（只覆蓋同名檔，不刪使用者專案）。"""
 import argparse, json, os, shutil, subprocess, sys
 
@@ -62,7 +62,7 @@ if not a.dry_run:
     print("\n===== 環境檢查（缺少 ✗ 的必備項目要先補）=====")
     ok = subprocess.run([sys.executable, "-X", "utf8", doctor, "--quick"]).returncode == 0
     if ok and not a.no_selftest:
-        print("\n===== 自我檢測（用合成測試片跑一遍：建置＋品檢，橫式與直式各一次，約 1 分鐘，不連外部服務）=====")
+        print("\n===== 自我檢測（用合成測試片跑一遍：建置＋品檢，橫式與直式三種版型，約 1～2 分鐘，不連外部服務）=====")
         subprocess.run([sys.executable, "-X", "utf8", os.path.join(a.target, "env", "selftest.py")])
     print('\n下一步：在 Claude 新開對話，說「老馬的全能剪輯助手，幫我把這支口播做成影片」並附上影片路徑。')
     print("使用手冊：" + os.path.join(a.target, "使用手冊.md"))

@@ -12,7 +12,7 @@
 | NumPy、SciPy、Pillow | 影像與音訊處理（pip） | BSD 系列 |
 | FFmpeg | 影音處理（另行安裝，不內含） | LGPL／GPL（依建置版本） |
 | Google Gemini API | AI 旁白（雲端服務，需自備金鑰） | 依 Google 的服務條款 |
-| OpenAI Codex | 圖片與主題素材生成（需自備使用權限） | 依其服務條款 |
+| OpenAI Codex | 主題設計素材生成（只有管理者在自己的電腦用；發佈包內已含生成好的素材） | 依其服務條款 |
 
 **不使用**：VoiceStudio／OmniVoice（模型權重為 CC-BY-NC，禁止商業用途）。
 

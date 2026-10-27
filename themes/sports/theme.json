@@ -1,0 +1,52 @@
+{
+  "id": "sports",
+  "name": "體育",
+  "version": 1,
+  "desc": "體育主題：萊姆綠主色、橘色輔色；體育場與桂冠圖示",
+  "palette": {
+    "coral": "#9be15d",
+    "coral_rgb": "155,225,93",
+    "hot": "#b7e98a",
+    "soft": "#d7f3be",
+    "on": "#131b0b",
+    "indigo": "#ff9f43",
+    "cyan": "#ffd166",
+    "green": "#3ddc97",
+    "red": "#ff4d5e",
+    "gold": "#ffd36b",
+    "ink": "#0b1608"
+  },
+  "bgm": {
+    "bpm": 124
+  },
+  "match_keywords": [
+    "比賽",
+    "球賽",
+    "棒球",
+    "籃球",
+    "冠軍",
+    "奧運",
+    "球員",
+    "教練",
+    "世界盃",
+    "中職",
+    "羽球",
+    "金牌",
+    "亞運",
+    "聯賽",
+    "季後賽",
+    "對手",
+    "選手",
+    "排球"
+  ],
+  "assets_file": "assets/assets.json",
+  "scenes": [],
+  "art": {
+    "key": "magenta",
+    "primary": "lime green",
+    "secondary": "orange",
+    "badge_motif": "a stylized stadium arc with a ball and a laurel wreath, in lime green and orange",
+    "nameplate_icon": "a small white laurel-wreath icon",
+    "panel_motif": "very dark green-black stadium background: faint track lanes and out-of-focus stadium floodlights bokeh, no people"
+  }
+}

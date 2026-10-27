@@ -1,0 +1,52 @@
+{
+  "id": "international",
+  "name": "國際",
+  "version": 1,
+  "desc": "國際主題：銀灰白主色、珊瑚紅輔色；地球與經緯線圖示",
+  "palette": {
+    "coral": "#b6c2d9",
+    "coral_rgb": "182,194,217",
+    "hot": "#cad3e4",
+    "soft": "#e2e7f0",
+    "on": "#16171a",
+    "indigo": "#ff6b6b",
+    "cyan": "#8ec5ff",
+    "green": "#3ddc97",
+    "red": "#ff4d5e",
+    "gold": "#ffd36b",
+    "ink": "#0a1018"
+  },
+  "bgm": {
+    "bpm": 92
+  },
+  "match_keywords": [
+    "美國",
+    "中國",
+    "日本",
+    "歐盟",
+    "烏克蘭",
+    "聯合國",
+    "峰會",
+    "關稅",
+    "制裁",
+    "外交",
+    "國際",
+    "以色列",
+    "北約",
+    "G20",
+    "兩岸",
+    "俄羅斯",
+    "韓國",
+    "南海"
+  ],
+  "assets_file": "assets/assets.json",
+  "scenes": [],
+  "art": {
+    "primary": "cool silver-white",
+    "secondary": "coral red",
+    "badge_motif": "a wireframe globe with latitude and longitude lines, in silver-white and coral red",
+    "nameplate_icon": "a small white globe icon",
+    "panel_motif": "very dark slate-navy background: faint world-map grid lines and a softly glowing globe edge, out-of-focus city-light bokeh, no people, no flags"
+  },
+  "risk_note": "國際與兩岸議題：請由主管把關用語與地圖、旗幟的呈現是否合適"
+}

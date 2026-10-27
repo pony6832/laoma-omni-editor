@@ -21,6 +21,7 @@ ap.add_argument("--end2", default="")
 ap.add_argument("--end3", default="")
 ap.add_argument("--pack", default=None)
 ap.add_argument("--aspect", default="16:9", choices=["16:9", "9:16"], help="16:9 長影音（橫式）或 9:16 短影音（直式）")
+ap.add_argument("--layout", default="twothird", choices=["twothird", "full", "half"], help="9:16 直式版型：twothird 上三分之二（預設）、full 滿版、half 上二分之一；16:9 不適用")
 ap.add_argument("--theme", default="auto", help="weather／finance／society／general，auto＝plan.py propose 時依逐字稿判斷")
 ap.add_argument("--glossary", default="")
 ap.add_argument("--force", action="store_true", help="資料夾已有專案時仍覆寫 project.json（舊檔會混進新結果，通常該改用新資料夾）")
@@ -33,7 +34,7 @@ for d in ("01_素材", "02_字幕", "03_HyperFrames", "04_成品", "analysis"):
     os.makedirs(os.path.join(pdir, d), exist_ok=True)
 p = dict(
     schema="koubo/1",
-    meta=dict(id=os.path.basename(pdir), title=a.title, domain_pack=a.pack, theme=a.theme, aspect=a.aspect, version="V01", outro=3.0, created=datetime.date.today().isoformat()),
+    meta=dict(id=os.path.basename(pdir), title=a.title, domain_pack=a.pack, theme=a.theme, aspect=a.aspect, **({"layout": a.layout} if a.aspect == "9:16" else {}), version="V01", outro=3.0, created=datetime.date.today().isoformat()),
     source=dict(video=a.video, script=None, edited="01_素材/口播素材_剪後.mp4"),
     speaker=dict(name=a.speaker, title=a.role),
     branding=dict(series=a.series or a.title, opener=a.opener or a.title, opener_sub=a.opener_sub, end2=a.end2, end3=a.end3),

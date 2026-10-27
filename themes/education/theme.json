@@ -1,0 +1,51 @@
+{
+  "id": "education",
+  "name": "教育校園",
+  "version": 1,
+  "desc": "教育校園主題：天空藍主色、陽光黃輔色；書本與學士帽圖示",
+  "palette": {
+    "coral": "#4f9dff",
+    "coral_rgb": "79,157,255",
+    "hot": "#80b8ff",
+    "soft": "#b9d8ff",
+    "on": "#09131f",
+    "indigo": "#ffd23f",
+    "cyan": "#6fd3ff",
+    "green": "#3ddc97",
+    "red": "#ff4d5e",
+    "gold": "#ffd36b",
+    "ink": "#08142a"
+  },
+  "bgm": {
+    "bpm": 98
+  },
+  "match_keywords": [
+    "學校",
+    "教育部",
+    "學生",
+    "老師",
+    "考試",
+    "大學",
+    "升學",
+    "課綱",
+    "學測",
+    "補習",
+    "校園",
+    "教授",
+    "研究生",
+    "獎學金",
+    "幼兒園",
+    "畢業",
+    "招生",
+    "學費"
+  ],
+  "assets_file": "assets/assets.json",
+  "scenes": [],
+  "art": {
+    "primary": "sky blue",
+    "secondary": "sunny yellow",
+    "badge_motif": "an open book with a graduation cap, in sky blue and sunny yellow",
+    "nameplate_icon": "a small white open-book icon",
+    "panel_motif": "very dark navy-blue campus background: faint chalk diagrams and soft out-of-focus library shelves, no people"
+  }
+}

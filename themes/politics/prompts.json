@@ -1,0 +1,50 @@
+{
+ "panel": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Create a new 16:9 background image for the panel of a news graphic. Match the mood, darkness and low contrast of the reference image (deep, calm, lots of empty room for overlaid text) but with this theme: very dark navy civic background: faint marble columns and a softly lit parliament dome silhouette, out-of-focus bokeh, no flags, no people. No people, no text, no logos, no bright hotspots in the center.",
+  "ref": "weather/assets/panel.png",
+  "date": "2026-10-27",
+  "art": {
+   "primary": "brushed steel-blue silver",
+   "secondary": "champagne gold",
+   "badge_motif": "a classical balance scale with a small parliament dome behind it, in steel silver and champagne gold, no flags, no party colors",
+   "nameplate_icon": "a small white parliament-dome icon",
+   "panel_motif": "very dark navy civic background: faint marble columns and a softly lit parliament dome silhouette, out-of-focus bokeh, no flags, no people"
+  }
+ },
+ "plate": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Edit the reference image: keep the exact slanted parallelogram ribbon shape, its bevel, highlights, proportions and the small lightning-bolt tab on its left end. Recolor the ribbon body to a glossy brushed steel-blue silver gradient and the lightning bolt to champagne gold. Place it centered on a flat pure green (#00FF00) background with a lot of empty margin. Nothing else in the frame.",
+  "ref": "weather/assets/plate.png",
+  "date": "2026-10-27",
+  "art": {
+   "primary": "brushed steel-blue silver",
+   "secondary": "champagne gold",
+   "badge_motif": "a classical balance scale with a small parliament dome behind it, in steel silver and champagne gold, no flags, no party colors",
+   "nameplate_icon": "a small white parliament-dome icon",
+   "panel_motif": "very dark navy civic background: faint marble columns and a softly lit parliament dome silhouette, out-of-focus bokeh, no flags, no people"
+  }
+ },
+ "nameplate": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Edit the reference image: keep the exact composition, proportions and bevel of this wide lower-third name banner: a slanted left tile plus a long dark navy glass bar with a thin glowing bottom edge. Recolor the left tile to a glossy brushed steel-blue silver, tint the glowing bottom edge with champagne gold, and replace the white emblem on the left tile with a small white parliament-dome icon. Keep the long bar empty for text. Centered on a flat pure green (#00FF00) background with a lot of margin. Nothing else.",
+  "ref": "weather/assets/nameplate.png",
+  "date": "2026-10-27",
+  "art": {
+   "primary": "brushed steel-blue silver",
+   "secondary": "champagne gold",
+   "badge_motif": "a classical balance scale with a small parliament dome behind it, in steel silver and champagne gold, no flags, no party colors",
+   "nameplate_icon": "a small white parliament-dome icon",
+   "panel_motif": "very dark navy civic background: faint marble columns and a softly lit parliament dome silhouette, out-of-focus bokeh, no flags, no people"
+  }
+ },
+ "badge": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Edit the reference image: keep the circular metallic clock-style bezel with tick marks, its glossy navy dial, proportions and lighting. Replace the central swirl with a classical balance scale with a small parliament dome behind it, in steel silver and champagne gold, no flags, no party colors. Centered on a flat pure green (#00FF00) background with margin. Nothing else.",
+  "ref": "weather/assets/badge.png",
+  "date": "2026-10-27",
+  "art": {
+   "primary": "brushed steel-blue silver",
+   "secondary": "champagne gold",
+   "badge_motif": "a classical balance scale with a small parliament dome behind it, in steel silver and champagne gold, no flags, no party colors",
+   "nameplate_icon": "a small white parliament-dome icon",
+   "panel_motif": "very dark navy civic background: faint marble columns and a softly lit parliament dome silhouette, out-of-focus bokeh, no flags, no people"
+  }
+ }
+}

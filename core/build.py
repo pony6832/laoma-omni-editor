@@ -169,6 +169,14 @@ PD = os.path.join(PACKS, pack) if pack else None
 VERT = str(p["meta"].get("aspect", "16:9")).replace("x", ":") == "9:16"  # 9:16 直式短影音：另一套版面（template_v.html／core_head_v.js），其餘場景範本共用
 if VERT and (hook or p.get("insert")):
     sys.exit("error: 9:16 直式版面不支援「開頭鉤子」與「插入畫面」，請拿掉 hook／insert 設定")
+LAYOUTS_V = {   # 9:16 直式版型表（1080×1920）。x/y/w/h 是影片視窗；cap 是字幕區；st 是圖解面板（1130×760 整個縮放）放的位置
+    "full":     dict(win=None, cap_y=1090, cap_h=110, st=(176, 1215, 0.645), topic_y=190, name_full_y=1000),
+    "twothird": dict(win=dict(x=40, y=150, w=1000, h=1000, r=36), cap_y=1175, cap_h=110, st=(201, 1300, 0.60), topic_y=172, name_full_y=1085),
+    "half":     dict(win=dict(x=40, y=150, w=1000, h=760, r=36), cap_y=935, cap_h=110, st=(56, 1060, 0.855), topic_y=172, name_full_y=845),
+}
+LAYNAME = p["meta"].get("layout", "twothird")   # 預設 B 上三分之二（2026-10-27 使用者審閱後定案）；full＝滿版、half＝上二分之一為進階選項
+if VERT and LAYNAME not in LAYOUTS_V:
+    sys.exit(f"error: 不認得的直式版型「{LAYNAME}」，可用：{', '.join(LAYOUTS_V)}")
 tpl = rd(HERE, "template_v.html" if VERT else "template.html")
 core = "".join(rd(PD, f) for f in pk.get("core_js", [])) + rd(HERE, "core_head_v.js" if VERT else "core_head.js") + rd(HERE, "core_tools.js")
 files = {s["id"]: os.path.join(HERE, "scenes", s["file"]) for s in json.load(open(os.path.join(HERE, "scenes.json"), encoding="utf-8"))}  # 核心通用範本
@@ -220,6 +228,13 @@ tpl = (tpl.replace("__SERIES__", br["series"]).replace("__ROLE__", p["speaker"][
 html = (tpl.replace("/*__CORE__*/", core).replace("/*__FINAL__*/", FINAL).replace("<!--__HOOKHTML__-->", HOOKHTML)
         .replace("__CFG__", json.dumps(cfg, ensure_ascii=False)).replace("__TOTAL__", str(total)).replace("__MT__", str(total_main))
         .replace("__H__", str(H)).replace("__HDUR__", str(hdur)).replace("__DUR__", str(dur)).replace("__INS_T__", str(round(ins_t, 3))))
+if VERT:   # 直式：把版型表的固定座標寫進樣板與核心
+    L_ = LAYOUTS_V[LAYNAME]; w_ = L_["win"] or dict(x=0, y=0, w=0, h=0)
+    html = html.replace("__LAYOUT__", json.dumps(dict(win=L_["win"], nameFullY=L_["name_full_y"]), ensure_ascii=False))
+    for k_, v_ in {"__ST_X__": L_["st"][0], "__ST_Y__": L_["st"][1], "__ST_S__": L_["st"][2], "__VF_X__": w_["x"], "__VF_Y__": w_["y"], "__VF_W__": w_["w"], "__VF_H__": w_["h"],
+                   "__ST_Z__": (20 if L_["win"] is None else 5),  # 滿版型：影片鋪滿整個畫面，圖解面板要浮在影片上面
+                   "__TOPIC_Y__": L_["topic_y"], "__CAP_Y__": L_["cap_y"], "__CAP_H__": L_["cap_h"]}.items():
+        html = html.replace(k_, str(v_))
 html = html.replace("__CROPX__", str(p["meta"].get("crop_x", 50))).replace("__CROPY__", str(p["meta"].get("crop_y", 35)))  # 直式：原片取景中心（百分比）
 for k, v in TH["palette"].items():
     html = html.replace(f"__PAL_{k}__", v)

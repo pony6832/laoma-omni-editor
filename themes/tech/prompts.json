@@ -1,0 +1,50 @@
+{
+ "panel": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Create a new 16:9 background image for the panel of a news graphic. Match the mood, darkness and low contrast of the reference image (deep, calm, lots of empty room for overlaid text) but with this theme: very dark blue-black futuristic background: faint circuit traces and a soft data-stream glow, out-of-focus neon bokeh, no people. No people, no text, no logos, no bright hotspots in the center.",
+  "ref": "weather/assets/panel.png",
+  "date": "2026-10-27",
+  "art": {
+   "primary": "electric cyan",
+   "secondary": "magenta",
+   "badge_motif": "a glowing microchip with circuit traces, in cyan and magenta",
+   "nameplate_icon": "a small white microchip icon",
+   "panel_motif": "very dark blue-black futuristic background: faint circuit traces and a soft data-stream glow, out-of-focus neon bokeh, no people"
+  }
+ },
+ "plate": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Edit the reference image: keep the exact slanted parallelogram ribbon shape, its bevel, highlights, proportions and the small lightning-bolt tab on its left end. Recolor the ribbon body to a glossy electric cyan gradient and the lightning bolt to magenta. Place it centered on a flat pure green (#00FF00) background with a lot of empty margin. Nothing else in the frame.",
+  "ref": "weather/assets/plate.png",
+  "date": "2026-10-27",
+  "art": {
+   "primary": "electric cyan",
+   "secondary": "magenta",
+   "badge_motif": "a glowing microchip with circuit traces, in cyan and magenta",
+   "nameplate_icon": "a small white microchip icon",
+   "panel_motif": "very dark blue-black futuristic background: faint circuit traces and a soft data-stream glow, out-of-focus neon bokeh, no people"
+  }
+ },
+ "nameplate": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Edit the reference image: keep the exact composition, proportions and bevel of this wide lower-third name banner: a slanted left tile plus a long dark navy glass bar with a thin glowing bottom edge. Recolor the left tile to a glossy electric cyan, tint the glowing bottom edge with magenta, and replace the white emblem on the left tile with a small white microchip icon. Keep the long bar empty for text. Centered on a flat pure green (#00FF00) background with a lot of margin. Nothing else.",
+  "ref": "weather/assets/nameplate.png",
+  "date": "2026-10-27",
+  "art": {
+   "primary": "electric cyan",
+   "secondary": "magenta",
+   "badge_motif": "a glowing microchip with circuit traces, in cyan and magenta",
+   "nameplate_icon": "a small white microchip icon",
+   "panel_motif": "very dark blue-black futuristic background: faint circuit traces and a soft data-stream glow, out-of-focus neon bokeh, no people"
+  }
+ },
+ "badge": {
+  "prompt": "請用內建 image generation 生成圖片，不要執行任何 shell 指令。Broadcast TV news graphic asset. No text, no letters, no numbers, no logos, no watermark. Edit the reference image: keep the circular metallic clock-style bezel with tick marks, its glossy navy dial, proportions and lighting. Replace the central swirl with a glowing microchip with circuit traces, in cyan and magenta. Centered on a flat pure green (#00FF00) background with margin. Nothing else.",
+  "ref": "weather/assets/badge.png",
+  "date": "2026-10-27",
+  "art": {
+   "primary": "electric cyan",
+   "secondary": "magenta",
+   "badge_motif": "a glowing microchip with circuit traces, in cyan and magenta",
+   "nameplate_icon": "a small white microchip icon",
+   "panel_motif": "very dark blue-black futuristic background: faint circuit traces and a soft data-stream glow, out-of-focus neon bokeh, no people"
+  }
+ }
+}

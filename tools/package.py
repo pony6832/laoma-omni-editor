@@ -22,7 +22,10 @@ out = os.path.abspath(a.out)
 if os.path.isdir(out):   # 只清空內容、保留資料夾本身（Windows 上資料夾若被別的程式當作工作目錄，整個刪掉會失敗）
     for name in os.listdir(out):
         p = os.path.join(out, name)
-        shutil.rmtree(p) if os.path.isdir(p) else os.remove(p)
+        if os.path.isdir(p):
+            shutil.rmtree(p, onerror=lambda fn, path, exc: (os.chmod(path, 0o700), fn(path)))   # 唯讀檔（如 .git 內的物件）先改權限再刪
+        else:
+            os.chmod(p, 0o700); os.remove(p)
 n = 0
 for dp, dn, fn in os.walk(KOUBO):
     dn[:] = [d for d in dn if d not in SKIP_DIRS]

@@ -32,6 +32,8 @@ os.makedirs(AS, exist_ok=True)
 
 def prompt_for(name):
     t = SP[name].format(**art)
+    if art.get("key") == "magenta":   # 主色本身是綠色的主題（薄荷綠、萊姆綠）：改用洋紅底，否則緞帶會被當成綠幕一起抠掉
+        t = t.replace("flat pure green (#00FF00)", "flat pure magenta (#FF00FF)")
     return "請用內建 image generation 生成圖片，不要執行任何 shell 指令。" + SP["common"] + " " + t
 
 
@@ -54,6 +56,29 @@ def run_codex(name):
             return name, dst, pr
         print(f"[{name}] 第 {k+1} 次沒有出圖，{'重跑' if k + 1 < a.tries else '放棄'}", flush=True)
     return name, None, pr
+
+
+def key_magenta(im):
+    """去洋紅幕：紅藍都明顯高於綠者視為背景，邊緣依洋紅度漸層透明並去洋紅溢色。"""
+    im = im.convert("RGB")
+    px = im.load()
+    w, h = im.size
+    out = Image.new("RGBA", (w, h))
+    po = out.load()
+    for y in range(h):
+        for x in range(w):
+            r, g, b = px[x, y]
+            d = min(r, b) - g
+            if d > 70:
+                al = 0
+            elif d > 20:
+                al = int(255 * (70 - d) / 50)
+            else:
+                al = 255
+            if al < 255 and d > 0:
+                r, b = max(0, r - d // 4), max(0, b - d // 4)   # 去洋紅溢色
+            po[x, y] = (r, g, b, al)
+    return out
 
 
 def key_green(im):
@@ -90,7 +115,7 @@ def process(name, raw):
         out = im.convert("RGB")
         out.save(os.path.join(AS, "panel.png"))
         return out.size
-    k, _ = trim(key_green(im))
+    k, _ = trim((key_magenta if art.get("key") == "magenta" else key_green)(im))
     if name == "plate":
         k = k.resize((1530, 172))
         # 緞帶與氣象版同尺寸規格：寬 1530×高 172，之後 scale=1240:-2

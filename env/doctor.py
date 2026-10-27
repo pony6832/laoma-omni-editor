@@ -118,11 +118,13 @@ hf = run([hf_path, "--version"], 30) if hf_path else None
 add("ok" if hf and re.search(r"\d+\.\d+", hf) else "fail", "HyperFrames", (hf or "找不到").splitlines()[0][:40], "" if hf else "npm install -g hyperframes")
 chrome = [p for p in (r"C:\Program Files\Google\Chrome\Application\chrome.exe", r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", os.path.expanduser(r"~\AppData\Local\Google\Chrome\Application\chrome.exe")) if os.path.exists(p)]
 add("ok" if chrome else "fail", "Chrome（渲染與開啟 HyperFrames 預覽用）", chrome[0] if chrome else "找不到", "" if chrome else "安裝 Google Chrome")
-# 必備：這個技能需要同一台電腦「同時」有 Codex 與 Claude 的使用權限（出圖、生素材用 Codex；剪輯與判斷用 Claude）
+# Codex：只有「管理者新增主題素材」才需要。所有主題（12 個）的設計素材已預先生成並內建在技能裡，同事電腦不需要 Codex。
 codex = glob.glob(os.path.join(os.path.expanduser("~"), "AppData", "Local", "OpenAI", "Codex", "bin", "*", "codex.exe"))
-add("ok" if codex else "fail", "Codex（出圖必備）", codex[-1] if codex else "找不到", "" if codex else "安裝 Codex 桌面版並登入：本技能的圖片與新主題素材一律由 Codex 生成，沒有 Codex 無法完整使用；請洽管理者開通 Codex 使用權限")
-logged = os.path.exists(os.path.join(os.path.expanduser("~"), ".codex", "auth.json"))
-add("ok" if logged else "fail", "Codex 登入", "已登入" if logged else "尚未登入", "" if logged else "打開 Codex 桌面版登入一次（需要有使用權限的帳號，請洽管理者）")
+if codex:
+    logged = os.path.exists(os.path.join(os.path.expanduser("~"), ".codex", "auth.json"))
+    add("ok" if logged else "warn", "Codex（只有管理者新增主題素材才用）", "已安裝" + ("且已登入" if logged else "，但尚未登入"), "" if logged else "只有要新增主題素材時才需要登入；一般剪片不需要")
+else:
+    add("ok", "Codex（只有管理者新增主題素材才用）", "未安裝（一般同事電腦不需要，內建的 12 個主題直接可用）")
 import gemini_key
 gk = gemini_key.status()  # AI 配音才需要；缺了只是提醒，不擋住真人口播的流程
 add("ok" if gk == "ok" else "warn", "Gemini API 金鑰（AI 配音用）",
@@ -133,10 +135,18 @@ add("ok" if fonts else "fail", "字型 Noto Sans TC", os.path.basename(fonts[0])
 
 # --- 技能本身 ---
 NEED = ("SKILL.md", "使用手冊.md", "core/build.py", "core/core_head.js", "core/core_head_v.js", "core/core_tools.js", "core/template.html", "core/template_v.html",
-        "core/pick_effects.py", "core/tts_gemini.py", "core/prepare_source.py", "core/gemini_key.py", "catalog/catalog.json", "catalog/fx_runtime.js",
+        "core/pick_effects.py", "core/tts_gemini.py", "core/prepare_source.py", "core/gemini_key.py", "env/setup_env.py", "catalog/catalog.json", "catalog/fx_runtime.js",
         "themes/general/theme.json", "themes/weather/assets/panel.png")
 miss = [f for f in NEED if not os.path.exists(os.path.join(KOUBO, f))]
 add("ok" if not miss else "fail", "技能檔案", "完整" if not miss else "缺少：" + "、".join(miss), "" if not miss else "重新下載或複製整個技能資料夾，再跑一次 install.py")
+# 每個主題都要有完整的設計素材（內建預先生成，不靠同事電腦生圖）
+TH_DIR = os.path.join(KOUBO, "themes")
+th_ids = [d for d in sorted(os.listdir(TH_DIR)) if not d.startswith("_") and os.path.exists(os.path.join(TH_DIR, d, "theme.json"))]
+REQ_AS = ("assets.json", "badge.png", "logo.png", "nameplate.png", "night.png", "panel.png", "plate.png")
+th_bad = ["%s（缺 %s）" % (t, "、".join(f for f in REQ_AS if not os.path.exists(os.path.join(TH_DIR, t, "assets", f)))) for t in th_ids
+          if any(not os.path.exists(os.path.join(TH_DIR, t, "assets", f)) for f in REQ_AS)]
+add("ok" if not th_bad else "fail", "主題素材", f"{len(th_ids)} 個主題都完整" if not th_bad else "不完整：" + "；".join(th_bad),
+    "" if not th_bad else "重新下載整個技能資料夾（主題素材是內建的，不需要用 Codex 重生）")
 
 if a.json:
     print(json.dumps([dict(level=l, name=n, detail=d, fix=f) for l, n, d, f in R], ensure_ascii=False, indent=1))

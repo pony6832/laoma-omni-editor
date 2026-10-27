@@ -1,0 +1,51 @@
+{
+  "id": "tech",
+  "name": "科技",
+  "version": 1,
+  "desc": "科技主題：電光青主色、洋紅輔色；晶片與電路圖示",
+  "palette": {
+    "coral": "#22d3ee",
+    "coral_rgb": "34,211,238",
+    "hot": "#60dff3",
+    "soft": "#a7edf8",
+    "on": "#04191d",
+    "indigo": "#e879f9",
+    "cyan": "#e879f9",
+    "green": "#3ddc97",
+    "red": "#ff4d5e",
+    "gold": "#ffd36b",
+    "ink": "#070b1a"
+  },
+  "bgm": {
+    "bpm": 112
+  },
+  "match_keywords": [
+    "AI",
+    "人工智慧",
+    "晶片",
+    "科技",
+    "手機",
+    "軟體",
+    "演算法",
+    "資安",
+    "機器人",
+    "雲端",
+    "5G",
+    "電動車",
+    "新創",
+    "程式",
+    "大型語言模型",
+    "資料中心",
+    "駭客",
+    "App"
+  ],
+  "assets_file": "assets/assets.json",
+  "scenes": [],
+  "art": {
+    "primary": "electric cyan",
+    "secondary": "magenta",
+    "badge_motif": "a glowing microchip with circuit traces, in cyan and magenta",
+    "nameplate_icon": "a small white microchip icon",
+    "panel_motif": "very dark blue-black futuristic background: faint circuit traces and a soft data-stream glow, out-of-focus neon bokeh, no people"
+  }
+}

@@ -96,6 +96,8 @@ def propose(pdir):
         P.save(pdir, p)
         print("主題自動判斷：", th, sc, "（可在 project.json 的 meta.theme 手動改）")
     TH = json.load(open(os.path.join(HERE, "..", "themes", p["meta"]["theme"], "theme.json"), encoding="utf-8"))
+    if TH.get("risk_note"):
+        print("【風險提醒】" + TH["risk_note"])   # 高風險領域：要請對方找主管或專家把關
     lines = [dict(n=l["n"], text=l["text"], s=l["src_start"], e=l["src_end"]) for l in p["lines"]]
     N = len(lines)
     kinds = [classify(i, l, N) for i, l in enumerate(lines)]
